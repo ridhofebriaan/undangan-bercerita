@@ -26,6 +26,6 @@ Buka http://localhost:8765/?to=Bapak%20Ahmad (nama tamu diambil dari `?to=`).
 - [ ] Verifikasi teks Arab + terjemahan QS Adz-Dzariyat: 49 dan QS Ar-Rum: 21 (mis. quran.kemenag.go.id).
 - [ ] Review naskah 5 bab di `story.js`.
 - [ ] Tambahkan audio berlisensi (opsional).
-- [ ] Setelah deploy, ubah `og:image` di `index.html` menjadi URL lengkap (mis. `https://domain-anda/assets/og-image.jpg`) dan tambahkan `og:url`. WhatsApp tidak membaca path relatif.
+- [x] `og:image` dan `og:url` sudah memakai alamat GitHub Pages. Ganti bila pindah domain.
 - [ ] Uji di HP asli lewat browser bawaan WhatsApp.
 - [ ] Rekam video promosi 30 detik.
