@@ -19,9 +19,10 @@ window.STORY = {
   // Nama tamu diambil dari link: ?to=Bapak%20Ahmad
   defaultGuest: "Bapak/Ibu/Saudara/i",
 
-  // Kosongkan src jika belum ada audio berlisensi. Tombol audio otomatis disembunyikan.
+  // Musik latar buatan sendiri (tools/buat-musik.js), bebas lisensi.
+  // Kosongkan src untuk tanpa audio; tombol audio otomatis disembunyikan.
   audio: {
-    src: "assets/audio/nasyid.mp3",
+    src: "assets/audio/musik.m4a",
   },
 
   // Lama tampil per bab (detik) dihitung otomatis dari jumlah kata.

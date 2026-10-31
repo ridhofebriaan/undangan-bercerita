@@ -301,8 +301,14 @@
 
   $("openBtn").addEventListener("click", function () {
     if (audio) {
-      audio.volume = 0.6;
-      audio.play().catch(function () {});
+      // Mulai pelan lalu naik selama ~2,5 detik
+      var a = audio;
+      a.volume = 0.05;
+      a.play().catch(function () {});
+      var fade = setInterval(function () {
+        a.volume = Math.min(0.7, a.volume + 0.05);
+        if (a.volume >= 0.7) clearInterval(fade);
+      }, 180);
     }
     startStory();
   });
