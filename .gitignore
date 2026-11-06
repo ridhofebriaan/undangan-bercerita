@@ -3,3 +3,5 @@ node_modules/
 # Dokumen planning bisnis tidak ikut ke repo publik
 *.pdf
 tools/out/
+# Skill Claude Code lokal (tidak ikut repo)
+.claude/

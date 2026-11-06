@@ -6,6 +6,7 @@
   --primary: #4a5a48;
   --primary-ink: #fffdf9;
   --accent: #b08d57;
+  --accent-text: var(--accent); /* emas untuk teks kecil; tema boleh menggelapkan agar kontras >= 4.5:1 */
   --ink: #3a382f;
   --muted: #7d7a6c;
   --line: #e6dccb;
@@ -32,6 +33,10 @@ body {
 }
 body.locked { overflow: hidden; height: 100vh; }
 button { font: inherit; cursor: pointer; }
+a, button, summary, label { cursor: pointer; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+.btn { transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.2s ease; }
+.btn:hover { opacity: 0.92; }
 img { max-width: 100%; display: block; }
 [hidden] { display: none !important; }
 
@@ -61,7 +66,7 @@ img { max-width: 100%; display: block; }
 .btn:active { transform: scale(0.97); }
 .btn-primary { background: var(--primary); color: var(--primary-ink); }
 .btn-ghost { background: transparent; color: var(--primary); border-color: var(--primary); }
-.btn-sm { min-height: 38px; padding: 6px 18px; font-size: 14px; }
+.btn-sm { min-height: 44px; padding: 8px 20px; font-size: 14px; }
 
 /* ---------- Cover ---------- */
 .cover {
@@ -89,7 +94,7 @@ img { max-width: 100%; display: block; }
   font-size: 12px;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .couple {
   margin: 14px 0 8px;
@@ -117,13 +122,13 @@ img { max-width: 100%; display: block; }
 /* ---------- Section ---------- */
 .sec { position: relative; padding: 64px 24px; text-align: center; }
 .sec-head { margin-bottom: 26px; }
-.sec-sub { margin: 0; font-size: 12px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); }
+.sec-sub { margin: 0; font-size: 12px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent-text); }
 .sec-title { margin: 6px 0 0; font-family: var(--font-display); font-weight: 400; font-size: 32px; line-height: 1.2; color: var(--primary); }
 .sec-desc { margin: 0 auto 18px; max-width: 360px; color: var(--muted); font-size: 15px; }
 
 .sec-hero { min-height: 92vh; display: flex; align-items: center; justify-content: center; }
 .hero-inner { position: relative; }
-.hashtag { margin: 18px 0 0; font-size: 14px; letter-spacing: 0.08em; color: var(--accent); }
+.hashtag { margin: 18px 0 0; font-size: 14px; letter-spacing: 0.08em; color: var(--accent-text); }
 
 .arabic { font-family: var(--font-arabic); direction: rtl; line-height: 2; color: var(--primary); }
 .bismillah { font-size: 28px; margin: 0 0 18px; }
@@ -138,7 +143,7 @@ img { max-width: 100%; display: block; }
 }
 .ayat .arabic { font-size: 22px; margin: 0 0 12px; }
 .ayat-arti { margin: 0; font-size: 14.5px; font-style: italic; color: var(--ink); }
-.ayat cite { display: block; margin-top: 10px; font-style: normal; font-size: 13px; letter-spacing: 0.1em; color: var(--accent); }
+.ayat cite { display: block; margin-top: 10px; font-style: normal; font-size: 13px; letter-spacing: 0.1em; color: var(--accent-text); }
 
 .person { padding: 6px 0; }
 .person-photo {
@@ -194,7 +199,7 @@ img { max-width: 100%; display: block; }
   background: var(--accent);
   box-shadow: 0 0 0 4px var(--bg);
 }
-.tl-date { margin: 0; font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); }
+.tl-date { margin: 0; font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent-text); }
 .tl-title { margin: 2px 0 6px; font-family: var(--font-display); font-weight: 400; font-size: 22px; color: var(--primary); }
 .tl-text { margin: 0; font-size: 15px; color: var(--muted); }
 
@@ -247,7 +252,7 @@ img { max-width: 100%; display: block; }
   border-radius: var(--radius);
 }
 .gift p { margin: 0; }
-.gift-bank { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+.gift-bank { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-text); }
 .gift-num { font-size: 20px; letter-spacing: 0.06em; font-weight: 600; color: var(--ink); }
 .gift-name { font-size: 13px; color: var(--muted); }
 .gift .btn { flex-shrink: 0; }

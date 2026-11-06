@@ -10,7 +10,7 @@ window.KATALOG = {
       tag: "Tanpa foto",
       deskripsi: "Krem dan hijau sage dengan lengkung mihrab. Cocok untuk yang tidak memajang foto.",
       demo: "tema/syari/?to=Bapak%20Ahmad",
-      gambar: "assets/katalog/syari.jpg",
+      gambar: "assets/katalog/syari.webp",
       siap: true,
     },
     {
@@ -20,7 +20,7 @@ window.KATALOG = {
       tag: "Premium",
       deskripsi: "Kisah kalian dalam 5 bab seperti Instagram Story, ditutup ayat Al-Qur'an.",
       demo: "tema/bercerita/?to=Bapak%20Ahmad",
-      gambar: "assets/katalog/bercerita.jpg",
+      gambar: "assets/katalog/bercerita.webp",
       siap: true,
     },
     {
