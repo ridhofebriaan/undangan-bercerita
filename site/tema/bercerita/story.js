@@ -22,7 +22,7 @@ window.STORY = {
   // Musik latar buatan sendiri (tools/buat-musik.js), bebas lisensi.
   // Kosongkan src untuk tanpa audio; tombol audio otomatis disembunyikan.
   audio: {
-    src: "assets/audio/musik.m4a",
+    src: "../../assets/musik/musik-1.m4a",
   },
 
   // Lama tampil per bab (detik) dihitung otomatis dari jumlah kata.

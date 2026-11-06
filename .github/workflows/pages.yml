@@ -1,4 +1,4 @@
-# Menayangkan folder demo/ ke GitHub Pages setiap push ke main.
+# Menayangkan folder site/ ke GitHub Pages setiap push ke main.
 name: Deploy demo ke GitHub Pages
 
 on:
@@ -26,6 +26,6 @@ jobs:
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: demo
+          path: site
       - id: deployment
         uses: actions/deploy-pages@v4
