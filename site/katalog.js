@@ -28,8 +28,10 @@ window.KATALOG = {
       nama: "Elegant",
       harga: 49000,
       tag: "Pakai foto",
-      deskripsi: "Putih bersih dengan aksen emas, tipografi klasik.",
-      siap: false,
+      deskripsi: "Foto kalian tampil penuh, nuansa gading dan emas sampanye, galeri dengan geser foto.",
+      demo: "tema/elegant/?to=Bapak%20Ahmad",
+      gambar: "assets/katalog/elegant.webp",
+      siap: true,
     },
     {
       kode: "rustic",

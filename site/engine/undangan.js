@@ -23,6 +23,20 @@
   }
   function orn(name) { return el("div", "orn orn-" + name); }
 
+  // Foto latar penuh (opsional, untuk tema berfoto). D.foto = { cover, hero, penutup }
+  var FOTO = D.foto || {};
+  function fotoLatar(nama, wadah) {
+    if (!FOTO[nama]) return null;
+    wadah.classList.add("has-photo");
+    var w = el("div", "photo-bg");
+    var img = el("img");
+    img.src = FOTO[nama];
+    img.alt = "";
+    if (nama !== "cover") img.loading = "lazy";
+    w.appendChild(img);
+    return w;
+  }
+
   function tanggal(iso) {
     var s = new Intl.DateTimeFormat("id-ID", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: TZ }).format(new Date(iso));
     return D.pakaiAhad === false ? s : s.replace(/^Minggu/, "Ahad");
@@ -91,6 +105,7 @@
   var cover = el("div", "cover");
   cover.id = "cover";
   add(cover,
+    fotoLatar("cover", cover),
     orn("cover"),
     add(el("div", "cover-inner"),
       el("p", "label", D.label || "Undangan Pernikahan"),
@@ -111,7 +126,7 @@
 
   // ---------- Hero ----------
   var hero = section("hero");
-  add(hero, orn("hero"),
+  add(hero, fotoLatar("hero", hero), orn("hero"),
     add(el("div", "hero-inner reveal"),
       el("p", "label", D.label || "Undangan Pernikahan"),
       namaPasangan("big"),
@@ -237,20 +252,64 @@
       img.alt = "Foto " + (i + 1);
       img.loading = "lazy";
       b.appendChild(img);
-      b.addEventListener("click", function () { lightbox(src); });
+      b.addEventListener("click", function () { lightbox(i, b); });
       grid.appendChild(b);
     });
     gl.appendChild(grid);
     app.appendChild(gl);
   }
-  function lightbox(src) {
+  function lightbox(start, opener) {
+    var fotos = D.galeri, idx = start;
     var lb = el("div", "lightbox");
+    lb.setAttribute("role", "dialog");
+    lb.setAttribute("aria-modal", "true");
+    lb.setAttribute("aria-label", "Galeri foto");
     var img = el("img");
-    img.src = src;
     img.alt = "";
-    lb.appendChild(img);
-    lb.addEventListener("click", function () { lb.remove(); });
+    var info = el("p", "lb-count");
+    function tombol(cls, label, isi) {
+      var b = el("button", "lb-btn " + cls);
+      b.type = "button";
+      b.setAttribute("aria-label", label);
+      b.innerHTML = isi;
+      return b;
+    }
+    var tutup = tombol("lb-close", "Tutup", '<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>');
+    var prev = tombol("lb-prev", "Foto sebelumnya", '<svg viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></svg>');
+    var next = tombol("lb-next", "Foto berikutnya", '<svg viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg>');
+    function tampil(n) {
+      idx = (n + fotos.length) % fotos.length;
+      img.src = fotos[idx];
+      info.textContent = (idx + 1) + " / " + fotos.length;
+    }
+    function selesai() {
+      document.removeEventListener("keydown", kunci);
+      lb.remove();
+      if (opener) opener.focus();
+    }
+    function kunci(e) {
+      if (e.key === "Escape") selesai();
+      else if (e.key === "ArrowLeft") tampil(idx - 1);
+      else if (e.key === "ArrowRight") tampil(idx + 1);
+    }
+    tutup.addEventListener("click", selesai);
+    prev.addEventListener("click", function () { tampil(idx - 1); });
+    next.addEventListener("click", function () { tampil(idx + 1); });
+    lb.addEventListener("click", function (e) { if (e.target === lb) selesai(); });
+    var x0 = null;
+    lb.addEventListener("touchstart", function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+    lb.addEventListener("touchend", function (e) {
+      if (x0 === null) return;
+      var dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 40) tampil(idx + (dx < 0 ? 1 : -1));
+      x0 = null;
+    });
+    document.addEventListener("keydown", kunci);
+    if (fotos.length < 2) { prev.hidden = true; next.hidden = true; }
+    add(lb, img, info, prev, next, tutup);
+    tampil(start);
     document.body.appendChild(lb);
+    tutup.focus();
   }
 
   // ---------- RSVP & ucapan ----------
@@ -317,7 +376,7 @@
 
   // ---------- Penutup ----------
   var pn = section("penutup");
-  add(pn, orn("penutup"),
+  add(pn, fotoLatar("penutup", pn), orn("penutup"),
     add(el("div", "penutup-inner reveal"),
       el("p", "penutup-text", D.penutup || "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu."),
       el("p", "salam-open", "Wassalamu'alaikum Warahmatullahi Wabarakatuh"),
