@@ -108,6 +108,16 @@
     fotoLatar("cover", cover),
     orn("cover"),
     add(el("div", "cover-inner"),
+      (function () {
+        // Foto berbingkai di cover (opsional): D.foto.sampul
+        if (!FOTO.sampul) return null;
+        var f = el("div", "cover-frame");
+        var img = el("img");
+        img.src = FOTO.sampul;
+        img.alt = "";
+        f.appendChild(img);
+        return f;
+      })(),
       el("p", "label", D.label || "Undangan Pernikahan"),
       namaPasangan(),
       el("p", "cover-date", tanggal(D.acara[0].mulai)),
@@ -154,8 +164,18 @@
   }
   app.appendChild(salam);
 
+  // ---------- Pembuka (opsional): D.pembuka = { judul, teks } ----------
+  if (D.pembuka) {
+    var pb = section("pembuka");
+    add(pb, add(el("div", "pembuka-inner reveal"),
+      orn("bunga"),
+      el("h2", "pembuka-title", D.pembuka.judul),
+      D.pembuka.teks ? el("p", "pembuka-text", D.pembuka.teks) : null));
+    app.appendChild(pb);
+  }
+
   // ---------- Mempelai ----------
-  var mp = section("mempelai", "Mempelai", "Dengan izin Allah");
+  var mp = section("mempelai", D.judulMempelai || "Mempelai", D.subMempelai || "Dengan izin Allah");
   function orang(o) {
     var c = el("div", "person reveal");
     if (o.foto) {
@@ -208,9 +228,10 @@
 
   // ---------- Acara ----------
   var ac = section("acara", "Rangkaian Acara");
+  if (D.teksAcara) ac.appendChild(el("p", "sec-desc reveal", D.teksAcara));
   D.acara.forEach(function (a) {
     var c = el("article", "card event reveal");
-    var waktu = jam(a.mulai) + (a.selesai ? " - " + jam(a.selesai) : " - selesai") + " WIB";
+    var waktu = a.selesai ? jam(a.mulai) + " - " + jam(a.selesai) + " WIB" : jam(a.mulai) + " WIB - selesai";
     var peta = el("a", "btn btn-primary btn-sm", "Lihat Lokasi");
     peta.href = linkPeta(a.peta || a.tempat + ", " + a.alamat);
     peta.target = "_blank";
@@ -369,7 +390,12 @@
       hd.appendChild(c);
     });
     if (D.alamatKado) {
-      add(hd, add(el("div", "card kado reveal"), el("p", "gift-bank", "Kirim Kado"), el("p", "", D.alamatKado)));
+      var bk = el("button", "btn btn-ghost btn-sm", "Salin Alamat");
+      bk.type = "button";
+      bk.addEventListener("click", function () {
+        salin(D.alamatKado).then(function () { toast("Alamat berhasil disalin"); }, function () { toast("Gagal menyalin, silakan salin manual"); });
+      });
+      add(hd, add(el("div", "card kado reveal"), el("p", "gift-bank", "Kirim Kado"), el("p", "kado-addr", D.alamatKado), bk));
     }
     app.appendChild(hd);
   }
@@ -424,6 +450,24 @@
     if (document.hidden) audio.pause(); else audio.play().catch(function () {});
   });
 
+  // ---------- Kelopak jatuh (opsional): D.kelopak = jumlah kelopak ----------
+  function kelopak() {
+    var n = Math.min(+D.kelopak || 0, 24);
+    if (!n || document.querySelector(".petals")) return;
+    if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var layer = el("div", "petals");
+    layer.setAttribute("aria-hidden", "true");
+    for (var i = 0; i < n; i++) {
+      var p = el("i", "petal p" + (i % 3));
+      var s = 8 + Math.random() * 10;
+      p.style.cssText = "left:" + (Math.random() * 100) + "%;width:" + s + "px;height:" + s + "px;" +
+        "animation-duration:" + (9 + Math.random() * 9) + "s," + (2.5 + Math.random() * 2.5) + "s;" +
+        "animation-delay:" + (-Math.random() * 16) + "s,0s;opacity:" + (0.5 + Math.random() * 0.4);
+      layer.appendChild(p);
+    }
+    document.body.appendChild(layer);
+  }
+
   // ---------- Buka undangan ----------
   function buka() {
     if (audio) {
@@ -437,6 +481,7 @@
     }
     cover.classList.add("opened");
     document.body.classList.remove("locked");
+    kelopak();
     window.scrollTo(0, 0);
     setTimeout(function () { cover.hidden = true; }, 900);
   }

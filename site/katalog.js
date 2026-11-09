@@ -34,6 +34,16 @@ window.KATALOG = {
       siap: true,
     },
     {
+      kode: "melayu",
+      nama: "Melayu",
+      harga: 99000,
+      tag: "Pakai foto",
+      deskripsi: "Hijau diraja dan emas bermotif songket. Cover terbuka seperti pintu, kelopak bunga berjatuhan, galeri 12 foto.",
+      demo: "tema/melayu/?to=Bapak%20Ahmad",
+      gambar: "assets/katalog/melayu.webp",
+      siap: true,
+    },
+    {
       kode: "rustic",
       nama: "Rustic Floral",
       harga: 69000,
