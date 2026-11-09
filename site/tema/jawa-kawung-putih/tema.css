@@ -1,0 +1,23 @@
+/* Tema Kawung Putih (adat Jawa). Dibuat otomatis oleh tools/buat-tema.js; ubah di tools/tema/jawa.js. */
+:root {
+  --bg: #e3e6ea;
+  --bg-outer: #1f2221;
+  --surface: #ffffff;
+  --primary: #1f2221;
+  --primary-ink: #ffffff;
+  --accent: #9c7a43;
+  --accent-text: #7a5b2a;
+  --ink: #1f2221;
+  --muted: #545a58;
+  --line: #d7dbd9;
+  --gelap: #1f2221;
+  --on-gelap: #f4f5f4;
+  --accent-gelap: #d2b27a;
+  --cover-bg: #ffffff;
+  --cover-orn: #9c7a43;
+  --font-display: "Bodoni Moda", serif;
+  --font-name: "Bodoni Moda", serif;
+  --font-body: "Outfit", sans-serif;
+}
+.couple { font-style: italic; }
+.sec-title { font-style: italic; }

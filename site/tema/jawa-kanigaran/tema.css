@@ -1,0 +1,30 @@
+/* Tema Kanigaran (adat Jawa). Dibuat otomatis oleh tools/buat-tema.js; ubah di tools/tema/jawa.js. */
+:root {
+  --bg: #5a171c;
+  --bg-outer: #2a0a0d;
+  --surface: #6b2026;
+  --primary: #e8c37a;
+  --primary-ink: #3a0d10;
+  --accent: #e0b45e;
+  --accent-text: #ecc985;
+  --ink: #fbeee0;
+  --muted: #ecd3c0;
+  --line: #7d2f35;
+  --gelap: #2a0a0d;
+  --on-gelap: #fbeee0;
+  --accent-gelap: #e8c37a;
+  --cover-bg: #2a0a0d;
+  --cover-ink: #fbeee0;
+  --cover-nama: #f0cd85;
+  --cover-aksen: #e8c37a;
+  --cover-muted: #e6cdb9;
+  --cover-tombol: #e8c37a;
+  --cover-tombol-ink: #3a0d10;
+  --pt1: #e8c37a;
+  --pt2: #c23b3f;
+  --pt3: #fbeee0;
+  --font-display: "Playfair Display", serif;
+  --font-name: "Playfair Display", serif;
+  --font-body: "Karla", sans-serif;
+}
+.couple { font-style: italic; font-weight: 500; }

@@ -1,0 +1,158 @@
+/* Paket adat Jawa. Ornamen SVG digambar sendiri dan dipakai sebagai mask, warnanya mengikuti variabel tema (--orn).
+   Hias: gunungan, wayang, kembar, janur, melati, dian, rembulan, lung, minimal. Pola: kawung, parang, truntum, sidomukti. */
+
+/* ---------- Pola latar ---------- */
+.pola-kawung :is(.cv-p, .sec.gelap, #app)::before { -webkit-mask-image: url("kawung.svg"); mask-image: url("kawung.svg"); }
+.pola-parang :is(.cv-p, .sec.gelap, #app)::before { -webkit-mask-image: url("parang.svg"); mask-image: url("parang.svg"); }
+.pola-truntum :is(.cv-p, .sec.gelap, #app)::before { -webkit-mask-image: url("truntum.svg"); mask-image: url("truntum.svg"); }
+.pola-sidomukti :is(.cv-p, .sec.gelap, #app)::before { -webkit-mask-image: url("sidomukti.svg"); mask-image: url("sidomukti.svg"); }
+.pola-kawung { --pola-uk: 42px; }
+.pola-parang { --pola-uk: 46px; }
+.pola-truntum { --pola-uk: 52px; }
+.pola-sidomukti { --pola-uk: 56px; }
+
+/* Bentuk dasar ornamen bermask */
+.adat-jawa .orn-cover::before, .adat-jawa .orn-cover::after, .adat-jawa .orn-hero::before, .adat-jawa .orn-hero::after,
+.adat-jawa .cover-inner::before, .adat-jawa .orn-cover .o, .adat-jawa .orn-hero .o, .adat-jawa .orn-penutup .o {
+  background: var(--orn);
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+.adat-jawa .bl { -webkit-mask-image: url("lung.svg"); mask-image: url("lung.svg"); }
+
+/* ---------- Pemisah judul: kembang kawung di antara dua garis ---------- */
+.adat-jawa .orn-divider { position: relative; width: 210px; height: 24px; margin: 14px auto 0; background: none; }
+.adat-jawa .orn-divider::before { content: ""; position: absolute; left: 50%; top: 0; width: 24px; height: 24px; margin-left: -12px; background: var(--orn); -webkit-mask: url("kembang.svg") center / contain no-repeat; mask: url("kembang.svg") center / contain no-repeat; }
+.adat-jawa .orn-divider::after { content: ""; position: absolute; left: 0; right: 0; top: 11px; height: 1.5px; background: linear-gradient(90deg, transparent, var(--orn) 30%, transparent 43%, transparent 57%, var(--orn) 70%, transparent); }
+.adat-jawa .sec-head.in .orn-divider::before { animation: kembang-putar 1.4s cubic-bezier(0.2, 0.7, 0.2, 1) both 0.3s; }
+.adat-jawa .sec-head.in .orn-divider::after { animation: garis-buka 1.2s cubic-bezier(0.2, 0.7, 0.2, 1) both 0.2s; }
+@keyframes kembang-putar { from { transform: rotate(-180deg) scale(0); opacity: 0; } }
+@keyframes garis-buka { from { transform: scaleX(0); } }
+
+/* ---------- Sudut lung-lungan di cover (semua hias kecuali janur & melati memakai keempatnya) ---------- */
+.adat-jawa .orn-cover { position: absolute; inset: 0; pointer-events: none; }
+.adat-jawa .orn-cover::before, .adat-jawa .orn-cover::after, .adat-jawa .orn-cover .o1, .adat-jawa .orn-cover .o2 {
+  content: "";
+  position: absolute;
+  width: 92px;
+  height: 92px;
+  -webkit-mask-image: url("lung.svg");
+  mask-image: url("lung.svg");
+  animation: sudut-masuk 1.6s cubic-bezier(0.2, 0.7, 0.2, 1) both 0.2s;
+}
+.adat-jawa .orn-cover::before { top: 14px; left: 14px; }
+.adat-jawa .orn-cover::after { top: 14px; right: 14px; transform: scaleX(-1); }
+.adat-jawa .orn-cover .o1 { bottom: 14px; left: 14px; transform: scaleY(-1); }
+.adat-jawa .orn-cover .o2 { bottom: 14px; right: 14px; transform: scale(-1, -1); }
+@keyframes sudut-masuk { from { clip-path: inset(0 100% 100% 0); opacity: 0; } to { clip-path: inset(0 0 0 0); opacity: 1; } }
+
+/* Hiasan kecil di atas label cover */
+.adat-jawa .cover-inner::before { content: ""; display: block; width: 30px; height: 30px; margin: 0 auto 14px; -webkit-mask-image: url("kembang.svg"); mask-image: url("kembang.svg"); animation: kembang-putar 1.6s cubic-bezier(0.2, 0.7, 0.2, 1) both 0.2s; }
+
+/* Hiasan penutup */
+.adat-jawa .orn-penutup .o1 { width: 34px; height: 34px; margin: 0 auto 18px; -webkit-mask-image: url("kembang.svg"); mask-image: url("kembang.svg"); }
+
+/* ================= HIAS: GUNUNGAN (kayon diputar dalang saat pembukaan) ================= */
+.hias-gunungan .cover-inner::before { width: 84px; height: 126px; -webkit-mask-image: url("gunungan.svg"); mask-image: url("gunungan.svg"); animation: kayon-masuk 1.8s cubic-bezier(0.2, 0.7, 0.2, 1) both 0.1s; }
+.hias-gunungan .orn-hero .o1 {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(80vw, 360px);
+  aspect-ratio: 2 / 3;
+  opacity: 0.16;
+  transform: translate(-50%, -50%);
+  -webkit-mask-image: url("gunungan.svg");
+  mask-image: url("gunungan.svg");
+}
+.hias-gunungan.terbuka .orn-hero .o1 { animation: kayon-putar 2.2s cubic-bezier(0.2, 0.7, 0.2, 1) both 0.3s, kayon-napas 7s ease-in-out infinite 2.5s; }
+.hias-gunungan .orn-penutup .o1 { width: 70px; height: 105px; -webkit-mask-image: url("gunungan.svg"); mask-image: url("gunungan.svg"); }
+@keyframes kayon-masuk { from { opacity: 0; transform: translateY(20px) scale(0.6); } }
+@keyframes kayon-putar { from { opacity: 0; transform: translate(-50%, -30%) rotateY(540deg) scale(0.4); } to { opacity: 0.16; transform: translate(-50%, -50%); } }
+@keyframes kayon-napas { 50% { transform: translate(-50%, -50%) scale(1.04); opacity: 0.24; } }
+
+/* ================= HIAS: WAYANG (bayang kayon di kelir, cahaya blencong berkedip) ================= */
+.hias-wayang .cover-inner::before { width: 76px; height: 114px; -webkit-mask-image: url("gunungan.svg"); mask-image: url("gunungan.svg"); animation: kayon-masuk 1.8s both 0.1s; }
+.hias-wayang .orn-hero .o2 { position: absolute; left: 50%; top: 42%; width: 140vw; max-width: 680px; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--accent) 45%, transparent) 0%, color-mix(in srgb, var(--accent) 12%, transparent) 38%, transparent 66%); -webkit-mask: none; mask: none; animation: blencong 3.2s steps(1, end) infinite; }
+.hias-wayang .orn-hero .o1 { position: absolute; left: 50%; bottom: -6%; width: min(84vw, 380px); aspect-ratio: 2 / 3; opacity: 0.32; transform-origin: 50% 100%; transform: translateX(-50%); -webkit-mask-image: url("gunungan.svg"); mask-image: url("gunungan.svg"); }
+.hias-wayang.terbuka .orn-hero .o1 { animation: wayang-naik 1.8s cubic-bezier(0.2, 0.7, 0.2, 1) both 0.2s, wayang-goyang 5s ease-in-out infinite 2s; }
+.hias-wayang .orn-penutup .o1 { width: 64px; height: 96px; -webkit-mask-image: url("gunungan.svg"); mask-image: url("gunungan.svg"); }
+@keyframes blencong { 0% { opacity: 1; } 18% { opacity: 0.82; } 22% { opacity: 1; } 47% { opacity: 0.9; } 52% { opacity: 0.7; } 56% { opacity: 1; } 80% { opacity: 0.88; } }
+@keyframes wayang-naik { from { transform: translateX(-50%) translateY(60%); opacity: 0; } }
+@keyframes wayang-goyang { 0%, 100% { transform: translateX(-50%) rotate(-2.2deg); } 50% { transform: translateX(-50%) rotate(2.2deg); } }
+
+/* ================= HIAS: KEMBAR MAYANG (sepasang di sisi pelaminan) ================= */
+.hias-kembar .cover-inner::before { width: 46px; height: 92px; -webkit-mask-image: url("kembar.svg"); mask-image: url("kembar.svg"); }
+.hias-kembar .orn-cover .o1, .hias-kembar .orn-cover .o2 { display: none; }
+.hias-kembar .orn-cover .o3, .hias-kembar .orn-cover .o4 { position: absolute; bottom: 18px; width: 52px; height: 104px; opacity: 0.85; -webkit-mask-image: url("kembar.svg"); mask-image: url("kembar.svg"); transform-origin: 50% 100%; animation: mayang 5s ease-in-out infinite; }
+.hias-kembar .orn-cover .o3 { left: 34px; }
+.hias-kembar .orn-cover .o4 { right: 34px; animation-delay: -2.5s; }
+.hias-kembar .orn-hero::before, .hias-kembar .orn-hero::after { content: ""; position: absolute; bottom: 4%; width: 26vw; max-width: 120px; aspect-ratio: 1 / 2; opacity: 0.5; -webkit-mask-image: url("kembar.svg"); mask-image: url("kembar.svg"); transform-origin: 50% 100%; animation: mayang 6s ease-in-out infinite; }
+.hias-kembar .orn-hero::before { left: 4%; }
+.hias-kembar .orn-hero::after { right: 4%; animation-delay: -3s; }
+.hias-kembar .orn-penutup .o1 { width: 44px; height: 88px; -webkit-mask-image: url("kembar.svg"); mask-image: url("kembar.svg"); }
+@keyframes mayang { 0%, 100% { transform: rotate(-1.6deg); } 50% { transform: rotate(1.6deg); } }
+
+/* ================= HIAS: JANUR (janur kuning melengkung, berayun ditiup angin) ================= */
+.hias-janur .orn-cover::before, .hias-janur .orn-cover::after { top: 0; width: 120px; height: 190px; -webkit-mask-image: url("janur.svg"); mask-image: url("janur.svg"); transform-origin: 0 0; animation: janur-ayun 5s ease-in-out infinite; }
+.hias-janur .orn-cover::before { left: 0; }
+.hias-janur .orn-cover::after { right: 0; transform: scaleX(-1); transform-origin: 50% 0; animation-name: janur-ayun-kanan; }
+.hias-janur .cover-inner::before { width: 64px; height: 100px; -webkit-mask-image: url("janur.svg"); mask-image: url("janur.svg"); }
+.hias-janur .orn-hero::before, .hias-janur .orn-hero::after { content: ""; position: absolute; top: 0; width: 42vw; max-width: 200px; aspect-ratio: 140 / 220; opacity: 0.85; -webkit-mask-image: url("janur.svg"); mask-image: url("janur.svg"); transform-origin: 0 0; animation: janur-ayun 6s ease-in-out infinite; }
+.hias-janur .orn-hero::before { left: 0; }
+.hias-janur .orn-hero::after { right: 0; transform-origin: 50% 0; animation-name: janur-ayun-kanan; }
+@keyframes janur-ayun { 0%, 100% { transform: rotate(-2deg); } 50% { transform: rotate(3deg); } }
+@keyframes janur-ayun-kanan { 0%, 100% { transform: scaleX(-1) rotate(-2deg); } 50% { transform: scaleX(-1) rotate(3deg); } }
+
+/* ================= HIAS: MELATI (ronce melati menjuntai di atas) ================= */
+.hias-melati .orn-cover .o3 { position: absolute; top: 0; left: 8%; right: 8%; height: 66px; -webkit-mask-image: url("melati.svg"); mask-image: url("melati.svg"); -webkit-mask-size: 100% 100%; mask-size: 100% 100%; transform-origin: 50% 0; animation: ronce 6s ease-in-out infinite; }
+.hias-melati .orn-hero .o3 { position: absolute; top: 0; left: 0; right: 0; height: 84px; -webkit-mask-image: url("melati.svg"); mask-image: url("melati.svg"); -webkit-mask-size: 100% 100%; mask-size: 100% 100%; transform-origin: 50% 0; animation: ronce 7s ease-in-out infinite; }
+.hias-melati .orn-penutup .o1 { width: 180px; height: 54px; -webkit-mask-image: url("melati.svg"); mask-image: url("melati.svg"); }
+@keyframes ronce { 0%, 100% { transform: rotate(-0.8deg) translateY(0); } 50% { transform: rotate(0.8deg) translateY(3px); } }
+
+/* ================= HIAS: DIAN (pelita gantung malam midodareni) ================= */
+.hias-dian .cover-inner::before { width: 40px; height: 64px; background: radial-gradient(circle at 50% 70%, #fff6cf 0 14%, var(--orn) 40%); -webkit-mask-image: url("dian.svg"); mask-image: url("dian.svg"); animation: kayon-masuk 1.4s both, nyala 2.6s steps(1, end) infinite 1.4s; }
+.hias-dian .orn-hero::before, .hias-dian .orn-hero::after { content: ""; position: absolute; top: 0; width: 46px; height: 110px; background: radial-gradient(circle at 50% 74%, #fff6cf 0 12%, var(--orn) 36%); -webkit-mask-image: url("dian.svg"); mask-image: url("dian.svg"); -webkit-mask-position: bottom; mask-position: bottom; transform-origin: 50% 0; animation: dian-ayun 4.5s ease-in-out infinite; }
+.hias-dian .orn-hero::before { left: 14%; }
+.hias-dian .orn-hero::after { right: 14%; height: 150px; animation-delay: -2s; }
+.hias-dian .orn-hero .o1, .hias-dian .orn-hero .o2 { position: absolute; top: 40px; width: 180px; height: 180px; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--orn) 40%, transparent), transparent 65%); -webkit-mask: none; mask: none; animation: blencong 3s steps(1, end) infinite; }
+.hias-dian .orn-hero .o1 { left: calc(14% - 67px); }
+.hias-dian .orn-hero .o2 { right: calc(14% - 67px); top: 80px; animation-delay: -1.3s; }
+.hias-dian .orn-penutup .o1 { width: 36px; height: 58px; -webkit-mask-image: url("dian.svg"); mask-image: url("dian.svg"); }
+@keyframes dian-ayun { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+@keyframes nyala { 0% { opacity: 1; } 30% { opacity: 0.85; } 34% { opacity: 1; } 70% { opacity: 0.9; } }
+
+/* ================= HIAS: REMBULAN (bulan sabit di langit malam truntum) ================= */
+.hias-rembulan .cover-inner::before, .hias-rembulan .orn-hero .o1 {
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 38%, #fffbea, var(--orn) 75%);
+  -webkit-mask: radial-gradient(circle at 72% 32%, transparent 44%, #000 45%);
+  mask: radial-gradient(circle at 72% 32%, transparent 44%, #000 45%);
+}
+.hias-rembulan .cover-inner::before { width: 46px; height: 46px; animation: kayon-masuk 1.6s both; }
+.hias-rembulan .orn-hero .o1 { position: absolute; top: 9%; right: 12%; width: 120px; height: 120px; filter: drop-shadow(0 0 22px var(--orn)); }
+.hias-rembulan.terbuka .orn-hero .o1 { animation: bulan-terbit 2.4s cubic-bezier(0.2, 0.7, 0.2, 1) both 0.3s, bulan-pendar 6s ease-in-out infinite 2.7s; }
+.hias-rembulan .orn-hero .o2 { position: absolute; inset: 0; background: radial-gradient(1px 1px at 20% 30%, #fff, transparent), radial-gradient(1.5px 1.5px at 70% 18%, #fff, transparent), radial-gradient(1px 1px at 45% 60%, #fff, transparent), radial-gradient(1.5px 1.5px at 85% 72%, #fff, transparent), radial-gradient(1px 1px at 12% 80%, #fff, transparent), radial-gradient(1px 1px at 58% 40%, #fff, transparent); -webkit-mask: none; mask: none; opacity: 0.8; }
+.hias-rembulan .orn-penutup .o1 { width: 40px; height: 40px; border-radius: 50%; background: var(--orn); -webkit-mask: radial-gradient(circle at 72% 32%, transparent 44%, #000 45%); mask: radial-gradient(circle at 72% 32%, transparent 44%, #000 45%); }
+@keyframes bulan-terbit { from { transform: translateY(80px) scale(0.6); opacity: 0; } }
+@keyframes bulan-pendar { 50% { filter: drop-shadow(0 0 34px var(--orn)); } }
+
+/* ================= HIAS: LUNG (sulur besar merambat di sudut hero) ================= */
+.hias-lung .orn-hero::before, .hias-lung .orn-hero::after, .hias-lung .orn-hero .o1, .hias-lung .orn-hero .o2 { content: ""; position: absolute; width: 38vw; max-width: 170px; aspect-ratio: 1; -webkit-mask-image: url("lung.svg"); mask-image: url("lung.svg"); opacity: 0.9; }
+.hias-lung .orn-hero::before { top: 16px; left: 16px; }
+.hias-lung .orn-hero::after { top: 16px; right: 16px; transform: scaleX(-1); }
+.hias-lung .orn-hero .o1 { bottom: 16px; left: 16px; transform: scaleY(-1); }
+.hias-lung .orn-hero .o2 { bottom: 16px; right: 16px; transform: scale(-1, -1); }
+.hias-lung.terbuka .orn-hero :is(.o1, .o2), .hias-lung.terbuka .orn-hero::before, .hias-lung.terbuka .orn-hero::after { animation: sudut-masuk 2s cubic-bezier(0.2, 0.7, 0.2, 1) both 0.4s; }
+
+/* ================= HIAS: MINIMAL (kembang besar berputar pelan di belakang nama) ================= */
+.hias-minimal .orn-hero .o1 { position: absolute; left: 50%; top: 50%; width: min(90vw, 420px); aspect-ratio: 1; margin: calc(min(90vw, 420px) / -2) 0 0 calc(min(90vw, 420px) / -2); opacity: 0.07; -webkit-mask-image: url("kembang.svg"); mask-image: url("kembang.svg"); animation: putar-pelan 80s linear infinite; }
+@keyframes putar-pelan { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .adat-jawa *, .adat-jawa *::before, .adat-jawa *::after { animation-duration: 0.01s !important; animation-iteration-count: 1 !important; }
+}

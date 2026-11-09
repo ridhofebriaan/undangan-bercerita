@@ -5,6 +5,7 @@ window.KATALOG = {
   tema: [
     {
       kode: "syari",
+      adat: "Nasional",
       nama: "Syari",
       harga: 79000,
       tag: "Tanpa foto",
@@ -15,6 +16,7 @@ window.KATALOG = {
     },
     {
       kode: "bercerita",
+      adat: "Nasional",
       nama: "Bercerita",
       harga: 149000,
       tag: "Premium",
@@ -25,6 +27,7 @@ window.KATALOG = {
     },
     {
       kode: "elegant",
+      adat: "Nasional",
       nama: "Elegant",
       harga: 49000,
       tag: "Pakai foto",
@@ -35,6 +38,7 @@ window.KATALOG = {
     },
     {
       kode: "melayu",
+      adat: "Melayu",
       nama: "Melayu",
       harga: 99000,
       tag: "Pakai foto",
@@ -45,6 +49,7 @@ window.KATALOG = {
     },
     {
       kode: "rustic",
+      adat: "Nasional",
       nama: "Rustic Floral",
       harga: 69000,
       tag: "Pakai foto",

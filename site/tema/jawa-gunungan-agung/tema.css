@@ -1,0 +1,29 @@
+/* Tema Gunungan Agung (adat Jawa). Dibuat otomatis oleh tools/buat-tema.js; ubah di tools/tema/jawa.js. */
+:root {
+  --bg: #16110c;
+  --bg-outer: #0d0a07;
+  --surface: #221a12;
+  --primary: #d9b46a;
+  --primary-ink: #16110c;
+  --accent: #c9a24a;
+  --accent-text: #d9b46a;
+  --ink: #f1e6d0;
+  --muted: #cbbd9f;
+  --line: #3a2e20;
+  --gelap: #0d0a07;
+  --on-gelap: #f1e6d0;
+  --accent-gelap: #d9b46a;
+  --cover-bg: #120d09;
+  --cover-ink: #f1e6d0;
+  --cover-nama: #e8c77e;
+  --cover-aksen: #d9b46a;
+  --cover-muted: #cbbd9f;
+  --cover-tombol: #d9b46a;
+  --cover-tombol-ink: #16110c;
+  --font-display: "Cinzel", serif;
+  --font-name: "Cinzel", serif;
+  --font-body: "EB Garamond", serif;
+}
+.sec-title { letter-spacing: 0.08em; }
+.couple.big { font-size: clamp(38px, 11.5vw, 54px); letter-spacing: 0.03em; }
+.cover .couple { font-size: clamp(34px, 10.5vw, 46px); }

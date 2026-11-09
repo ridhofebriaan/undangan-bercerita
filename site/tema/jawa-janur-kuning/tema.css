@@ -1,0 +1,26 @@
+/* Tema Janur Kuning (adat Jawa). Dibuat otomatis oleh tools/buat-tema.js; ubah di tools/tema/jawa.js. */
+:root {
+  --bg: #f7eebf;
+  --bg-outer: #3f4a16;
+  --surface: #fffbe9;
+  --primary: #4f5d1c;
+  --primary-ink: #fffbe9;
+  --accent: #c09316;
+  --accent-text: #7a5f08;
+  --ink: #2f3315;
+  --muted: #55592f;
+  --line: #e6dba8;
+  --gelap: #3f4a16;
+  --on-gelap: #fbf6dc;
+  --accent-gelap: #e6c24d;
+  --cover-bg: #f7f0cf;
+  --cover-nama: #4f5d1c;
+  --cover-orn: #b58a12;
+  --pt1: #c9a43a;
+  --pt2: #8f9d4c;
+  --pt3: #e6c24d;
+  --font-display: "Forum", serif;
+  --font-name: "Allura", cursive;
+  --font-body: "Figtree", sans-serif;
+}
+.sec-title { font-size: 40px; }

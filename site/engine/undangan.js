@@ -21,7 +21,31 @@
     for (var i = 1; i < arguments.length; i++) if (arguments[i]) parent.appendChild(arguments[i]);
     return parent;
   }
-  function orn(name) { return el("div", "orn orn-" + name); }
+  function orn(name) {
+    var d = el("div", "orn orn-" + name);
+    // Slot kosong untuk ornamen tambahan dari paket adat (cover, hero, penutup)
+    if (name === "cover" || name === "hero" || name === "penutup") {
+      for (var i = 1; i <= 4; i++) d.appendChild(el("i", "o o" + i));
+    }
+    return d;
+  }
+
+  // Teks yang bisa diganti per tema/agama: D.teks = { kepada, catatanTamu, tombolBuka, salamPenutup, terimaKasih, contohUcapan, berhalangan }
+  var T = D.teks || {};
+  function teks(k, def) { return T[k] != null ? T[k] : def; }
+  // Judul bagian: D.judulBagian = { mempelai: ["Mempelai", "Dengan izin Allah"], ... }
+  var JB = D.judulBagian || {};
+  function judul(id, def, sub) { var j = JB[id]; return j ? [j[0], j[1]] : [def, sub]; }
+
+  // Tampilan modular: D.tampilan = { adat, buka, gerak, letak, pola, hias, huruf, kelas }
+  var V = D.tampilan || {};
+  if (D.tampilan) document.body.classList.add("mod");
+  ["adat", "buka", "gerak", "letak", "pola", "hias"].forEach(function (k) {
+    if (V[k]) document.body.classList.add(k + "-" + V[k]);
+  });
+  if (V.kelas) V.kelas.split(/\s+/).forEach(function (c) { if (c) document.body.classList.add(c); });
+  var ISLAM = D.agama !== "kristen" && D.agama !== "hindu";
+  var acaraUtama = D.acara.filter(function (a) { return a.utama; })[0] || D.acara[0];
 
   // Foto latar penuh (opsional, untuk tema berfoto). D.foto = { cover, hero, penutup }
   var FOTO = D.foto || {};
@@ -79,19 +103,38 @@
   var kedua = P.urutan === "pria-dulu" ? P.wanita : P.pria;
   var namaPendek = pertama.panggilan + " & " + kedua.panggilan;
 
+  // V.huruf = "per-huruf": setiap huruf nama dibungkus agar bisa dianimasikan satu per satu (jangan untuk huruf sambung)
+  function nama(t) {
+    var sp = el("span", "nm");
+    if (V.huruf !== "per-huruf") { sp.textContent = t; return sp; }
+    sp.setAttribute("aria-label", t);
+    Array.from(t).forEach(function (ch, i) {
+      var c = el("span", "ch", ch === " " ? "\u00a0" : ch);
+      c.setAttribute("aria-hidden", "true");
+      c.style.setProperty("--c", i);
+      sp.appendChild(c);
+    });
+    return sp;
+  }
   function namaPasangan(cls) {
     var h = el("h1", "couple " + (cls || ""));
-    add(h, el("span", "", pertama.panggilan), el("em", "amp", "&"), el("span", "", kedua.panggilan));
+    add(h, nama(pertama.panggilan), el("em", "amp", "&"), nama(kedua.panggilan));
     return h;
   }
 
-  function section(id, judul, sub) {
+  function section(id, jd, sub) {
     var s = el("section", "sec sec-" + id);
     s.id = id;
-    if (judul) {
+    if (V.gelap && V.gelap.indexOf(id) >= 0) s.classList.add("gelap");
+    if (jd) {
+      var jj = judul(id, jd, sub);
+      jd = jj[0];
+      sub = jj[1];
+    }
+    if (jd) {
       var head = el("header", "sec-head reveal");
       if (sub) head.appendChild(el("p", "sec-sub", sub));
-      head.appendChild(el("h2", "sec-title", judul));
+      head.appendChild(el("h2", "sec-title", jd));
       head.appendChild(orn("divider"));
       s.appendChild(head);
     }
@@ -104,7 +147,11 @@
   // ---------- Cover ----------
   var cover = el("div", "cover");
   cover.id = "cover";
+  var panels = el("div", "cv-panels");
+  panels.setAttribute("aria-hidden", "true");
+  for (var pi = 0; pi < 6; pi++) panels.appendChild(el("i", "cv-p cv-p" + (pi + 1)));
   add(cover,
+    panels,
     fotoLatar("cover", cover),
     orn("cover"),
     add(el("div", "cover-inner"),
@@ -120,13 +167,13 @@
       })(),
       el("p", "label", D.label || "Undangan Pernikahan"),
       namaPasangan(),
-      el("p", "cover-date", tanggal(D.acara[0].mulai)),
+      el("p", "cover-date", tanggal(acaraUtama.mulai)),
       add(el("div", "guest"),
-        el("p", "", "Kepada Yth."),
+        el("p", "", teks("kepada", "Kepada Yth.")),
         el("p", "guest-name", guest || "Bapak/Ibu/Saudara/i"),
-        el("p", "guest-note", "Mohon maaf bila ada kesalahan penulisan nama dan gelar")),
+        el("p", "guest-note", teks("catatanTamu", "Mohon maaf bila ada kesalahan penulisan nama dan gelar"))),
       (function () {
-        var b = el("button", "btn btn-primary btn-open", "Buka Undangan");
+        var b = el("button", "btn btn-primary btn-open", teks("tombolBuka", "Buka Undangan"));
         b.type = "button";
         b.addEventListener("click", buka);
         return b;
@@ -138,16 +185,24 @@
   var hero = section("hero");
   add(hero, fotoLatar("hero", hero), orn("hero"),
     add(el("div", "hero-inner reveal"),
+      (function () {
+        // Tulisan aksara daerah (opsional): D.aksara = { teks, lang, arti }
+        if (!D.aksara) return null;
+        var a = el("p", "aksara", D.aksara.teks);
+        a.lang = D.aksara.lang || "jv";
+        if (D.aksara.arti) a.title = D.aksara.arti;
+        return a;
+      })(),
       el("p", "label", D.label || "Undangan Pernikahan"),
       namaPasangan("big"),
-      el("p", "hero-date", tanggal(D.acara[0].mulai)),
+      el("p", "hero-date", tanggal(acaraUtama.mulai)),
       D.hashtag ? el("p", "hashtag", D.hashtag) : null));
   app.appendChild(hero);
 
   // ---------- Salam & ayat ----------
   var salam = section("salam");
   var sw = add(el("div", "salam-inner reveal"));
-  if (D.bismillah !== false) {
+  if (D.bismillah !== false && D.agama !== "kristen" && D.agama !== "hindu") {
     var bis = el("p", "arabic bismillah", "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ");
     bis.lang = "ar";
     sw.appendChild(bis);
@@ -155,8 +210,11 @@
   add(sw, el("p", "salam-open", D.salam.pembuka), el("p", "salam-text", D.salam.teks));
   if (D.ayat) {
     var ay = el("blockquote", "ayat reveal");
-    var ar = el("p", "arabic", D.ayat.arab);
-    ar.lang = "ar";
+    var ar = null;
+    if (D.ayat.arab) {
+      ar = el("p", "arabic", D.ayat.arab);
+      ar.lang = "ar";
+    }
     add(ay, ar, el("p", "ayat-arti", "“" + D.ayat.arti + "”"), el("cite", "", D.ayat.sumber));
     add(salam, sw, ay);
   } else {
@@ -175,7 +233,7 @@
   }
 
   // ---------- Mempelai ----------
-  var mp = section("mempelai", D.judulMempelai || "Mempelai", D.subMempelai || "Dengan izin Allah");
+  var mp = section("mempelai", D.judulMempelai || "Mempelai", D.subMempelai || (ISLAM ? "Dengan izin Allah" : "Dengan penuh syukur"));
   function orang(o) {
     var c = el("div", "person reveal");
     if (o.foto) {
@@ -201,10 +259,10 @@
   app.appendChild(mp);
 
   // ---------- Hitung mundur ----------
-  var cd = section("countdown", "Menuju Hari Bahagia", "Insya Allah");
+  var cd = section("countdown", "Menuju Hari Bahagia", D.agama === "kristen" || D.agama === "hindu" ? "Hari yang dinanti" : "Insya Allah");
   var cdBox = el("div", "countdown reveal");
   cd.appendChild(cdBox);
-  var utama = D.acara[0];
+  var utama = acaraUtama;
   var cal = el("a", "btn btn-ghost reveal", "Simpan ke Kalender");
   cal.target = "_blank";
   cal.rel = "noopener";
@@ -340,10 +398,10 @@
   form.innerHTML =
     '<label>Nama<input name="nama" maxlength="60" autocomplete="name"></label>' +
     '<fieldset class="choice"><legend>Kehadiran</legend>' +
-    '<label><input type="radio" name="hadir" value="Hadir" checked> Insya Allah hadir</label>' +
+    '<label><input type="radio" name="hadir" value="Hadir" checked> ' + teks("hadir", ISLAM ? "Insya Allah hadir" : "Akan hadir") + '</label>' +
     '<label><input type="radio" name="hadir" value="Berhalangan"> Berhalangan</label></fieldset>' +
     '<label>Jumlah tamu<select name="jumlah"><option>1</option><option>2</option><option>3</option><option>4</option></select></label>' +
-    '<label>Ucapan & doa<textarea name="ucapan" rows="3" maxlength="280" placeholder="Barakallahu lakuma..."></textarea></label>' +
+    '<label>Ucapan & doa<textarea name="ucapan" rows="3" maxlength="280" placeholder="' + teks("contohUcapan", ISLAM ? "Barakallahu lakuma..." : "Selamat berbahagia...") + '"></textarea></label>' +
     '<button class="btn btn-primary" type="submit">Kirim</button><p class="form-note" role="status"></p>';
   var list = el("ul", "wishes");
   add(rv, form, list);
@@ -372,7 +430,7 @@
     simpan(ucapan);
     renderUcapan();
     form.ucapan.value = "";
-    note.textContent = "Jazakumullahu khairan, ucapan Anda sudah terkirim.";
+    note.textContent = teks("terimaKasih", ISLAM ? "Jazakumullahu khairan, ucapan Anda sudah terkirim." : "Terima kasih, ucapan Anda sudah terkirim.");
   });
 
   // ---------- Amplop digital ----------
@@ -405,8 +463,8 @@
   add(pn, fotoLatar("penutup", pn), orn("penutup"),
     add(el("div", "penutup-inner reveal"),
       el("p", "penutup-text", D.penutup || "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu."),
-      el("p", "salam-open", "Wassalamu'alaikum Warahmatullahi Wabarakatuh"),
-      el("p", "penutup-from", "Kami yang berbahagia"),
+      el("p", "salam-open", teks("salamPenutup", D.salam && D.salam.penutup ? D.salam.penutup : "Wassalamu'alaikum Warahmatullahi Wabarakatuh")),
+      el("p", "penutup-from", teks("dariKami", "Kami yang berbahagia")),
       namaPasangan()));
   app.appendChild(pn);
 
@@ -450,22 +508,40 @@
     if (document.hidden) audio.pause(); else audio.play().catch(function () {});
   });
 
-  // ---------- Kelopak jatuh (opsional): D.kelopak = jumlah kelopak ----------
+  // ---------- Partikel (opsional) ----------
+  // D.partikel = { jenis: "kelopak" | "melati" | "daun" | "kunang" | "kilau" | "salju", jumlah }. D.kelopak = n tetap didukung.
+  var PT = D.partikel || (D.kelopak ? { jenis: "kelopak", jumlah: D.kelopak } : null);
   function kelopak() {
-    var n = Math.min(+D.kelopak || 0, 24);
+    var n = PT ? Math.min(+PT.jumlah || 0, 28) : 0;
     if (!n || document.querySelector(".petals")) return;
     if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    var layer = el("div", "petals");
+    var jenis = PT.jenis || "kelopak";
+    var diam = jenis === "kilau";
+    var naik = jenis === "kunang";
+    var layer = el("div", "petals pt-" + jenis);
     layer.setAttribute("aria-hidden", "true");
     for (var i = 0; i < n; i++) {
       var p = el("i", "petal p" + (i % 3));
-      var s = 8 + Math.random() * 10;
-      p.style.cssText = "left:" + (Math.random() * 100) + "%;width:" + s + "px;height:" + s + "px;" +
-        "animation-duration:" + (9 + Math.random() * 9) + "s," + (2.5 + Math.random() * 2.5) + "s;" +
-        "animation-delay:" + (-Math.random() * 16) + "s,0s;opacity:" + (0.5 + Math.random() * 0.4);
+      var s = (diam ? 6 : naik ? 4 : 8) + Math.random() * (diam ? 10 : naik ? 5 : 10);
+      var css = "left:" + (Math.random() * 100) + "%;width:" + s + "px;height:" + s + "px;";
+      if (diam) {
+        css += "top:" + (Math.random() * 100) + "%;animation-duration:" + (2 + Math.random() * 3) + "s;animation-delay:" + (-Math.random() * 5) + "s;";
+      } else {
+        css += "animation-duration:" + ((naik ? 10 : 9) + Math.random() * 9) + "s," + (2.5 + Math.random() * 2.5) + "s;" +
+          "animation-delay:" + (-Math.random() * 16) + "s,0s;opacity:" + (0.5 + Math.random() * 0.4);
+      }
+      p.style.cssText = css;
       layer.appendChild(p);
     }
     document.body.appendChild(layer);
+  }
+
+  // Bingkai layar tetap (dipakai letak "bingkai")
+  if (V.letak === "bingkai" || V.bingkai) {
+    var bl = el("div", "bingkai-layar");
+    bl.setAttribute("aria-hidden", "true");
+    for (var bi = 0; bi < 4; bi++) bl.appendChild(el("i", "bl bl" + (bi + 1)));
+    document.body.appendChild(bl);
   }
 
   // ---------- Buka undangan ----------
@@ -481,13 +557,22 @@
     }
     cover.classList.add("opened");
     document.body.classList.remove("locked");
+    document.body.classList.add("terbuka");
     kelopak();
     window.scrollTo(0, 0);
-    setTimeout(function () { cover.hidden = true; }, 900);
+    // Lama animasi pembuka diatur paket "buka" lewat variabel CSS --buka-ms
+    var ms = parseInt(getComputedStyle(cover).getPropertyValue("--buka-ms"), 10) || 900;
+    setTimeout(function () { cover.hidden = true; }, ms);
   }
 
   // ---------- Animasi muncul saat di-scroll + peta lazy ----------
   var reveals = document.querySelectorAll(".reveal");
+  // Urutan elemen di dalam induknya, untuk animasi berurutan (--i) dan arah selang-seling (.ganjil)
+  reveals.forEach(function (r) {
+    var idx = Array.prototype.indexOf.call(r.parentNode.children, r);
+    r.style.setProperty("--i", idx % 6);
+    if (idx % 2) r.classList.add("ganjil");
+  });
   if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {

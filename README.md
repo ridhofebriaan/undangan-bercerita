@@ -35,3 +35,19 @@ Buka http://localhost:8765/
 ## Menambah tema di katalog
 
 Tambah atau ubah entri di `site/katalog.js`. `siap: false` tampil sebagai "Segera hadir".
+
+## Template adat (100 template, dibuat bertahap per adat)
+
+Template adat dibuat oleh generator, bukan ditulis tangan satu per satu.
+
+- `tools/tema/<adat>.js`: daftar template satu adat (palet warna, font, tampilan, data demo).
+- `node tools/buat-tema.js <adat>`: menulis `site/tema/<kode>/` dan `site/data/katalog-<adat>.js`, sekaligus memeriksa bahwa warna dasar tidak mirip (jarak warna CIE Lab ≥ 7) dan kontras teks memenuhi WCAG AA.
+- `site/paket/`: komponen yang dipakai bersama.
+  - `buka.css`: 11 animasi pembuka (pintu, pintu3d, tirai, angkat, lingkar, kipas, lipat, jendela, tembus, diagonal, gulung).
+  - `gerak.css`: 8 gaya muncul saat di-scroll.
+  - `letak.css`: 8 tata letak (klasik, kartu, bingkai, selang, majalah, lengkung, pita, jendela).
+  - `dasar.css`: bagian gelap, pola, partikel.
+- `site/adat/<adat>/`: ornamen SVG buatan sendiri dan `adat.css`. Ornamen diwarnai lewat CSS mask, jadi satu ornamen bisa dipakai di semua palet.
+- `riset/panduan-adat.md`: hasil riset warna, motif, prosesi, salam, dan daftar musik per adat.
+
+Untuk mengubah sebuah template, ubah datanya di `tools/tema/<adat>.js` lalu jalankan generator lagi. Jangan mengedit file hasil generator secara langsung.

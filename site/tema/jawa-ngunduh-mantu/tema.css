@@ -1,0 +1,27 @@
+/* Tema Ngunduh Mantu (adat Jawa). Dibuat otomatis oleh tools/buat-tema.js; ubah di tools/tema/jawa.js. */
+:root {
+  --bg: #dcdcc8;
+  --bg-outer: #3e4733;
+  --surface: #f7f5ee;
+  --primary: #5c6a4a;
+  --primary-ink: #f7f5ee;
+  --accent: #a98150;
+  --accent-text: #6a4e27;
+  --ink: #2e3227;
+  --muted: #55584a;
+  --line: #d4cdb9;
+  --gelap: #3e4733;
+  --on-gelap: #f3f1e8;
+  --accent-gelap: #d9b98c;
+  --cover-bg: #f7f5ee;
+  --cover-nama: #5c6a4a;
+  --cover-orn: #a98150;
+  --pt1: #a6ad84;
+  --pt2: #d9b98c;
+  --pt3: #7f8a63;
+  --font-display: "Tenor Sans", sans-serif;
+  --font-name: "Rouge Script", cursive;
+  --font-body: "Outfit", sans-serif;
+}
+.couple.big { font-size: clamp(60px, 18vw, 78px); }
+.cover .couple { font-size: clamp(52px, 15vw, 64px); }

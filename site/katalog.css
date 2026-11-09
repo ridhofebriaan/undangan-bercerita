@@ -99,12 +99,18 @@ h1, h2, h3 { font-family: var(--font-head); font-weight: 800; letter-spacing: -0
   transition: background 0.2s ease, color 0.2s ease;
 }
 .chip-btn:hover { background: var(--butter); }
+.filters.scroll { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 6px; scrollbar-width: thin; -webkit-overflow-scrolling: touch; }
+.filters.scroll .chip-btn { flex: none; }
+.filters + .filters { margin-top: 10px; }
+.jumlah { margin: 14px 0 0; font-size: 14px; font-weight: 700; color: var(--soft); }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag-adat { background: var(--butter); }
 .chip-btn[aria-pressed="true"] { background: var(--ink); color: #fff; }
 
 .bento { display: grid; gap: 14px; grid-template-columns: 1fr 1fr; margin-top: 20px; }
 .tile { display: flex; flex-direction: column; padding: 14px; border: 2px solid var(--line); border-radius: 26px; transition: transform 0.2s ease, box-shadow 0.2s ease; }
 .tile:hover { transform: translateY(-3px); box-shadow: 0 10px 0 -2px var(--coral); }
-.tile[hidden] { display: none; }
+.tile[hidden] { display: none !important; }
 .tile.big { grid-column: span 2; display: grid; grid-template-columns: 124px 1fr; gap: 14px; }
 .c0 { background: var(--sage); }
 .c1 { background: var(--blush); }

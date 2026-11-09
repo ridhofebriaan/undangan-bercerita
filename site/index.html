@@ -57,12 +57,14 @@
           <h2>Tema-tema kami</h2>
           <p>Klik demo dan coba langsung seperti tamu Anda nanti.</p>
         </div>
-        <div class="filters" role="group" aria-label="Filter tema">
-          <button type="button" class="chip-btn" data-f="semua" aria-pressed="true">Semua</button>
+        <div class="filters scroll" id="f-adat" role="group" aria-label="Filter adat"></div>
+        <div class="filters" id="f-tag" role="group" aria-label="Filter jenis tema">
+          <button type="button" class="chip-btn" data-f="semua" aria-pressed="true">Semua jenis</button>
           <button type="button" class="chip-btn" data-f="Tanpa foto" aria-pressed="false">Tanpa foto</button>
           <button type="button" class="chip-btn" data-f="Pakai foto" aria-pressed="false">Pakai foto</button>
           <button type="button" class="chip-btn" data-f="Premium" aria-pressed="false">Premium</button>
         </div>
+        <p class="jumlah" id="jumlah" role="status"></p>
         <div class="bento" id="grid"></div>
       </div>
     </section>
@@ -154,6 +156,7 @@
   </div>
 
   <script src="katalog.js"></script>
+  <script src="data/katalog-jawa.js"></script>
   <script>
     (function () {
       var K = window.KATALOG;
@@ -178,9 +181,12 @@
 
       // Tema siap tampil besar, tema "segera hadir" tampil kecil.
       var grid = document.getElementById("grid");
-      K.tema.forEach(function (t, i) {
+      // Tema siap dulu, tema "segera hadir" di akhir
+      var daftar = K.tema.filter(function (t) { return t.siap; }).concat(K.tema.filter(function (t) { return !t.siap; }));
+      daftar.forEach(function (t, i) {
         var c = el("article", "tile reveal c" + (i % 4) + (t.siap ? " big" : " soon"));
         c.dataset.tag = t.tag;
+        c.dataset.adat = t.adat || "Nasional";
         var shot = el("div", "shot");
         if (t.gambar) {
           var img = el("img");
@@ -195,7 +201,10 @@
         }
         c.appendChild(shot);
         var body = el("div");
-        body.appendChild(el("span", "tag", t.tag));
+        var tags = el("div", "tags");
+        tags.appendChild(el("span", "tag", t.tag));
+        if (t.adat && t.adat !== "Nasional") tags.appendChild(el("span", "tag tag-adat", "Adat " + t.adat));
+        body.appendChild(tags);
         body.appendChild(el("h3", "", t.nama));
         if (t.siap) body.appendChild(el("p", "", t.deskripsi));
         body.appendChild(el("p", "price", rp(t.harga)));
@@ -209,14 +218,40 @@
         grid.appendChild(c);
       });
 
-      // Filter tema
-      document.querySelectorAll(".chip-btn").forEach(function (b) {
-        b.addEventListener("click", function () {
-          var f = b.dataset.f;
-          document.querySelectorAll(".chip-btn").forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
-          grid.querySelectorAll(".tile").forEach(function (c) { c.hidden = f !== "semua" && c.dataset.tag !== f; });
+      // Filter: adat (dibuat dari data) dan jenis tema; keduanya digabung
+      var pilih = { adat: "semua", tag: "semua" };
+      var hitung = {};
+      daftar.forEach(function (t) { var a = t.adat || "Nasional"; hitung[a] = (hitung[a] || 0) + 1; });
+      var fAdat = document.getElementById("f-adat");
+      [["semua", "Semua adat (" + daftar.length + ")"]].concat(Object.keys(hitung).map(function (a) { return [a, a + " (" + hitung[a] + ")"]; }))
+        .forEach(function (x, i) {
+          var b = el("button", "chip-btn", x[1]);
+          b.type = "button";
+          b.dataset.f = x[0];
+          b.setAttribute("aria-pressed", String(i === 0));
+          fAdat.appendChild(b);
+        });
+      var jumlah = document.getElementById("jumlah");
+      function saring() {
+        var n = 0;
+        grid.querySelectorAll(".tile").forEach(function (c) {
+          var tampil = (pilih.adat === "semua" || c.dataset.adat === pilih.adat) && (pilih.tag === "semua" || c.dataset.tag === pilih.tag);
+          c.hidden = !tampil;
+          if (tampil) { n++; c.classList.add("in"); }
+        });
+        jumlah.textContent = n + " tema ditampilkan";
+      }
+      [["f-adat", "adat"], ["f-tag", "tag"]].forEach(function (g) {
+        var box = document.getElementById(g[0]);
+        box.addEventListener("click", function (e) {
+          var b = e.target.closest(".chip-btn");
+          if (!b) return;
+          pilih[g[1]] = b.dataset.f;
+          box.querySelectorAll(".chip-btn").forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+          saring();
         });
       });
+      saring();
 
       // Muncul bertahap saat di-scroll (mati bila pengguna memilih kurangi gerakan)
       document.querySelectorAll(".feats li, .steps li, .addon, .faq details").forEach(function (x) { x.classList.add("reveal"); });
