@@ -86,7 +86,7 @@ window.UNDANGAN = {
   ],
   alamatKado: "Jl. Sudirman Gg. Melati No. 8, Kel. Simpang Empat, Pekanbaru 28121 (a.n. Aina)",
 
-  musik: "../../assets/musik/musik-1.m4a",
+  musik: "../../assets/musik/musik-melayu.m4a", // "Atlas Malaysia" oleh vadim_makes_sound (Pixabay Content License)
 
   penutup: "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu. Atas kehadiran dan doanya, kami ucapkan terima kasih.",
 
