@@ -48,6 +48,17 @@ window.KATALOG = {
       siap: true,
     },
     {
+      kode: "cat-air",
+      adat: "Nasional",
+      nama: "Taman Cat Air 3D",
+      harga: 199000,
+      tag: "Premium",
+      deskripsi: "Undangan 3D interaktif: amplop bersegel emas dibuka dengan animasi 3D, taman bunga cat air yang mekar saat di-scroll, serpih emas berkilau, dan ketuk layar untuk meneteskan cat.",
+      demo: "tema/cat-air/?to=Bapak%20Ahmad",
+      gambar: "assets/katalog/cat-air.webp",
+      siap: true,
+    },
+    {
       kode: "rustic",
       adat: "Nasional",
       nama: "Rustic Floral",

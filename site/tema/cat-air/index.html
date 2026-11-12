@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f4ece1">
+  <title>Undangan Pernikahan Kinanti & Arkana</title>
+  <meta name="description" content="Undangan 3D interaktif bergaya cat air. Kinanti & Arkana, Sabtu 18 September 2027.">
+  <!-- Preview link WhatsApp: og:image wajib alamat lengkap -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Undangan Pernikahan Kinanti & Arkana">
+  <meta property="og:description" content="Sabtu, 18 September 2027 · Jakarta">
+  <meta property="og:image" content="https://ridhofebriaan.github.io/rb-digital/assets/katalog/cat-air.jpg">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='9' fill='%23f1b7b9'/%3E%3Ccircle cx='10' cy='10' r='4' fill='%23d4a548'/%3E%3C/svg%3E">
+  <link rel="preload" as="image" href="kertas.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../engine/undangan.css">
+  <link rel="stylesheet" href="tema.css">
+  <script type="importmap">
+    { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/" } }
+  </script>
+</head>
+<body>
+  <canvas id="taman" aria-hidden="true"></canvas>
+  <main id="app"></main>
+  <script src="data.js"></script>
+  <script src="../../engine/undangan.js"></script>
+  <script type="module" src="3d.js"></script>
+</body>
+</html>
