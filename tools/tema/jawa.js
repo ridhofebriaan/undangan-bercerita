@@ -359,4 +359,4 @@ const KISAH = [
   { waktu: "2027", judul: "Pawiwahan", teks: "Insya Allah kami menikah. Terima kasih atas doa yang mengantar kami sampai di sini." },
 ];
 
-module.exports = { adat: "jawa", namaAdat: "Jawa", bawaan, tema, AYAT, AKSARA_SUGENG_RAWUH, PEMBUKA_KRAMA, KISAH, acara };
+module.exports = { adat: "jawa", namaAdat: "Jawa", bawaan, tema, AYAT, AKSARA: AKSARA_SUGENG_RAWUH, PEMBUKA: PEMBUKA_KRAMA, KISAH, acara };

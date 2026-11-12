@@ -245,7 +245,8 @@
       f.appendChild(img);
       c.appendChild(f);
     }
-    add(c, el("h3", "person-name", o.nama), el("p", "person-parents", o.ortu));
+    // Peran adat opsional, mis. "Anak Daro" / "Marapulai"
+    add(c, o.peran ? el("p", "person-role", o.peran) : null, el("h3", "person-name", o.nama), el("p", "person-parents", o.ortu));
     if (o.instagram) {
       var ig = el("a", "btn btn-ghost btn-sm", "@" + o.instagram.replace(/^@/, ""));
       ig.href = "https://instagram.com/" + o.instagram.replace(/^@/, "");

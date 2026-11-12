@@ -1,0 +1,30 @@
+/* Tema Suntiang Gadang (adat Minangkabau). Dibuat otomatis oleh tools/buat-tema.js; ubah di tools/tema/minang.js. */
+:root {
+  --bg: #2b0a0e;
+  --bg-outer: #140405;
+  --surface: #3b1117;
+  --primary: #e8c77a;
+  --primary-ink: #2b0a0e;
+  --accent: #d4a548;
+  --accent-text: #ebcb82;
+  --ink: #fbefe0;
+  --muted: #e2c6b0;
+  --line: #5a222b;
+  --gelap: #140405;
+  --on-gelap: #fbefe0;
+  --accent-gelap: #ebcb82;
+  --cover-bg: #7a1220;
+  --cover-ink: #fff3e3;
+  --cover-nama: #f6d58a;
+  --cover-aksen: #f6d58a;
+  --cover-muted: #f3d9c6;
+  --cover-tombol: #ebcb82;
+  --cover-tombol-ink: #2b0a0e;
+  --cover-orn: #ebcb82;
+  --pt1: #f1d184;
+  --pt2: #c99a3c;
+  --pt3: #fff1c6;
+  --font-display: "Cormorant SC", serif;
+  --font-name: "Cinzel Decorative", serif;
+  --font-body: "Crimson Pro", serif;
+}

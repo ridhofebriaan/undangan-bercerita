@@ -43,6 +43,9 @@ const FONT = {
   "Tenor Sans": ["", "sans-serif"],
   "Rouge Script": ["", "cursive"],
   "Libre Caslon Display": ["", "serif"],
+  "Cormorant SC": ["wght@500;600", "serif"],
+  "Cinzel Decorative": ["wght@400;700", "serif"],
+  "Crimson Pro": ["ital,wght@0,400;0,500;1,400", "serif"],
 };
 function fontLink(families) {
   const q = [...new Set(families)].map((f) => {
@@ -102,6 +105,7 @@ function dataUndangan(t, adat) {
   const P = t.pasangan;
   const orang = (x, foto) => {
     const o = { panggilan: x[0], nama: x[1], ortu: x[2] };
+    if (x[3]) o.peran = x[3];
     if (foto) o.foto = foto;
     return o;
   };
@@ -116,25 +120,25 @@ function dataUndangan(t, adat) {
   };
   if (fs_.foto) D.foto = fs_.foto;
   if (t.partikel) D.partikel = t.partikel;
-  if (t.aksara) D.aksara = adat.AKSARA_SUGENG_RAWUH;
+  if (t.aksara) D.aksara = adat.AKSARA;
   D.pasangan = { urutan: P.urutan || "wanita-dulu", wanita: orang(P.wanita, fs_.fotoWanita), pria: orang(P.pria, fs_.fotoPria) };
   D.salam = { ...B.salam };
   if (t.salamTeks) D.salam.teks = t.salamTeks;
   D.ayat = adat.AYAT[t.ayat];
-  if (t.pembuka) D.pembuka = adat.PEMBUKA_KRAMA;
-  D.judulBagian = B.judulBagian;
-  D.teks = B.teks;
+  if (t.pembuka) D.pembuka = typeof t.pembuka === "object" ? t.pembuka : adat.PEMBUKA;
+  D.judulBagian = { ...B.judulBagian, ...(t.judulBagian || {}) };
+  D.teks = { ...B.teks, ...(t.teks || {}) };
   D.teksAcara = B.teksAcara;
   D.acara = adat.acara(t.tanggal, t.kota, t.acara);
-  if (t.kisah) D.kisah = adat.KISAH;
+  if (t.kisah) D.kisah = Array.isArray(t.kisah) ? t.kisah : adat.KISAH;
   if (fs_.galeri) D.galeri = fs_.galeri;
   D.hadiah = [
-    { bank: "Bank BCA", nomor: "8720" + String(t.kode.length * 7919).padStart(6, "0").slice(0, 6), nama: P.wanita[1].replace(/,.*$/, "") },
-    { bank: "Bank Mandiri", nomor: "13700" + String(t.nama.length * 104729).padStart(8, "0").slice(0, 8), nama: P.pria[1].replace(/,.*$/, "") },
+    { bank: (t.bank || [])[0] || "Bank BCA", nomor: "8720" + String(t.kode.length * 7919).padStart(6, "0").slice(0, 6), nama: P.wanita[1].replace(/,.*$/, "") },
+    { bank: (t.bank || [])[1] || "Bank Mandiri", nomor: "13700" + String(t.nama.length * 104729).padStart(8, "0").slice(0, 8), nama: P.pria[1].replace(/,.*$/, "") },
   ];
   D.alamatKado = `${D.acara[D.acara.length - 1].alamat} (a.n. ${P.wanita[0]})`;
   D.musik = B.musik;
-  D.penutup = B.penutup;
+  D.penutup = t.penutup || B.penutup;
   D.contohUcapan = B.contohUcapan;
   return D;
 }
@@ -143,7 +147,7 @@ function htmlTema(t, adat, D) {
   const w = t.warna;
   const fam = [t.font.display, t.font.nama, t.font.body, "Amiri"];
   let link = fontLink(fam);
-  if (t.aksara) link = link.replace("&display=swap", "&family=Noto+Sans+Javanese&display=swap");
+  if (t.aksara && adat.AKSARA && adat.AKSARA.lang === "jv") link = link.replace("&display=swap", "&family=Noto+Sans+Javanese&display=swap");
   const tgl = new Intl.DateTimeFormat("id-ID", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "Asia/Jakarta" }).format(new Date(D.acara.find((a) => a.utama).mulai));
   const icon = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Crect width='20' height='20' rx='5' fill='${encodeURIComponent(w.coverBg)}'/%3E%3Ccircle cx='10' cy='10' r='5' fill='none' stroke='${encodeURIComponent(w.coverOrn || w.accent)}' stroke-width='1.6'/%3E%3C/svg%3E`;
   const pre = D.foto && D.foto.sampul ? `\n  <link rel="preload" as="image" href="${D.foto.sampul}">` : "";
@@ -211,7 +215,7 @@ function warnaDasarLama() {
 
 // ---------- Utama ----------
 const minta = process.argv.slice(2);
-const daftarAdat = fs.readdirSync(path.join(__dirname, "tema")).filter((f) => f.endsWith(".js")).map((f) => f.replace(/\.js$/, ""));
+const daftarAdat = fs.readdirSync(path.join(__dirname, "tema")).filter((f) => f.endsWith(".js") && !f.startsWith("_")).map((f) => f.replace(/\.js$/, ""));
 const semua = daftarAdat.map((a) => require(path.join(__dirname, "tema", a + ".js")));
 let gagal = 0;
 
