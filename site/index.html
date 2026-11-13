@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#fff8f1">
   <title>RB Digital - Undangan Pernikahan Digital</title>
-  <meta name="description" content="Undangan nikah digital yang bikin tamu bilang wah. Jadi dalam 1x24 jam, mulai Rp 49 ribu, lengkap dengan nama tamu, musik, RSVP, dan amplop digital.">
+  <meta name="description" content="Undangan nikah digital yang bikin tamu bilang wah. Jadi dalam 1x24 jam, mulai Rp 99 ribu, lengkap dengan nama tamu, musik, RSVP, dan amplop digital.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="RB Digital - Undangan Pernikahan Digital">
-  <meta property="og:description" content="Pilih tema, kirim data, beres. Jadi dalam 1x24 jam, mulai Rp 49 ribu.">
+  <meta property="og:description" content="Pilih tema, kirim data, beres. Jadi dalam 1x24 jam, mulai Rp 99 ribu.">
   <meta property="og:image" content="https://ridhofebriaan.github.io/rb-digital/assets/katalog/og-katalog.jpg">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill=%27%23c4472f%27/%3E%3Ctext x='16' y='21.5' font-family='Arial' font-weight='700' font-size='14' text-anchor='middle' fill='%23fff'%3ERB%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,9 +42,9 @@
         </div>
         <div class="stage" aria-hidden="true">
           <span class="blob b1"></span><span class="blob b2"></span>
-          <div class="phone p1"><img src="assets/katalog/syari.webp" width="360" height="740" alt=""></div>
-          <div class="phone p2"><img src="assets/katalog/bercerita.webp" width="360" height="740" alt=""></div>
-          <span class="sticker s1">Mulai Rp 49rb</span>
+          <div class="phone p1"><img src="assets/katalog/cat-air.webp" width="360" height="740" alt=""></div>
+          <div class="phone p2"><img src="assets/katalog/melayu.webp" width="360" height="740" alt=""></div>
+          <span class="sticker s1">Mulai Rp 99rb</span>
           <span class="sticker s2">Jadi 1x24 jam</span>
           <span class="sticker s3">Revisi 3x</span>
         </div>
@@ -127,7 +127,7 @@
           <details><summary>Apakah bisa revisi?</summary><p>Bisa, hingga 3 kali revisi untuk koreksi data dan teks.</p></details>
           <details><summary>Berapa lama undangan aktif?</summary><p>1 tahun sejak dibuat, jadi tetap bisa dibuka sebagai kenangan setelah acara.</p></details>
           <details><summary>Bagaimana cara menyebar ke tamu?</summary><p>Kami berikan link yang bisa ditambah nama tamu, misalnya <code>?to=Bapak+Ahmad</code>. Setiap tamu disapa dengan namanya di halaman pembuka.</p></details>
-          <details><summary>Apakah bisa tanpa foto?</summary><p>Bisa. Tema Syari memang dirancang tanpa foto, dan tema lain bisa disesuaikan.</p></details>
+          <details><summary>Apakah bisa tanpa foto?</summary><p>Bisa. Tema Taman Cat Air memang dirancang tanpa foto, dan tema Melayu bisa disesuaikan tanpa foto.</p></details>
           <details><summary>Musiknya bisa request?</summary><p>Pilih dari koleksi musik bebas lisensi kami. Lagu populer berhak cipta tidak kami gunakan agar undangan aman dari masalah hak cipta.</p></details>
           <details><summary>Metode pembayarannya apa saja?</summary><p>Transfer bank atau e-wallet. Detail pembayaran diberikan admin melalui WhatsApp.</p></details>
         </div>
@@ -156,8 +156,6 @@
   </div>
 
   <script src="katalog.js"></script>
-  <script src="data/katalog-jawa.js"></script>
-  <script src="data/katalog-minang.js"></script>
   <script>
     (function () {
       var K = window.KATALOG;
@@ -241,6 +239,12 @@
           if (tampil) { n++; c.classList.add("in"); }
         });
         jumlah.textContent = n + " tema ditampilkan";
+      }
+      // Filter hanya berguna bila temanya banyak
+      if (daftar.length <= 3) {
+        fAdat.hidden = true;
+        document.getElementById("f-tag").hidden = true;
+        jumlah.hidden = true;
       }
       [["f-adat", "adat"], ["f-tag", "tag"]].forEach(function (g) {
         var box = document.getElementById(g[0]);
