@@ -9,3 +9,4 @@ Semua ilustrasi berstatus domain publik (Wikimedia Commons), lalu diwarnai ulang
 - `aset/melati.webp`: *Jasminum sambac*, Flora de Filipinas (M. Blanco, 1880-1883). [Commons](https://commons.wikimedia.org/wiki/File:Jasminum_sambac_Blanco1.6-cropped.jpg)
 - `ronce.svg`: digambar sendiri.
 - Foto demo berbusana adat Jawa (Pexels License, bebas untuk usaha): oneprophoto (pasangan berblangkon dan berkebaya), permatafoto, Afiful Huda (prosesi berkebaya beludru dan kirab). Untuk klien diganti foto klien.
+- `../../assets/musik/musik-jawa.m4a`: dari berkas `javanees1.mp3` yang disediakan pemilik (Pixabay, bebas untuk usaha), dikonversi ke AAC.

@@ -64,7 +64,7 @@ window.UNDANGAN = {
   ],
   alamatKado: "Jl. Slamet Riyadi No. 275, Penumping, Laweyan, Surakarta 57141 (a.n. Larasati)",
 
-  musik: "../../assets/musik/musik-1.m4a",
+  musik: "../../assets/musik/musik-jawa.m4a",
   penutup: "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu. Atas kehadiran dan doanya, kami haturkan matur nuwun.",
   contohUcapan: [
     { nama: "Keluarga Pakdhe Harjo", hadir: "Hadir", ucapan: "Sugeng pawiwahan. Mugi dados keluarga ingkang sakinah, mawaddah, warahmah." },
