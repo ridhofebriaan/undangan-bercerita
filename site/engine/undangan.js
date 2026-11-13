@@ -49,6 +49,7 @@
   var K2 = !!D.kerangka;
   if (K2) document.body.classList.add("k2");
   var GF = D.gayaFoto || {};
+  if (K2 && GF.garis === "tipis") document.body.classList.add("garis-tipis");
   function bingkaiFoto(src, bentuk, muncul, alt, malas) {
     var f = el("figure", "bingkai bingkai-" + (bentuk || "lengkung") + (muncul ? " muncul-" + muncul : ""));
     var img = el("img");

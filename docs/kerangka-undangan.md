@@ -37,7 +37,7 @@ Urutan tetap. Bagian opsional boleh dihilangkan, tetapi urutan sisanya tidak diu
 
 | Komponen | Aturan |
 |---|---|
-| **Bingkai foto** | Bentuk mengikuti gaya foto terpilih (lihat bagian 5). Garis tepi tipis dengan warna aksen. |
+| **Bingkai foto** | Bentuk mengikuti gaya foto terpilih (lihat bagian 5). Gaya modern: **tanpa border**, cukup bayangan halus. Opsi garis tipis 1 px yang menempel di tepi foto (`gayaFoto.garis: "tipis"`). Dilarang cincin ganda atau border tebal. |
 | **Kartu** | Latar warna terang dengan sudut membulat (16–28 px) dan bayangan halus. Dipakai untuk ayat, acara, kado, dan formulir. |
 | **Sambungan antarbagian** | Bagian gelap dan terang bergantian, dipisah kurva atau lengkung, tidak dipotong garis lurus. |
 | **Ornamen tepi** | Juntaian atau rumbai khas adat di sisi kiri dan kanan layar, terutama di bagian gelap. |

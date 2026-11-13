@@ -46,14 +46,15 @@
 .k2 .ayat { padding: 30px 22px; }
 
 /* ---------- Bingkai foto (gaya foto per undangan) ---------- */
-.k2 .bingkai { position: relative; margin: 20px auto; width: min(76%, 300px); aspect-ratio: 3 / 4; overflow: hidden; }
+/* Modern: tanpa border, hanya bayangan halus. Opsi garis tipis 1px: D.gayaFoto.garis = "tipis" (body.garis-tipis) */
+.k2 .bingkai { position: relative; margin: 20px auto; width: min(76%, 300px); aspect-ratio: 3 / 4; overflow: hidden; box-shadow: 0 24px 44px -28px rgba(30, 15, 10, 0.55); }
 .k2 .bingkai img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.k2 .bingkai-lengkung { border-radius: 999px 999px 14px 14px; box-shadow: 0 0 0 6px var(--bg), 0 0 0 7px var(--emas-terang); overflow: hidden; }
-.k2 .bingkai-oval { border-radius: 50%; box-shadow: 0 0 0 6px var(--bg), 0 0 0 7px var(--emas-terang); }
-.k2 .bingkai-lingkaran { aspect-ratio: 1; border-radius: 50%; box-shadow: 0 0 0 5px var(--bg), 0 0 0 6px var(--emas-terang); }
+.k2 .bingkai-lengkung { border-radius: 999px 999px 14px 14px; }
+.k2 .bingkai-oval { border-radius: 50%; }
+.k2 .bingkai-lingkaran { aspect-ratio: 1; border-radius: 50%; }
 .k2 .bingkai-persegi { aspect-ratio: 4 / 3; width: 100%; border-radius: 18px; }
 .k2 .bingkai-penuh { width: calc(100% + 52px); margin-left: -26px; aspect-ratio: 4 / 5; -webkit-mask-image: linear-gradient(#000 70%, transparent); mask-image: linear-gradient(#000 70%, transparent); }
-.k2 .gelap .bingkai-lengkung, .k2 .gelap .bingkai-oval, .k2 .gelap .bingkai-lingkaran { box-shadow: 0 0 0 6px var(--gelap), 0 0 0 7px var(--emas-terang); }
+.k2.garis-tipis .bingkai { box-shadow: 0 0 0 1px color-mix(in srgb, var(--emas-terang) 70%, transparent), 0 24px 44px -28px rgba(30, 15, 10, 0.55); }
 /* Cara foto muncul */
 .k2 .muncul-zoom img { transform: scale(1.16); transition: transform 2.2s cubic-bezier(0.2, 0.7, 0.2, 1); }
 .k2 .in .muncul-zoom img, .k2 .in.muncul-zoom img, .k2.terbuka .sec-hero .muncul-zoom img { transform: none; }
@@ -75,7 +76,7 @@
 .k2 .kisah-kartu li { padding: 0 0 22px; background: var(--surface); color: var(--ink); border-radius: 24px; overflow: hidden; text-align: center; }
 .k2 .kisah-kartu li::before { display: none; }
 .k2 .kisah-kartu .bingkai-persegi { margin: 0 0 16px; width: 100%; border-radius: 0; box-shadow: none; }
-.k2 .kisah-kartu .bingkai-lingkaran, .k2 .kisah-kartu .bingkai-oval, .k2 .kisah-kartu .bingkai-lengkung { width: 150px; margin: 0 auto 16px; box-shadow: 0 0 0 5px var(--surface), 0 0 0 6px var(--emas-terang); }
+.k2 .kisah-kartu .bingkai-lingkaran, .k2 .kisah-kartu .bingkai-oval, .k2 .kisah-kartu .bingkai-lengkung { width: 150px; margin: 0 auto 16px; }
 .k2 .kisah-kartu li:has(.bingkai-lingkaran, .bingkai-oval, .bingkai-lengkung) { padding-top: 26px; }
 .k2 .kisah-kartu :is(.tl-date, .tl-title, .tl-text) { padding: 0 20px; }
 .k2 .kisah-kartu .tl-title { font-family: var(--font-display); font-weight: 500; font-size: 26px; color: var(--primary); }
