@@ -56,11 +56,24 @@ Urutan tetap. Bagian opsional boleh dihilangkan, tetapi urutan sisanya tidak diu
 
 ### 4.2 Warna
 
-- **Satu warna gelap utama** untuk bagian gelap dan tombol (contoh Minang: merah marun).
-- **Satu warna terang** untuk kartu dan bagian terang (krem atau gading).
-- **Satu warna aksen** untuk ilustrasi dan detail (contoh: hijau sage, emas).
+Mengikuti skill **warna-mewah** ([`docs/skills/warna-mewah/`](skills/warna-mewah/SKILL.md)), yang berisi riset, aturan terukur, pustaka palet, dan alat pemeriksa.
+
+- **Komposisi 3–4 warna:**
+  - satu jangkar gelap yang dalam dan tidak mencolok (contoh Minang: merah marun);
+  - satu netral hangat untuk latar dan kartu (gading atau krem, bukan putih murni);
+  - satu aksen kalem (contoh: hijau sage);
+  - emas antik atau sampanye.
+- **Proporsi 60-30-10:** netral 60%, jangkar gelap 30%, aksen dan emas paling banyak 10% luas layar. Emas dipakai sebagai kilau tipis (garis, nama, ikon), bukan blok.
+- **Dilarang:** warna neon atau terang mencolok, emas kuning datar (#FFD700), putih atau hitam murni, lebih dari 2 keluarga rona berwarna, dan latar polos tanpa tekstur.
 - Bagian gelap dan terang bergantian sepanjang halaman.
 - Kontras teks minimal 4,5:1 (WCAG AA).
+- **Wajib lolos pemeriksa** dengan skor ≥ 85:
+
+  ```
+  python3 docs/skills/warna-mewah/periksa.py gelap=#.. terang=#.. aksen=#.. emas=#.. teks=#.. --teks teks:terang
+  ```
+
+- **Alur memilih:** saya usulkan 3 palet yang lolos pemeriksa, user memilih, dan pilihan itu menjadi patokan berikutnya.
 
 ### 4.3 Huruf
 
@@ -153,6 +166,7 @@ Riset warna, motif, prosesi, dan istilah per adat ada di [`riset/panduan-adat.md
 - [ ] Tampil benar di lebar 360 px dan 390 px, tanpa geser ke samping.
 - [ ] Semua tombol minimal 44 px.
 - [ ] Kontras teks minimal 4,5:1.
+- [ ] Palet lolos `periksa.py` (skor ≥ 85), emas ≤ 10% layar, dan tidak ada latar polos.
 - [ ] Tidak ada error di konsol, dan tidak ada file yang gagal dimuat.
 - [ ] Siap dalam kurang dari 3 detik di HP kelas menengah. Ukuran total di bawah 3 MB tanpa musik.
 - [ ] Nama tamu dari link tampil benar, termasuk nama panjang.
