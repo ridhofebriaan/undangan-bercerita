@@ -45,6 +45,19 @@
   });
   if (V.kelas) V.kelas.split(/\s+/).forEach(function (c) { if (c) document.body.classList.add(c); });
   var ISLAM = D.agama !== "kristen" && D.agama !== "hindu";
+  // Kerangka v2 (docs/kerangka-undangan.md): aktif bila D.kerangka = true
+  var K2 = !!D.kerangka;
+  if (K2) document.body.classList.add("k2");
+  var GF = D.gayaFoto || {};
+  function bingkaiFoto(src, bentuk, muncul, alt, malas) {
+    var f = el("figure", "bingkai bingkai-" + (bentuk || "lengkung") + (muncul ? " muncul-" + muncul : ""));
+    var img = el("img");
+    img.src = src;
+    img.alt = alt || "";
+    if (malas) img.loading = "lazy";
+    f.appendChild(img);
+    return f;
+  }
   var acaraUtama = D.acara.filter(function (a) { return a.utama; })[0] || D.acara[0];
 
   // Foto latar penuh (opsional, untuk tema berfoto). D.foto = { cover, hero, penutup }
@@ -126,6 +139,12 @@
     var s = el("section", "sec sec-" + id);
     s.id = id;
     if (V.gelap && V.gelap.indexOf(id) >= 0) s.classList.add("gelap");
+    if (K2) {
+      // Lapis belakang (ilustrasi) dan lapis depan (ornamen) diisi gambar oleh CSS tema
+      s.appendChild(el("div", "lapis lapis-b"));
+      s.appendChild(el("div", "lapis lapis-d"));
+      if (s.classList.contains("gelap")) { s.appendChild(el("i", "tepi tepi-kiri")); s.appendChild(el("i", "tepi tepi-kanan")); }
+    }
     if (jd) {
       var jj = judul(id, jd, sub);
       jd = jj[0];
@@ -194,6 +213,7 @@
         return a;
       })(),
       el("p", "label", D.label || "Undangan Pernikahan"),
+      K2 && FOTO.utama ? add(el("div", "bingkai-wadah"), bingkaiFoto(FOTO.utama, GF.hero, GF.heroMuncul, namaPendek)) : null,
       namaPasangan("big"),
       el("p", "hero-date", tanggal(acaraUtama.mulai)),
       D.hashtag ? el("p", "hashtag", D.hashtag) : null));
@@ -237,7 +257,7 @@
   function orang(o) {
     var c = el("div", "person reveal");
     if (o.foto) {
-      var f = el("div", "person-photo");
+      var f = el("div", "person-photo" + (K2 ? " bingkai bingkai-" + (GF.profil || "lengkung") + (GF.profilMuncul ? " muncul-" + GF.profilMuncul : "") : ""));
       var img = el("img");
       img.src = o.foto;
       img.alt = o.nama;
@@ -271,7 +291,21 @@
     "&text=" + encodeURIComponent("Pernikahan " + namaPendek) +
     "&dates=" + gcal(utama.mulai) + "/" + gcal(utama.selesai || new Date(new Date(utama.mulai).getTime() + 2 * 36e5).toISOString()) +
     "&location=" + encodeURIComponent(utama.tempat + ", " + utama.alamat);
-  cd.appendChild(cal);
+  if (K2) {
+    // Tombol pengingat: berkas kalender .ics dengan alarm sehari sebelumnya
+    var ics = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//RB Digital//Undangan//ID", "BEGIN:VEVENT",
+      "UID:" + (D.id || "undangan") + "@rbdigital", "DTSTAMP:" + gcal(new Date().toISOString()),
+      "DTSTART:" + gcal(utama.mulai), "DTEND:" + gcal(utama.selesai || new Date(new Date(utama.mulai).getTime() + 2 * 36e5).toISOString()),
+      "SUMMARY:Pernikahan " + namaPendek, "LOCATION:" + utama.tempat + ", " + utama.alamat,
+      "BEGIN:VALARM", "TRIGGER:-P1D", "ACTION:DISPLAY", "DESCRIPTION:Besok pernikahan " + namaPendek, "END:VALARM",
+      "END:VEVENT", "END:VCALENDAR"].join("\r\n");
+    var ingat = el("a", "btn btn-ghost reveal", teks("ingatkan", "Ingatkan Saya"));
+    ingat.href = "data:text/calendar;charset=utf-8," + encodeURIComponent(ics);
+    ingat.download = "pernikahan-" + (D.id || "undangan") + ".ics";
+    add(cd, add(el("div", "tombol-baris"), cal, ingat));
+  } else {
+    cd.appendChild(cal);
+  }
   app.appendChild(cd);
   var target = new Date(utama.mulai).getTime();
   function renderCd() {
@@ -312,9 +346,11 @@
   // ---------- Kisah (opsional) ----------
   if (D.kisah && D.kisah.length) {
     var ks = section("kisah", "Kisah Kami");
-    var tl = el("ol", "timeline");
+    var adaFoto = K2 && D.kisah.some(function (k) { return k.foto; });
+    var tl = el("ol", "timeline" + (adaFoto ? " kisah-kartu" : ""));
     D.kisah.forEach(function (k) {
-      add(tl, add(el("li", "reveal"), el("p", "tl-date", k.waktu), el("h3", "tl-title", k.judul), el("p", "tl-text", k.teks)));
+      add(tl, add(el("li", "reveal"), adaFoto && k.foto ? bingkaiFoto(k.foto, GF.kisah || "persegi", GF.kisahMuncul, k.judul, true) : null,
+        el("p", "tl-date", k.waktu), el("h3", "tl-title", k.judul), el("p", "tl-text", k.teks)));
     });
     ks.appendChild(tl);
     app.appendChild(ks);
@@ -323,7 +359,8 @@
   // ---------- Galeri (opsional) ----------
   if (D.galeri && D.galeri.length) {
     var gl = section("galeri", "Galeri");
-    var grid = el("div", "gallery");
+    if (K2 && D.galeriKutipan) gl.appendChild(el("p", "galeri-kutipan reveal", D.galeriKutipan));
+    var grid = el("div", "gallery" + (K2 ? " galeri-" + (GF.galeri || "kisi") : ""));
     D.galeri.forEach(function (src, i) {
       var b = el("button", "g-item reveal");
       b.type = "button";
@@ -336,6 +373,17 @@
       grid.appendChild(b);
     });
     gl.appendChild(grid);
+    if (K2 && GF.galeri === "carousel") {
+      // Titik penanda posisi carousel
+      var titik = el("div", "carousel-titik");
+      D.galeri.forEach(function (_, i) { var d = el("i"); if (!i) d.className = "aktif"; titik.appendChild(d); });
+      gl.appendChild(titik);
+      grid.addEventListener("scroll", function () {
+        var w = grid.firstChild ? grid.firstChild.getBoundingClientRect().width + 12 : 1;
+        var idx = Math.round(grid.scrollLeft / w);
+        Array.prototype.forEach.call(titik.children, function (d, i) { d.className = i === idx ? "aktif" : ""; });
+      }, { passive: true });
+    }
     app.appendChild(gl);
   }
   function lightbox(start, opener) {
@@ -469,6 +517,44 @@
       namaPasangan()));
   app.appendChild(pn);
 
+  if (K2) {
+    // Konfirmasi kehadiran: jumlah tamu yang sudah konfirmasi + daftar turut mengundang
+    var kf = section("konfirmasi", "Konfirmasi Kehadiran", "RSVP");
+    var jumlah = el("p", "konfirmasi-jumlah reveal");
+    var keForm = el("a", "btn btn-primary reveal", teks("tombolRsvp", "Konfirmasi Kehadiran"));
+    keForm.href = "#rsvp";
+    add(kf, jumlah, keForm);
+    if (D.turutMengundang && D.turutMengundang.length) {
+      var tu = el("div", "turut reveal");
+      tu.appendChild(el("p", "turut-judul", teks("turutMengundang", "Turut Mengundang")));
+      var ul = el("ul", "turut-daftar");
+      D.turutMengundang.forEach(function (n) { ul.appendChild(el("li", "", n)); });
+      tu.appendChild(ul);
+      kf.appendChild(tu);
+    }
+    app.appendChild(kf);
+    var perbaruiJumlah = function () {
+      var n = (+D.jumlahKonfirmasi || 0) + muat().filter(function (u) { return u.hadir === "Hadir"; }).length;
+      jumlah.innerHTML = "<b>" + n.toLocaleString("id-ID") + "</b> " + teks("teksJumlah", "tamu sudah mengonfirmasi kehadiran");
+    };
+    perbaruiJumlah();
+    form.addEventListener("submit", function () { setTimeout(perbaruiJumlah, 0); });
+
+    if (D.streaming && D.streaming.link) {
+      var st = section("streaming", "Siaran Langsung", "Live streaming");
+      var stb = el("a", "btn btn-primary reveal", D.streaming.label || "Tonton Siaran");
+      stb.href = D.streaming.link;
+      stb.target = "_blank";
+      stb.rel = "noopener";
+      add(st, el("p", "sec-desc reveal", D.streaming.teks || "Bagi yang berhalangan hadir, ikuti momen bahagia kami secara langsung melalui tautan berikut."), stb);
+      app.appendChild(st);
+    }
+
+    // Urutan baku kerangka
+    ["hero", "salam", "pembuka", "mempelai", "kisah", "galeri", "countdown", "acara", "konfirmasi", "streaming", "hadiah", "rsvp", "penutup"]
+      .forEach(function (id) { var x = document.getElementById(id); if (x && x.parentNode === app) app.appendChild(x); });
+  }
+
   var foot = el("footer", "credit");
   var a = el("a", "", "RB Digital");
   a.href = D.katalogUrl || "../../";
@@ -588,5 +674,58 @@
   } else {
     reveals.forEach(function (r) { r.classList.add("in"); });
     iframe.src = iframe.dataset.src;
+  }
+
+  // ---------- Kerangka v2: menu melayang + parallax lapisan ----------
+  if (K2) {
+    var IKON = {
+      mempelai: '<path d="M12 20s-7-4.4-7-9.5A3.5 3.5 0 0 1 12 8a3.5 3.5 0 0 1 7 2.5C19 15.6 12 20 12 20z"/>',
+      galeri: '<rect x="4" y="5" width="16" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="m5 17 5-5 4 4 2-2 3 3"/>',
+      countdown: '<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 9h16M9 3v4M15 3v4"/>',
+      acara: '<path d="M12 21s-6-5.6-6-10.5a6 6 0 1 1 12 0C18 15.4 12 21 12 21z"/><circle cx="12" cy="10.5" r="2.2"/>',
+      rsvp: '<path d="M4 6h16v10H8l-4 4z"/>',
+    };
+    var MENU = [["mempelai", "Mempelai"], [document.getElementById("galeri") ? "galeri" : "kisah", "Galeri"], ["countdown", "Tanggal"], ["acara", "Lokasi"], ["rsvp", "Ucapan"]]
+      .filter(function (m) { return document.getElementById(m[0]); });
+    if (D.menu !== false && MENU.length) {
+      var nav = el("nav", "menu-bawah");
+      nav.setAttribute("aria-label", "Navigasi undangan");
+      var tombolMenu = {};
+      MENU.forEach(function (m) {
+        var b = el("button", "menu-item");
+        b.type = "button";
+        b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true">' + (IKON[m[0]] || IKON.galeri) + "</svg><span>" + m[1] + "</span>";
+        b.addEventListener("click", function () { document.getElementById(m[0]).scrollIntoView({ behavior: "smooth", block: "start" }); });
+        tombolMenu[m[0]] = b;
+        nav.appendChild(b);
+      });
+      document.body.appendChild(nav);
+      document.body.classList.add("ada-menu");
+      if ("IntersectionObserver" in window) {
+        var aktif = function (id) { Object.keys(tombolMenu).forEach(function (k) { tombolMenu[k].classList.toggle("aktif", k === id); }); };
+        var mo2 = new IntersectionObserver(function (en) {
+          en.forEach(function (e) { if (e.isIntersecting) aktif(e.target.id); });
+        }, { rootMargin: "-45% 0px -50% 0px" });
+        MENU.forEach(function (m) { mo2.observe(document.getElementById(m[0])); });
+      }
+    }
+
+    // Parallax: setiap bagian mendapat --geser (-1..1) sesuai posisinya di layar; CSS menggeser lapis & foto
+    if (!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) {
+      var bagian = Array.prototype.slice.call(document.querySelectorAll("#app > .sec"));
+      var jadwal = false;
+      var geser = function () {
+        jadwal = false;
+        var h = innerHeight;
+        bagian.forEach(function (b) {
+          var r = b.getBoundingClientRect();
+          if (r.bottom < -100 || r.top > h + 100) return;
+          b.style.setProperty("--geser", (((r.top + r.height / 2) - h / 2) / h).toFixed(3));
+        });
+      };
+      addEventListener("scroll", function () { if (!jadwal) { jadwal = true; requestAnimationFrame(geser); } }, { passive: true });
+      addEventListener("resize", geser);
+      geser();
+    }
   }
 })();

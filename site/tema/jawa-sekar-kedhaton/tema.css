@@ -1,0 +1,87 @@
+/* Tema "Sekar Kedhaton" (Jawa). Palet Sogan Keraton (pilihan user, skor warna-mewah 100).
+   Ilustrasi toile: litografi Gunung Sumbing & Dieng (Junghuhn/Mieling, 1850-an), merak hijau (A Monograph of the Pheasants),
+   gelatik Jawa (Zoological Illustrations), melati (Flora de Filipinas, Blanco). Semua domain publik, diwarnai sogan. */
+:root {
+  --bg: #efe4d0;
+  --bg-outer: #e4d6bd;
+  --surface: #f9f3e8;
+  --primary: #4f3322;
+  --primary-ink: #f4ead8;
+  --accent: #b08d57;
+  --accent-text: #74552c;
+  --ink: #2b2018;
+  --muted: #5a4636;
+  --line: rgba(79, 51, 34, 0.16);
+  --gelap: #4f3322;
+  --on-gelap: #f4ead8;
+  --emas-terang: #d4b37a;
+  --cover-bg: #efe4d0;
+  --font-display: "Marcellus", Georgia, serif;
+  --font-name: "Pinyon Script", cursive;
+  --font-body: "Lora", Georgia, serif;
+}
+
+/* ---------- Cover: lanskap Sumbing, candi di sudut, ronce melati di tepi ---------- */
+.cover { background: var(--bg) var(--butiran); }
+.cover::before { content: ""; position: absolute; inset: 0 0 auto; height: 52%; background: url("aset/latar.webp") center top / cover no-repeat; opacity: 0.55;
+  -webkit-mask-image: linear-gradient(#000 55%, transparent); mask-image: linear-gradient(#000 55%, transparent); }
+.cover::after { content: ""; position: absolute; left: -6%; bottom: -2%; width: 62%; height: 40%; background: url("aset/candi.webp") left bottom / contain no-repeat; opacity: 0.6; }
+.orn-cover { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+.orn-cover::before, .orn-cover::after { content: ""; position: absolute; top: 0; bottom: 0; width: 22px; background: var(--accent); -webkit-mask: url("ronce.svg") top center / 22px auto repeat-y; mask: url("ronce.svg") top center / 22px auto repeat-y; opacity: 0.85; }
+.orn-cover::before { left: 10px; }
+.orn-cover::after { right: 10px; }
+.orn-cover .o1 { position: absolute; right: -4%; bottom: 0; width: 46%; height: 34%; background: url("aset/gelatik.webp") right bottom / contain no-repeat; opacity: 0.55; }
+.cover-inner { z-index: 1; padding: 36% 30px 30%; background: radial-gradient(closest-side, var(--bg) 58%, transparent); }
+.label { font-family: var(--font-display); letter-spacing: 0.34em; font-size: 12px; color: var(--accent-text); }
+.couple { font-family: var(--font-name); font-weight: 400; color: var(--primary); line-height: 1.05; }
+.couple .amp { font-family: var(--font-display); font-style: normal; font-size: 0.34em; color: var(--accent-text); margin: 4px 0; }
+.cover .couple { font-size: clamp(54px, 15vw, 68px); }
+.cover-date, .hero-date { font-family: var(--font-display); font-size: 18px; letter-spacing: 0.06em; color: var(--ink); }
+.guest-name { font-family: var(--font-display); font-size: 24px; color: var(--primary); }
+.btn-open { background: var(--primary); color: var(--primary-ink); }
+
+/* ---------- Hero: aksara Jawa, foto lengkung tersingkap, melati menjuntai ---------- */
+.sec-hero { min-height: 0; }
+.sec-hero .lapis-b { background: url("aset/latar.webp") center top / 150% auto no-repeat; opacity: 0.24; }
+.aksara { font-family: "Noto Sans Javanese", serif; font-size: 24px; color: var(--accent-text); margin-bottom: 6px; }
+.sec-hero .bingkai-wadah::after { content: ""; position: absolute; z-index: 2; right: -22%; bottom: -10%; width: 58%; height: 46%; background: url("aset/melati.webp") right bottom / contain no-repeat; pointer-events: none; }
+.couple.big { font-size: clamp(58px, 17vw, 76px); }
+.hashtag { font-family: var(--font-display); letter-spacing: 0.12em; font-size: 13px; color: var(--accent-text); }
+
+/* ---------- Bagian gelap: toile samar terang di atas sogan, ronce melati di tepi ---------- */
+.gelap .lapis-b { background: url("aset/latar.webp") center / cover no-repeat; opacity: 0.1; filter: brightness(4) saturate(0.25); }
+.k2 .tepi { -webkit-mask-image: url("ronce.svg"); mask-image: url("ronce.svg"); }
+.sec-salam .bismillah { color: var(--on-gelap); }
+
+/* Kartu ayat dengan merak hijau Jawa di atasnya */
+.sec-salam .ayat { margin-top: 36px; padding-top: 168px; }
+.sec-salam .ayat::before { content: ""; position: absolute; left: 50%; top: 14px; width: 190px; height: 150px; margin-left: -95px; background: url("aset/merak.webp") center / contain no-repeat;
+  -webkit-mask-image: radial-gradient(closest-side, #000 72%, transparent); mask-image: radial-gradient(closest-side, #000 72%, transparent); }
+.ayat .arabic { color: var(--primary); }
+.ayat-arti { font-family: var(--font-body); font-style: italic; font-size: 16px; line-height: 1.7; color: var(--ink); }
+.ayat cite { color: var(--accent-text); }
+
+/* Mempelai: melati menjuntai di sudut */
+.sec-mempelai .lapis-d { background: url("aset/melati.webp") left -50px top 20% / 170px auto no-repeat, url("aset/melati.webp") right -60px bottom 18% / 170px auto no-repeat; opacity: 0.55; }
+.person-role { margin: 0 0 4px; font-family: var(--font-display); font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--accent-text); }
+.person-name { font-family: var(--font-display); }
+.big-amp { font-family: var(--font-name); font-size: 64px; }
+
+/* Kisah dengan foto bulat (bentuk diatur kerangka) */
+.kisah-kartu .tl-title { font-family: var(--font-display); }
+
+/* Galeri, acara, ucapan: lanskap samar; gelatik bertengger di galeri */
+.sec-galeri .lapis-b, .sec-acara .lapis-b, .sec-rsvp .lapis-b { background: url("aset/latar.webp") center bottom / 170% auto no-repeat; opacity: 0.14; }
+.sec-galeri .lapis-d { background: url("aset/gelatik.webp") right -24px top 60px / 120px auto no-repeat; opacity: 0.55; }
+.galeri-kutipan { font-family: var(--font-body); }
+.sec-streaming .lapis-d { background: url("aset/candi.webp") left -20px bottom -20px / 170px auto no-repeat; opacity: 0.3; }
+.event-name, .sec-title { font-family: var(--font-display); }
+
+/* Penutup */
+.sec-penutup { padding-bottom: 120px; }
+.sec-penutup .lapis-d { background: url("aset/candi.webp") center bottom -10px / 200px auto no-repeat; opacity: 0.3; filter: brightness(4) saturate(0.25); }
+.penutup-inner .couple { font-family: var(--font-name); font-size: 56px; color: var(--on-gelap); }
+.credit { background: var(--gelap); color: var(--on-gelap-lembut); }
+.credit a { color: var(--emas-terang); }
+.music-btn { background: var(--primary); }
+.music-btn svg { fill: var(--primary-ink); }

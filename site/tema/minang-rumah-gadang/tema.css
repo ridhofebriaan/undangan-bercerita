@@ -1,0 +1,77 @@
+/* Tema "Rumah Gadang" (Minangkabau). Palet Marun Toile (pilihan user, skor warna-mewah 100).
+   Ilustrasi toile: lukisan Danau Singkarak (Ernst Haeckel, 1901) dan anthurium (Curtis's Botanical Magazine), domain publik, diwarnai marun. */
+:root {
+  --bg: #f3eadb;
+  --bg-outer: #e9dcc7;
+  --surface: #fbf6ee;
+  --primary: #6b1d24;
+  --primary-ink: #f6ecdd;
+  --accent: #b8975a;
+  --accent-text: #7a5a2c;
+  --ink: #2e2220;
+  --muted: #5e4a43;
+  --line: rgba(107, 29, 36, 0.16);
+  --gelap: #6b1d24;
+  --on-gelap: #f6ecdd;
+  --emas-terang: #d6b97f;
+  --cover-bg: #f3eadb;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-name: "Cormorant Garamond", Georgia, serif;
+  --font-body: "Jost", system-ui, sans-serif;
+}
+body { font-weight: 300; }
+
+/* ---------- Cover: pemandangan Singkarak bergaya toile, rumah gadang di depan ---------- */
+.cover { background: var(--bg) var(--butiran); }
+.cover::before { content: ""; position: absolute; inset: 0; background: url("aset/latar.webp") center 18% / cover no-repeat; opacity: 0.5; }
+.cover::after { content: ""; position: absolute; left: -12%; right: -12%; bottom: -2%; height: 38%; background: url("aset/rumah.webp") center bottom / contain no-repeat; }
+.cover-inner { z-index: 1; padding: 40px 30px 34%; background: radial-gradient(closest-side, var(--bg) 55%, transparent); }
+.orn-cover { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+.orn-cover::before, .orn-cover::after { content: ""; position: absolute; top: 0; bottom: 0; width: 22px; background: var(--accent); -webkit-mask: url("rumbai.svg") top center / 22px auto repeat-y; mask: url("rumbai.svg") top center / 22px auto repeat-y; opacity: 0.8; }
+.orn-cover::before { left: 10px; }
+.orn-cover::after { right: 10px; }
+.label { font-family: var(--font-body); letter-spacing: 0.34em; font-size: 11.5px; color: var(--accent-text); }
+.couple { font-family: var(--font-name); font-style: italic; font-weight: 400; color: var(--primary); }
+.couple .amp { font-size: 0.42em; color: var(--accent-text); margin: 0; }
+.cover .couple { font-size: clamp(52px, 15vw, 66px); }
+.cover-date, .hero-date { font-family: var(--font-display); font-size: 20px; color: var(--ink); }
+.guest-name { font-family: var(--font-display); font-style: italic; font-size: 26px; color: var(--primary); }
+.btn-open { background: var(--primary); color: var(--primary-ink); }
+
+/* ---------- Hero: foto lengkung, rumah gadang menimpa bagian bawahnya ---------- */
+.sec-hero { min-height: 0; }
+.sec-hero .lapis-b { background: url("aset/latar.webp") center top / 140% auto no-repeat; opacity: 0.28; }
+.sec-hero .bingkai-wadah::after { content: ""; position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; height: 32%; border-radius: 0 0 14px 14px; background: url("aset/rumah.webp") center bottom / cover no-repeat; pointer-events: none;
+  -webkit-mask-image: linear-gradient(transparent, #000 45%); mask-image: linear-gradient(transparent, #000 45%); }
+.couple.big { font-size: clamp(56px, 16vw, 72px); }
+.hashtag { letter-spacing: 0.14em; font-size: 12.5px; color: var(--accent-text); }
+
+/* ---------- Bagian gelap: toile samar terang di atas marun, rumbai songket di tepi ---------- */
+.gelap .lapis-b { background: url("aset/latar.webp") center / cover no-repeat; opacity: 0.1; filter: brightness(5) saturate(0.2); }
+.k2 .tepi { -webkit-mask-image: url("rumbai.svg"); mask-image: url("rumbai.svg"); }
+.gelap .bismillah, .gelap .ayat .arabic { color: var(--primary); }
+.sec-salam .bismillah { color: var(--on-gelap); }
+
+/* Kartu ayat dengan anthurium di sudut */
+.sec-salam .ayat { margin-top: 36px; padding-top: 128px; }
+.sec-salam .ayat::before { content: ""; position: absolute; left: 50%; top: 14px; width: 110px; height: 110px; margin-left: -55px; background: url("aset/anthurium.webp") center / contain no-repeat; }
+.ayat .arabic { color: var(--primary); }
+.ayat-arti { font-family: var(--font-display); font-size: 18px; line-height: 1.6; color: var(--ink); }
+.ayat cite { color: var(--accent-text); }
+
+/* Mempelai: anthurium samar di sudut */
+.sec-mempelai .lapis-d { background: url("aset/anthurium.webp") left -40px bottom 6% / 150px auto no-repeat, url("aset/anthurium.webp") right -46px top 18% / 130px auto no-repeat; opacity: 0.45; }
+.person-role { margin: 0 0 4px; font-size: 11.5px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--accent-text); }
+
+/* Galeri dan acara: pemandangan samar */
+.sec-galeri .lapis-b, .sec-acara .lapis-b, .sec-rsvp .lapis-b { background: url("aset/latar.webp") center bottom / 160% auto no-repeat; opacity: 0.16; }
+.sec-streaming .lapis-d { background: url("aset/rumah.webp") center bottom -30px / 110% auto no-repeat; opacity: 0.2; }
+
+/* Penutup */
+.sec-penutup { padding-bottom: 120px; }
+.sec-penutup .lapis-d { background: url("aset/rumah.webp") center bottom / 130% auto no-repeat; opacity: 0.35; filter: brightness(5) saturate(0.25); }
+.penutup-inner .couple { font-size: 54px; color: var(--on-gelap); }
+.credit { background: var(--gelap); color: var(--on-gelap-lembut); }
+.credit a { color: var(--emas-terang); }
+.music-btn { background: var(--primary); }
+.music-btn svg { fill: var(--primary-ink); }
