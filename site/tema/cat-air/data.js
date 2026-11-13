@@ -49,7 +49,7 @@ window.UNDANGAN = {
   ],
   alamatKado: "Jl. Kemang Timur No. 12, Bangka, Mampang Prapatan, Jakarta Selatan 12730 (a.n. Kinanti)",
 
-  musik: "../../assets/musik/musik-1.m4a",
+  musik: "../../assets/musik/musik-cat-air.m4a",
   penutup: "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.",
   contohUcapan: [
     { nama: "Laras & Keluarga", hadir: "Hadir", ucapan: "Barakallahu lakuma. Semoga taman kalian selalu berbunga." },
