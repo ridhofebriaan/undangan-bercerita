@@ -144,6 +144,15 @@ Hanya bagian ini yang dibuat baru untuk setiap undangan.
 | Musik | Instrumental bernuansa daerah, berlisensi bebas | Talempong atau saluang |
 | Teks adat | Istilah, salam, doa, nama acara | Anak Daro, Marapulai, Baralek, Malam Bainai |
 
+**Aturan foto wajib sesuai adat.** Foto pasangan di undangan (termasuk foto demo di katalog) harus memakai busana adat yang sama dengan tema:
+- Minang: suntiang, baju kurung basiba, marapulai dengan deta atau saluak.
+- Jawa: paes, kebaya beludru atau dodot, beskap dan blangkon.
+- Sunda: siger, kebaya putih, ronce melati panjang.
+- Melayu: baju kurung atau kebaya labuh, tanjak atau songkok.
+- Bali: payas agung, udeng.
+
+Bila foto yang sesuai belum tersedia, **jangan pakai foto adat lain**. Isi slot foto dengan ilustrasi atau ornamen tema, lalu catat bahwa foto klien akan menggantikannya.
+
 Sumber aset yang diizinkan, berurutan dari yang paling diutamakan:
 1. Buatan sendiri, misalnya SVG atau lukisan prosedural.
 2. Ilustrasi ukiran domain publik (buku lama), diwarnai ulang.
@@ -167,6 +176,7 @@ Riset warna, motif, prosesi, dan istilah per adat ada di [`riset/panduan-adat.md
 - [ ] Semua tombol minimal 44 px.
 - [ ] Kontras teks minimal 4,5:1.
 - [ ] Palet lolos `periksa.py` (skor ≥ 85), emas ≤ 10% layar, dan tidak ada latar polos.
+- [ ] Semua foto pasangan memakai busana adat yang sama dengan tema (tidak ada foto adat lain).
 - [ ] Tidak ada error di konsol, dan tidak ada file yang gagal dimuat.
 - [ ] Siap dalam kurang dari 3 detik di HP kelas menengah. Ukuran total di bawah 3 MB tanpa musik.
 - [ ] Nama tamu dari link tampil benar, termasuk nama panjang.

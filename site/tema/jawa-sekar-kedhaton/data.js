@@ -11,7 +11,7 @@ window.UNDANGAN = {
 
   tampilan: { gelap: ["salam", "kisah", "countdown", "konfirmasi", "hadiah", "penutup"] },
   gayaFoto: { hero: "lengkung", heroMuncul: "tirai", profil: "lengkung", profilMuncul: "zoom", kisah: "lingkaran", kisahMuncul: "zoom", galeri: "mozaik" },
-  foto: { utama: "foto/hero.jpg" },
+  foto: { utama: "foto/utama.jpg" },
 
   pasangan: {
     urutan: "wanita-dulu",
@@ -48,11 +48,11 @@ window.UNDANGAN = {
   ],
 
   kisah: [
-    { waktu: "2021", judul: "Pertama Bertemu", teks: "Dipertemukan di sebuah acara keluarga. Sederhana, tanpa banyak kata, tapi meninggalkan kesan.", foto: "foto/g2.jpg" },
-    { waktu: "2025", judul: "Nontoni & Lamaran", teks: "Keluarga Danang datang bersilaturahmi dan menyampaikan niat baik. Alhamdulillah, diterima dengan penuh syukur.", foto: "foto/g1.jpg" },
-    { waktu: "2027", judul: "Pawiwahan", teks: "Insya Allah kami menikah. Terima kasih atas doa yang mengantar kami sampai di sini.", foto: "foto/g4.jpg" },
+    { waktu: "2021", judul: "Pertama Bertemu", teks: "Dipertemukan di sebuah acara keluarga. Sederhana, tanpa banyak kata, tapi meninggalkan kesan.", foto: "foto/k1.jpg" },
+    { waktu: "2025", judul: "Nontoni & Lamaran", teks: "Keluarga Danang datang bersilaturahmi dan menyampaikan niat baik. Alhamdulillah, diterima dengan penuh syukur.", foto: "foto/g5.jpg" },
+    { waktu: "2027", judul: "Pawiwahan", teks: "Insya Allah kami menikah. Terima kasih atas doa yang mengantar kami sampai di sini.", foto: "foto/g3.jpg" },
   ],
-  galeri: ["foto/cover.jpg", "foto/g3.jpg", "foto/g2.jpg", "foto/g1.jpg", "foto/g4.jpg", "foto/hero.jpg"],
+  galeri: ["foto/g1.jpg", "foto/g2.jpg", "foto/g4.jpg", "foto/g3.jpg", "foto/g6.jpg", "foto/g5.jpg"],
 
   jumlahKonfirmasi: 214,
   turutMengundang: ["Keluarga Besar Trah Hadiwijoyo", "Keluarga Besar Bapak Budi Santoso", "Paguyuban Warga Laweyan", "Rekan Kerja Bank Jateng"],

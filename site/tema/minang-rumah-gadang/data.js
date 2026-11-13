@@ -12,7 +12,7 @@ window.UNDANGAN = {
   tampilan: { gelap: ["salam", "kisah", "countdown", "konfirmasi", "hadiah", "penutup"] },
   // Gaya foto: bingkai & cara muncul (lihat bagian 5 dokumen kerangka)
   gayaFoto: { hero: "lengkung", heroMuncul: "parallax", profil: "oval", profilMuncul: "zoom", kisah: "persegi", kisahMuncul: "zoom", galeri: "carousel" },
-  foto: { utama: "foto/hero.jpg" },
+  foto: { utama: "foto/utama.jpg" },
 
   pasangan: {
     urutan: "wanita-dulu",
@@ -49,11 +49,11 @@ window.UNDANGAN = {
   ],
 
   kisah: [
-    { waktu: "2023", judul: "Bakenalan", teks: "Bertemu di rantau, sama-sama anak Minang yang merindukan kampung halaman.", foto: "foto/g04.jpg" },
-    { waktu: "2026", judul: "Maminang", teks: "Sesuai adat Minangkabau, keluarga Rahmi datang meminang ke rumah keluarga Fadhil. Alhamdulillah, diterima.", foto: "foto/g09.jpg" },
-    { waktu: "2026", judul: "Batimbang Tando", teks: "Kedua keluarga bertukar tanda sebagai ikatan janji menuju hari baralek.", foto: "foto/g07.jpg" },
+    { waktu: "2023", judul: "Bakenalan", teks: "Bertemu di rantau, sama-sama anak Minang yang merindukan kampung halaman.", foto: "foto/g3.jpg" },
+    { waktu: "2026", judul: "Maminang", teks: "Sesuai adat Minangkabau, keluarga Rahmi datang meminang ke rumah keluarga Fadhil. Alhamdulillah, diterima.", foto: "foto/g4.jpg" },
+    { waktu: "2026", judul: "Batimbang Tando", teks: "Kedua keluarga bertukar tanda sebagai ikatan janji menuju hari baralek.", foto: "foto/g5.jpg" },
   ],
-  galeri: ["foto/g03.jpg", "foto/g01.jpg", "foto/g05.jpg", "foto/g10.jpg", "foto/g02.jpg", "foto/g06.jpg"],
+  galeri: ["foto/g1.jpg", "foto/g2.jpg", "foto/g3.jpg", "foto/g4.jpg", "foto/g5.jpg", "foto/g6.jpg"],
 
   jumlahKonfirmasi: 128,
   turutMengundang: ["Keluarga Besar Suku Piliang", "Keluarga Besar Dt. Rajo Lelo", "Ikatan Keluarga Pariangan Perantauan", "Rekan Kerja PT Semen Padang"],

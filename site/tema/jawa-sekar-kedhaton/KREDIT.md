@@ -8,4 +8,4 @@ Semua ilustrasi berstatus domain publik (Wikimedia Commons), lalu diwarnai ulang
 - `aset/gelatik.webp`: gelatik Jawa, *Zoological Illustrations* vol. III plat 156 (W. Swainson). [Commons](https://commons.wikimedia.org/wiki/File:Zoological_Illustrations_Volume_III_Plate_156.jpg)
 - `aset/melati.webp`: *Jasminum sambac*, Flora de Filipinas (M. Blanco, 1880-1883). [Commons](https://commons.wikimedia.org/wiki/File:Jasminum_sambac_Blanco1.6-cropped.jpg)
 - `ronce.svg`: digambar sendiri.
-- Foto demo: Rizky Motion (Unsplash License). Untuk klien diganti foto klien.
+- Foto demo berbusana adat Jawa (Pexels License, bebas untuk usaha): oneprophoto (pasangan berblangkon dan berkebaya), permatafoto, Afiful Huda (prosesi berkebaya beludru dan kirab). Untuk klien diganti foto klien.
