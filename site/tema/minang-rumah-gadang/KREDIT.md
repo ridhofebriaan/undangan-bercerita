@@ -6,3 +6,4 @@ Semua ilustrasi berstatus domain publik (Wikimedia Commons), lalu diwarnai ulang
 - `aset/anthurium.webp`: *Anthurium scherzerianum*, Curtis's Botanical Magazine (1862). [Commons](https://commons.wikimedia.org/wiki/File:Anthurium_scherzerianum_CBM.png)
 - `rumbai.svg`: digambar sendiri.
 - Foto demo berbusana adat Minang (Pexels License, bebas untuk usaha): Iskandar Zovanda (pasangan bersuntiang dan berdeta), Rafi Sariadi, Juriadi. Untuk klien diganti foto klien.
+- `../../assets/musik/musik-minang.m4a`: dari berkas `minang1.mp3` yang disediakan pemilik, dikonversi ke AAC.

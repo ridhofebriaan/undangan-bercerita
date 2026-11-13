@@ -65,7 +65,7 @@ window.UNDANGAN = {
   ],
   alamatKado: "Nagari Pariangan, Kec. Pariangan, Kab. Tanah Datar, Sumatera Barat 27264 (a.n. Rahmi)",
 
-  musik: "../../assets/musik/musik-1.m4a",
+  musik: "../../assets/musik/musik-minang.m4a",
   penutup: "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu. Atas kehadiran dan doanya, kami ucapkan tarimo kasih.",
   contohUcapan: [
     { nama: "Keluarga Mamak Datuak", hadir: "Hadir", ucapan: "Barakallahu lakuma. Semoga menjadi keluarga yang sakinah, mawaddah, wa rahmah." },
