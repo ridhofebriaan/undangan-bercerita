@@ -1,5 +1,7 @@
 # Kerangka Undangan Digital RB Digital
 
+> **Format lain:** [Format Pintu](format-pintu.md) (pola tema Melayu) dan [koleksi Modern Klasik](koleksi-modern-klasik.md).
+
 Dokumen ini adalah standar baku untuk semua undangan RB Digital. Setiap undangan baru wajib mengikuti kerangka ini. Yang boleh berbeda antarundangan hanya **paket aset** (ilustrasi, ornamen, palet, huruf) dan **gaya foto**.
 
 - **Acuan struktur:** [our-wedding.link/design/traditional-minang](https://our-wedding.link/design/traditional-minang). Yang diambil hanya alur, komponen, dan prinsip tata letaknya. Ilustrasi, foto, teks, dan kode milik mereka **tidak** disalin.
