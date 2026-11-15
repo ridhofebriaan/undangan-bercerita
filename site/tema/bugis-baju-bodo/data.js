@@ -66,8 +66,7 @@ window.UNDANGAN = {
   ],
   alamatKado: "Jl. Andi Djemma No. 18, Banta-Bantaeng, Rappocini, Kota Makassar 90222 (a.n. Tenri)",
 
-  // Sementara memakai musik umum; ganti ke musik kecapi Bugis bila berkasnya sudah ada
-  musik: "../../assets/musik/musik-1.m4a",
+  musik: "../../assets/musik/musik-bugis.m4a",
   penutup: "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu. Atas kehadiran dan doanya, kami ucapkan terima kasih.",
   contohUcapan: [
     { nama: "Keluarga Puang Haji", hadir: "Hadir", ucapan: "Barakallahu lakuma. Semoga menjadi keluarga yang sakinah, mawaddah, warahmah." },

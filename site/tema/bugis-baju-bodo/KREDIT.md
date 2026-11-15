@@ -7,4 +7,4 @@ Ilustrasi berstatus domain publik (Wikimedia Commons), lalu diwarnai ulang hijau
 - `aset/pacar.webp`: *Lawsonia inermis* (daun pacar), Flora de Filipinas (M. Blanco, 1880-1883). [Commons](https://commons.wikimedia.org/wiki/File:Lawsonia_inermis_Blanco1.108-cropped.jpg)
 - `timpa.svg` (atap timpa' laja dengan anjong) dan `sutra.svg` (kotak sarung sutra): digambar sendiri.
 - Foto demo berbusana adat Bugis-Makassar (baju bodo, mahkota emas, jas dan hiasan kepala pria), Pexels License (bebas untuk usaha), nomor foto di pexels.com: 35423359, 31916654, 35468134, 35423388, 31916653, 36232571, 36489036, 36253193, 36252837, 35423368, 31916656, 36252839, 36798352. Untuk klien diganti foto klien.
-- `../../assets/musik/musik-1.m4a`: musik sementara. Ganti ke musik kecapi Bugis bila berkasnya sudah ada.
+- `../../assets/musik/musik-bugis.m4a`: dari berkas `bugis.mp3` yang disediakan pemilik, dikonversi ke AAC.
