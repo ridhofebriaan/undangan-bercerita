@@ -3,7 +3,7 @@
 // lalu membuat poster tajam dari frame pertama hasil akhir (≤ 150 KB).
 // Pakai: node video.js jobs.json
 // Job: { src, out, poster, mulai: 0, durasi: 8, rasio: "4:5" | "9:16" | "2.39:1" | "16:9",
-//        lebar: 720, fokusX: 0.5, fokusY: 0.5, fps: 24, targetMB: 1.8, saturasi: 1, hitamPutih: false }
+//        lebar: 720, fokusX: 0.5, fokusY: 0.5, fps: 24, targetMB: 1.8, saturasi: 1, hitamPutih: false, nada: "hangat" }
 const { execFileSync } = require("child_process");
 const fs = require("fs");
 const ffmpeg = require("ffmpeg-static");
@@ -17,7 +17,10 @@ for (const j of jobs) {
   const W = genap(j.lebar || 720), H = genap(W / R);
   const fx = j.fokusX ?? 0.5, fy = j.fokusY ?? 0.5;
   const durasi = j.durasi || 8, fps = j.fps || 24;
-  const warna = j.hitamPutih ? "hue=s=0" : `eq=saturation=${j.saturasi ?? 1}`;
+  // Nada warna: "hangat" = monokrom hangat (selaras palet gelap-hangat), hitamPutih, atau saturasi biasa
+  const warna = j.nada === "hangat"
+    ? "hue=s=0,colorbalance=rs=0.05:gs=0.01:bs=-0.05:rm=0.07:gm=0.02:bm=-0.07:rh=0.03:bh=-0.03,eq=contrast=1.05"
+    : j.hitamPutih ? "hue=s=0" : `eq=saturation=${j.saturasi ?? 1}`;
   const vf = [
     `crop='min(iw,ih*${R})':'min(ih,iw/${R})':'(iw-ow)*${fx}':'(ih-oh)*${fy}'`,
     `scale=${W}:${H}:flags=lanczos`, `fps=${fps}`, warna, "format=yuv420p",

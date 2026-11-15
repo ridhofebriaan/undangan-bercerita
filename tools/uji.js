@@ -12,7 +12,7 @@ const [out, ...kodes] = process.argv.slice(2);
     p.on("console", (m) => m.type() === "error" && errs.push("console " + m.text().slice(0, 120)));
     p.on("response", (r) => r.status() >= 400 && errs.push(r.status() + " " + r.url().slice(0, 100)));
     await p.emulate({ viewport: { width: 360, height: 740, deviceScaleFactor: 1, isMobile: true, hasTouch: true }, userAgent: "Mozilla/5.0 (Linux; Android 11) AppleWebKit/537.36 Chrome/120 Mobile Safari/537.36" });
-    await p.goto(`http://localhost:8765/tema/${kode}/?to=Bapak%20Ahmad`, { waitUntil: "networkidle0" });
+    await p.goto(`http://localhost:8765/tema/${kode}/?to=Bapak%20Ahmad${process.env.Q || ""}`, { waitUntil: "networkidle0" });
     await p.evaluate(() => document.fonts.ready);
     await wait(2600);
     const shots = [];

@@ -1,0 +1,46 @@
+/* Tema "Atelier" (koleksi Modern Klasik, docs/koleksi-modern-klasik.md).
+   Palet M6 Espresso & Perunggu, mode gelap (pilihan user, skor warna-mewah 100). Foto dan video monokrom hangat.
+   Bentuk dan tata letak diatur engine/modern-klasik.css; file ini hanya token warna, huruf, dan sentuhan tema. */
+:root {
+  --bg: #231b18;
+  --bg-outer: #17110f;
+  --surface: #2b221f;
+  --primary: #ede8e2;
+  --primary-ink: #231b18;
+  --accent: #a8825f;
+  --accent-text: #c19d7a;
+  --logam: #a8825f;
+  --ink: #e2dcd5;
+  --muted: #b0a59c;
+  --line: rgba(233, 229, 225, 0.14);
+  /* Bagian selingan terang (D.tampilan.gelap): latar terang, teks espresso */
+  --gelap: #e9e5e1;
+  --on-gelap: #231b18;
+  --emas-terang: #765a40;
+  --cover-bg: #1d1714;
+  --font-display: "Gilda Display", "Times New Roman", serif;
+  --font-name: "Gilda Display", "Times New Roman", serif;
+  --font-body: "Manrope", system-ui, sans-serif;
+}
+body { font-weight: 300; }
+
+/* Token dibalik di bagian selingan terang, supaya semua elemen di dalamnya ikut kontras */
+.koleksi-modern-klasik .sec.gelap {
+  --primary: #231b18;
+  --primary-ink: #e9e5e1;
+  --ink: #2e2420;
+  --muted: #6a5a50;
+  --line: rgba(35, 27, 24, 0.16);
+  --surface: #f1eeea;
+  --accent-text: #765a40;
+  --logam: #765a40;
+}
+
+/* Cover: foto pasangan samar di balik kartu akses */
+.cover .photo-bg img { object-position: center 20%; }
+
+/* Musik dan kredit */
+.music-btn { background: var(--primary); }
+.music-btn svg { fill: var(--primary-ink); }
+.credit { color: var(--muted); }
+.credit a { color: var(--accent-text); }

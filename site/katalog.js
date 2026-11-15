@@ -15,6 +15,17 @@ window.KATALOG = {
       siap: true,
     },
     {
+      kode: "modern-atelier",
+      adat: "Modern Klasik",
+      nama: "Atelier",
+      harga: 249000,
+      tag: "Premium",
+      deskripsi: "Koleksi Modern Klasik untuk pasangan profesional: espresso dan perunggu, video sinematik, kartu akses bernomor untuk tiap tamu, susunan acara bergaya agenda, dress code, dan info tamu.",
+      demo: "tema/modern-atelier/?to=Bapak%20Ahmad&no=48&kursi=2",
+      gambar: "assets/katalog/modern-atelier.webp",
+      siap: true,
+    },
+    {
       kode: "minang-rumah-gadang",
       adat: "Minangkabau",
       nama: "Rumah Gadang",

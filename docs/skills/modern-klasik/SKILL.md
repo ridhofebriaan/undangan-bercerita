@@ -34,11 +34,12 @@ description: Merancang, membangun, atau menilai undangan koleksi Modern Klasik R
    - **Video:** cari di Pexels Video. Unduh berkas MP4 ukuran HD, pilih detik terbaik, lalu jalankan `node tools/video.js jobs.json` untuk memotong, mengompres, membuang suara, dan membuat poster. Periksa posternya dengan `lembar.js`.
    - Catat sumber dan nomor foto atau video di `KREDIT.md`.
    - User-Agent saat mengunduh tidak boleh memuat email user.
-4. **Membangun:** salin templat koleksi ke `site/tema/<kode>/`, isi `data.js` (`koleksi: "modern-klasik"`, `zonaWaktu`, dan isian baru di dokumen bagian 14), lalu tulis `tema.css` dari token palet.
+4. **Membangun:** salin `site/tema/modern-atelier/` (templat koleksi) ke `site/tema/<kode>/`, isi `data.js` (daftar isian di dokumen bagian 14), lalu ganti token palet dan huruf di `tema.css`. Untuk mode gelap, balik token warna bagian selingan di `.koleksi-modern-klasik .sec.gelap`.
 5. **Uji:** jalankan server `cd site && python3 -m http.server 8765`, lalu:
    - `node tools/uji.js <keluaran> <kode>` untuk error, lebar, dan tombol;
    - `node tools/hd.js <awalan> <kode> <bagian...>` untuk cek visual;
-   - emulasi jaringan lambat dan kurangi gerak untuk memastikan poster tajam tampil sejak awal.
+   - `node tools/uji-video.js <kode>` untuk memeriksa video berputar, bobot (awal < 3 MB, total ≤ 12 MB), kurangi gerak, hemat data, dan poster hero di 3G;
+   - parameter tautan tamu bisa ditambah lewat `Q="&no=48&kursi=2"` di depan perintah `uji.js` atau `hd.js`.
 6. **Tayang:** entri `site/katalog.js` dan thumbnail cover 360×740 @1,5× (JPG dan WebP) di `site/assets/katalog/`. Lalu commit, push, dan tunggu sampai halaman tayang.
 
 ## Kesalahan yang pernah terjadi (jangan diulang)
@@ -50,6 +51,12 @@ description: Merancang, membangun, atau menilai undangan koleksi Modern Klasik R
 - Email user ikut terkirim di User-Agent.
 - Berkas mentah (mp3 atau video asli) ikut di-commit. Yang di-commit hanya hasil olahan.
 - Mengerjakan perintah setengah jalan. Jalankan perintah user sampai tuntas.
+
+## Kesalahan teknis yang sudah ditemukan
+
+- `kerangka.css` memasang `--on-gelap` dan `--emas-terang` di `body.k2`, sehingga nilai di `:root` tema tertimpa. `modern-klasik.css` sudah mengarahkannya ke token selingan. Jangan andalkan nilai `:root` untuk kedua token ini.
+- Kontras logam di latar terang mudah jatuh di bawah 4,5:1. Cek dengan hitungan kontras, lalu gelapkan logam khusus untuk bagian terang.
+- Klip stok yang menampilkan wajah orang lain membuat pasangan di video berbeda dengan di foto. Pakai klip detail tanpa wajah (tangan, dasi, korsase), atau video klien sendiri.
 
 ## Palet terpilih
 

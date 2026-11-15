@@ -158,12 +158,29 @@ Menu melayang tetap dipakai.
 4. **Membangun:** menyalin templat koleksi, mengisi `data.js`, dan menulis `tema.css`.
 5. **Uji, katalog, tayang:** jalankan checklist, buat thumbnail, push, dan cek sampai tayang.
 
-## 14. Kebutuhan engine (belum dibuat)
+## 14. Fitur engine dan isian data.js
 
-Fitur yang perlu ditambahkan ke engine sebelum undangan pertama koleksi ini:
+Sudah tersedia (15 Nov 2026). Contoh lengkap ada di `site/tema/modern-atelier/` (tema Atelier), dan folder itu juga menjadi templat koleksi.
 
-- Isian `koleksi: "modern-klasik"` untuk mengaktifkan gaya koleksi (garis lurus, tanpa lengkung, tanpa partikel).
-- Nomor undangan dan jumlah kursi dari tautan tamu, misalnya `?to=Bapak%20Ahmad&no=48&kursi=2`, dengan total di `undangan.total`.
-- `video.hero`, `video.selingan[]`, dan item galeri berupa video (`{ video, poster }`), lengkap dengan pemuatan malas, jeda di luar layar, dan cadangan poster.
-- Bagian baru: `dressCode`, `infoTamu`, `batasKonfirmasi`, dan kartu masuk QR (opsional).
-- `bahasa: "id" | "en"` untuk versi dua bahasa (tahap berikutnya).
+| Isian `data.js` | Fungsi |
+|---|---|
+| `koleksi: "modern-klasik"` | Mengaktifkan gaya koleksi (`engine/modern-klasik.css`): garis lurus, tanpa ornamen, urutan bagian koleksi |
+| `monogram: "A·R"` | Monogram di cover dan penutup |
+| `undangan: { total, kursiBawaan, catatan }` | Nomor undangan `No. 048 / 150`, jumlah kursi, dan catatan privasi |
+| Tautan tamu `?to=Nama&no=48&kursi=2` | Nama, nomor undangan, dan jumlah kursi per tamu. Tanpa `no`, nomor tidak ditampilkan |
+| `video: { hero: { src, poster }, selingan: [{ src, poster, kutipan }] }` | Video hero berposter dan selingan letterbox |
+| Item galeri `{ video, poster }` | Video di galeri, diputar saat terlihat. Lightbox ikut memutar video |
+| `dressCode: { judul, teks, warna: [{ nama, hex }] }` | Bagian dress code dengan contoh warna |
+| `infoTamu: [{ judul, teks }]` | Bagian info tamu |
+| `batasKonfirmasi: "2027-11-20"` | Batas konfirmasi di bagian konfirmasi dan RSVP. Pilihan jumlah tamu dibatasi sesuai kursi |
+| `tampilan.gelap` | Untuk tema bermode gelap, berisi bagian selingan berlatar terang. Tema membalik token warnanya di `.koleksi-modern-klasik .sec.gelap` |
+
+Hadiah tampil diskret di balik tombol "Lihat Rekening & Alamat". Saat tamu memilih kurangi gerak atau hemat data, video tidak dimuat sama sekali.
+
+**Alat uji video:** `node tools/uji-video.js <kode>` memeriksa 4 hal:
+- video berputar dan bobot halaman;
+- skenario kurangi gerak;
+- skenario hemat data;
+- poster hero di jaringan 3G.
+
+**Belum dibuat:** kartu masuk QR dan versi dua bahasa (`bahasa: "id" | "en"`).

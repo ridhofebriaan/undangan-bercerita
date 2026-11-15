@@ -12,6 +12,13 @@
   var TZ = ZONA[ZW];
   var params = new URLSearchParams(location.search);
   var guest = (params.get("to") || "").trim().slice(0, 60);
+  // Nomor undangan & jumlah kursi dari tautan tamu: ?to=Nama&no=48&kursi=2 (D.undangan = { total, kursiBawaan, catatan })
+  var UND = D.undangan || {};
+  var noTamu = parseInt(params.get("no"), 10) || 0;
+  var kursi = Math.min(10, parseInt(params.get("kursi"), 10) || +UND.kursiBawaan || 0);
+  function nomorUndangan() {
+    return noTamu ? "No. " + String(noTamu).padStart(3, "0") + (UND.total ? " / " + UND.total : "") : "";
+  }
 
   // ---------- Helper ----------
   function el(tag, cls, text) {
@@ -53,6 +60,40 @@
   if (K2) document.body.classList.add("k2");
   var GF = D.gayaFoto || {};
   if (K2 && GF.garis === "tipis") document.body.classList.add("garis-tipis");
+  // Koleksi (mis. "modern-klasik", docs/koleksi-modern-klasik.md): gaya dan bagian khusus koleksi
+  var MK = D.koleksi === "modern-klasik";
+  if (D.koleksi) document.body.classList.add("koleksi-" + D.koleksi);
+  // Kurangi gerak atau hemat data: video tidak dimuat, yang tampil poster saja
+  var HEMAT = (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) || !!(navigator.connection && navigator.connection.saveData);
+  // Klip video berposter: poster tajam tampil sejak awal, video menggantikan setelah benar-benar berputar.
+  // v = { src, poster, alt, malas }. Video baru dimuat saat mendekati layar dan dijeda di luar layar (lihat bagian bawah).
+  var klipVideo = [];
+  function videoKlip(v, cls) {
+    var f = el("figure", "klip " + (cls || ""));
+    var pos = el("img", "klip-poster");
+    pos.src = v.poster;
+    pos.alt = v.alt || "";
+    pos.decoding = "async";
+    if (v.malas) pos.loading = "lazy";
+    f.appendChild(pos);
+    if (!HEMAT && v.src) {
+      var vid = el("video", "klip-video");
+      vid.muted = true;
+      vid.defaultMuted = true;
+      vid.loop = true;
+      vid.playsInline = true;
+      vid.preload = "none";
+      vid.setAttribute("muted", "");
+      vid.setAttribute("playsinline", "");
+      vid.setAttribute("aria-hidden", "true");
+      vid.poster = v.poster;
+      vid.dataset.src = v.src;
+      vid.addEventListener("playing", function () { f.classList.add("siap"); });
+      f.appendChild(vid);
+      klipVideo.push(vid);
+    }
+    return f;
+  }
   function bingkaiFoto(src, bentuk, muncul, alt, malas) {
     var f = el("figure", "bingkai bingkai-" + (bentuk || "lengkung") + (muncul ? " muncul-" + muncul : ""));
     var img = el("img");
@@ -188,19 +229,23 @@
         f.appendChild(img);
         return f;
       })(),
+      MK ? add(el("div", "akses-atas"), el("span", "", teks("labelPribadi", "Undangan Pribadi")), nomorUndangan() ? el("span", "no-undangan", nomorUndangan()) : null) : null,
+      MK && D.monogram ? el("p", "monogram", D.monogram) : null,
       el("p", "label", D.label || "Undangan Pernikahan"),
       namaPasangan(),
       el("p", "cover-date", tanggal(acaraUtama.mulai)),
       add(el("div", "guest"),
         el("p", "", teks("kepada", "Kepada Yth.")),
         el("p", "guest-name", guest || "Bapak/Ibu/Saudara/i"),
+        MK && kursi ? el("p", "guest-kursi", teks("kursi", "Berlaku untuk") + " " + kursi + " orang") : null,
         el("p", "guest-note", teks("catatanTamu", "Mohon maaf bila ada kesalahan penulisan nama dan gelar"))),
       (function () {
         var b = el("button", "btn btn-primary btn-open", teks("tombolBuka", "Buka Undangan"));
         b.type = "button";
         b.addEventListener("click", buka);
         return b;
-      })()));
+      })(),
+      MK && UND.catatan ? el("p", "catatan-privasi", UND.catatan) : null));
   document.body.insertBefore(cover, app);
   document.body.classList.add("locked");
 
@@ -217,7 +262,8 @@
         return a;
       })(),
       el("p", "label", D.label || "Undangan Pernikahan"),
-      K2 && FOTO.utama ? add(el("div", "bingkai-wadah"), bingkaiFoto(FOTO.utama, GF.hero, GF.heroMuncul, namaPendek)) : null,
+      K2 && D.video && D.video.hero ? add(el("div", "bingkai-wadah"), videoKlip(D.video.hero, "bingkai bingkai-" + (GF.hero || "penuh")))
+        : K2 && FOTO.utama ? add(el("div", "bingkai-wadah"), bingkaiFoto(FOTO.utama, GF.hero, GF.heroMuncul, namaPendek)) : null,
       namaPasangan("big"),
       el("p", "hero-date", tanggal(acaraUtama.mulai)),
       D.hashtag ? el("p", "hashtag", D.hashtag) : null));
@@ -368,11 +414,17 @@
     D.galeri.forEach(function (src, i) {
       var b = el("button", "g-item reveal");
       b.type = "button";
-      var img = el("img");
-      img.src = src;
-      img.alt = "Foto " + (i + 1);
-      img.loading = "lazy";
-      b.appendChild(img);
+      if (src && typeof src === "object") {
+        b.classList.add("g-video");
+        b.setAttribute("aria-label", "Video " + (i + 1));
+        b.appendChild(videoKlip({ src: src.video, poster: src.poster, malas: true }, "g-klip"));
+      } else {
+        var img = el("img");
+        img.src = src;
+        img.alt = "Foto " + (i + 1);
+        img.loading = "lazy";
+        b.appendChild(img);
+      }
       b.addEventListener("click", function () { lightbox(i, b); });
       grid.appendChild(b);
     });
@@ -398,6 +450,12 @@
     lb.setAttribute("aria-label", "Galeri foto");
     var img = el("img");
     img.alt = "";
+    var lbVid = el("video", "lb-video");
+    lbVid.muted = true;
+    lbVid.loop = true;
+    lbVid.playsInline = true;
+    lbVid.setAttribute("playsinline", "");
+    lbVid.hidden = true;
     var info = el("p", "lb-count");
     function tombol(cls, label, isi) {
       var b = el("button", "lb-btn " + cls);
@@ -411,10 +469,28 @@
     var next = tombol("lb-next", "Foto berikutnya", '<svg viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg>');
     function tampil(n) {
       idx = (n + fotos.length) % fotos.length;
-      img.src = fotos[idx];
+      var it = fotos[idx];
+      if (it && typeof it === "object") {
+        img.src = it.poster;
+        if (!HEMAT) {
+          lbVid.poster = it.poster;
+          lbVid.src = it.video;
+          lbVid.hidden = false;
+          img.hidden = true;
+          var pv = lbVid.play();
+          if (pv && pv.catch) pv.catch(function () {});
+        }
+      } else {
+        lbVid.pause();
+        lbVid.removeAttribute("src");
+        lbVid.hidden = true;
+        img.hidden = false;
+        img.src = it;
+      }
       info.textContent = (idx + 1) + " / " + fotos.length;
     }
     function selesai() {
+      lbVid.pause();
       document.removeEventListener("keydown", kunci);
       lb.remove();
       if (opener) opener.focus();
@@ -438,7 +514,7 @@
     });
     document.addEventListener("keydown", kunci);
     if (fotos.length < 2) { prev.hidden = true; next.hidden = true; }
-    add(lb, img, info, prev, next, tutup);
+    add(lb, img, lbVid, info, prev, next, tutup);
     tampil(start);
     document.body.appendChild(lb);
     tutup.focus();
@@ -453,11 +529,14 @@
     '<fieldset class="choice"><legend>Kehadiran</legend>' +
     '<label><input type="radio" name="hadir" value="Hadir" checked> ' + teks("hadir", ISLAM ? "Insya Allah hadir" : "Akan hadir") + '</label>' +
     '<label><input type="radio" name="hadir" value="Berhalangan"> Berhalangan</label></fieldset>' +
-    '<label>Jumlah tamu<select name="jumlah"><option>1</option><option>2</option><option>3</option><option>4</option></select></label>' +
+    '<label>Jumlah tamu' + (kursi ? " (maks. " + kursi + ")" : "") + '<select name="jumlah">' +
+    Array.from({ length: kursi || 4 }, function (_, i) { return "<option>" + (i + 1) + "</option>"; }).join("") + '</select></label>' +
     '<label>Ucapan & doa<textarea name="ucapan" rows="3" maxlength="280" placeholder="' + teks("contohUcapan", ISLAM ? "Barakallahu lakuma..." : "Selamat berbahagia...") + '"></textarea></label>' +
     '<button class="btn btn-primary" type="submit">Kirim</button><p class="form-note" role="status"></p>';
   var list = el("ul", "wishes");
-  add(rv, form, list);
+  // Batas konfirmasi (opsional): D.batasKonfirmasi = "2027-11-20"
+  function teksBatas() { return teks("batasKonfirmasi", "Mohon konfirmasi sebelum") + " " + tanggal(D.batasKonfirmasi + "T12:00:00+07:00"); }
+  add(rv, D.batasKonfirmasi ? el("p", "batas-rsvp reveal", teksBatas()) : null, form, list);
   app.appendChild(rv);
   if (guest) form.nama.value = guest;
 
@@ -508,6 +587,13 @@
       });
       add(hd, add(el("div", "card kado reveal"), el("p", "gift-bank", "Kirim Kado"), el("p", "kado-addr", D.alamatKado), bk));
     }
+    if (MK) {
+      // Diskret: rekening dan alamat tersembunyi di balik tombol
+      var det = el("details", "hadiah-detail reveal");
+      det.appendChild(el("summary", "btn btn-ghost", teks("tombolHadiah", "Lihat Rekening & Alamat")));
+      Array.prototype.slice.call(hd.querySelectorAll(".gift, .kado")).forEach(function (x) { x.classList.remove("reveal"); det.appendChild(x); });
+      hd.appendChild(det);
+    }
     app.appendChild(hd);
   }
 
@@ -518,7 +604,9 @@
       el("p", "penutup-text", D.penutup || "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu."),
       el("p", "salam-open", teks("salamPenutup", D.salam && D.salam.penutup ? D.salam.penutup : "Wassalamu'alaikum Warahmatullahi Wabarakatuh")),
       el("p", "penutup-from", teks("dariKami", "Kami yang berbahagia")),
-      namaPasangan()));
+      namaPasangan(),
+      MK && D.monogram ? el("p", "monogram", D.monogram) : null,
+      MK && nomorUndangan() ? el("p", "no-undangan", nomorUndangan()) : null));
   app.appendChild(pn);
 
   if (K2) {
@@ -527,7 +615,7 @@
     var jumlah = el("p", "konfirmasi-jumlah reveal");
     var keForm = el("a", "btn btn-primary reveal", teks("tombolRsvp", "Konfirmasi Kehadiran"));
     keForm.href = "#rsvp";
-    add(kf, jumlah, keForm);
+    add(kf, jumlah, D.batasKonfirmasi ? el("p", "batas-rsvp reveal", teksBatas()) : null, keForm);
     if (D.turutMengundang && D.turutMengundang.length) {
       var tu = el("div", "turut reveal");
       tu.appendChild(el("p", "turut-judul", teks("turutMengundang", "Turut Mengundang")));
@@ -554,8 +642,43 @@
       app.appendChild(st);
     }
 
-    // Urutan baku kerangka
-    ["hero", "salam", "pembuka", "mempelai", "kisah", "galeri", "countdown", "acara", "konfirmasi", "streaming", "hadiah", "rsvp", "penutup"]
+    // Selingan sinematik (opsional): D.video.selingan = [{ src, poster, kutipan }]
+    if (D.video && D.video.selingan) {
+      D.video.selingan.forEach(function (v, i) {
+        var sl = section("selingan" + (i + 1));
+        sl.classList.add("sec-selingan");
+        add(sl, videoKlip({ src: v.src, poster: v.poster, malas: true }, "letterbox reveal"), v.kutipan ? el("p", "selingan-kutipan reveal", v.kutipan) : null);
+        app.appendChild(sl);
+      });
+    }
+    // Dress code (opsional): D.dressCode = { judul, teks, warna: [{ nama, hex }] }
+    if (D.dressCode) {
+      var dc = section("dresscode", "Dress Code", "Busana");
+      add(dc, el("p", "dress-judul reveal", D.dressCode.judul), D.dressCode.teks ? el("p", "sec-desc reveal", D.dressCode.teks) : null);
+      if (D.dressCode.warna && D.dressCode.warna.length) {
+        var sw = el("ul", "dress-warna reveal");
+        D.dressCode.warna.forEach(function (w) {
+          var li = el("li"), bulat = el("i");
+          bulat.style.background = w.hex;
+          add(li, bulat, el("span", "", w.nama));
+          sw.appendChild(li);
+        });
+        dc.appendChild(sw);
+      }
+      app.appendChild(dc);
+    }
+    // Info tamu (opsional): D.infoTamu = [{ judul, teks }]
+    if (D.infoTamu && D.infoTamu.length) {
+      var itm = section("infotamu", "Info Tamu", "Untuk kenyamanan Anda");
+      var dl = el("dl", "info-tamu reveal");
+      D.infoTamu.forEach(function (x) { add(dl, el("dt", "", x.judul), el("dd", "", x.teks)); });
+      itm.appendChild(dl);
+      app.appendChild(itm);
+    }
+
+    // Urutan baku kerangka (koleksi Modern Klasik punya urutan sendiri)
+    (MK ? ["hero", "salam", "pembuka", "mempelai", "kisah", "selingan1", "countdown", "acara", "dresscode", "infotamu", "galeri", "selingan2", "konfirmasi", "rsvp", "hadiah", "streaming", "penutup"]
+      : ["hero", "salam", "pembuka", "mempelai", "kisah", "galeri", "countdown", "acara", "konfirmasi", "streaming", "hadiah", "rsvp", "penutup"])
       .forEach(function (id) { var x = document.getElementById(id); if (x && x.parentNode === app) app.appendChild(x); });
   }
 
@@ -678,6 +801,23 @@
   } else {
     reveals.forEach(function (r) { r.classList.add("in"); });
     iframe.src = iframe.dataset.src;
+  }
+
+  // ---------- Video berposter: muat saat mendekati layar, jeda di luar layar ----------
+  if (klipVideo.length && "IntersectionObserver" in window) {
+    var vo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        var v = en.target;
+        if (en.isIntersecting) {
+          if (!v.getAttribute("src")) v.src = v.dataset.src;
+          var pv = v.play();
+          if (pv && pv.catch) pv.catch(function () {});
+        } else if (!v.paused) {
+          v.pause();
+        }
+      });
+    }, { rootMargin: "200px 0px" });
+    klipVideo.forEach(function (v) { vo.observe(v); });
   }
 
   // ---------- Kerangka v2: menu melayang + parallax lapisan ----------
