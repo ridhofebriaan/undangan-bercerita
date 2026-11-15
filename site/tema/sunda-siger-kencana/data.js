@@ -65,8 +65,7 @@ window.UNDANGAN = {
   ],
   alamatKado: "Jl. Dago Pojok No. 21, Coblong, Kota Bandung 40135 (a.n. Intan)",
 
-  // Sementara memakai musik umum; ganti ke musik degung Sunda bila berkasnya sudah ada
-  musik: "../../assets/musik/musik-1.m4a",
+  musik: "../../assets/musik/musik-sunda.m4a",
   penutup: "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu. Atas kehadiran dan doanya, kami ucapkan hatur nuhun.",
   contohUcapan: [
     { nama: "Kulawarga Mang Ujang", hadir: "Hadir", ucapan: "Wilujeng nikah. Mugia janten kulawarga nu sakinah, mawaddah, warahmah." },
