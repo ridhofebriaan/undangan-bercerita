@@ -1,6 +1,6 @@
 # Koleksi Modern Klasik: aturan baku
 
-Dokumen ini adalah standar untuk semua undangan koleksi **Modern Klasik**. Koleksi ini terpisah dari tema adat. Struktur dasarnya tetap mengikuti [kerangka undangan](kerangka-undangan.md), dan warnanya mengikuti skill [warna-mewah](skills/warna-mewah/SKILL.md). Bila ada aturan yang berbeda, dokumen ini yang berlaku untuk koleksi ini.
+Dokumen ini adalah standar untuk semua undangan koleksi **Modern Klasik**. Koleksi ini terpisah dari tema adat. Struktur dasarnya tetap mengikuti [kerangka undangan](kerangka-undangan.md), dan warnanya mengikuti skill [warna-mewah](skills/warna-mewah/SKILL.md). Bila ada aturan yang berbeda, dokumen ini yang berlaku untuk koleksi ini. Ringkasan untuk Claude ada di skill [modern-klasik](skills/modern-klasik/SKILL.md), dan alat bantunya di [`tools/`](../tools/README.md).
 
 ## 1. Untuk siapa
 
