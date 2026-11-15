@@ -89,6 +89,7 @@ Latar krem hangat dengan huruf serif dan aksen cokelat atau emas adalah gaya baw
 | Batu Bali | `#2f4d40` | `#f6f2ea` | `#d9d0bf` batu paras | `#b39257` | Bali, tropis |
 | Biru Kabut | `#263a57` | `#e9eef3` abu kebiruan | `#94a8bf` | `#b8975a` | Sunda (Siger Kencana) |
 | Hijau Embun | `#1e4744` | `#eaf1ed` abu kehijauan | `#a9bfb7` | `#b8975a` | Bugis (Baju Bodo) |
+| Espresso Perunggu | `#231b18` (latar, mode gelap) | `#e9e5e1` | `#6b5a50` | `#a8825f` perunggu | Modern Klasik, profesional, malam |
 | Hitam Emas | `#17130f` | `#efe6d6` | — | `#c5a35f` | Keraton malam, wayang |
 
 ## Tanda bahaya cepat (tanpa alat)

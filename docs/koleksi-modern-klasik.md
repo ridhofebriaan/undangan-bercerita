@@ -36,6 +36,7 @@ Dokumen ini adalah standar untuk semua undangan koleksi **Modern Klasik**. Kolek
 - Setiap tema memilih satu mode:
   - **Terang:** latar netral dingin atau abu batu.
   - **Gelap:** latar arang atau hitam hangat, dengan bagian terang sebagai selingan.
+- **Palet terpilih untuk undangan pertama (15 Nov 2026): M6 Espresso & Perunggu, mode gelap.** Gelap `#231b18`, terang `#e9e5e1`, aksen `#6b5a50`, perunggu `#a8825f`. Skor `periksa.py` 100.
 - Foto dan video diselaraskan dengan palet, misalnya hitam-putih atau warna redup. Penyelarasan dikerjakan saat memproses berkas, bukan dengan filter CSS yang berat.
 
 ## 5. Huruf
