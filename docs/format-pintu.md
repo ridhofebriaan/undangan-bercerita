@@ -170,7 +170,18 @@ Total semua foto paling banyak sekitar 2,5 MB, sehingga muatan awal tanpa musik 
 9. **Uji:** jalankan `cd site && python3 -m http.server 8765`, lalu `node tools/uji.js <keluaran> <kode>` dan `node tools/hd.js <awalan> <kode> salam mempelai acara galeri penutup`.
 10. **Katalog dan tayang:** tambah entri `site/katalog.js`, buat thumbnail cover 360×740 @1,5× (JPG dan WebP) di `site/assets/katalog/`, lalu commit, push, dan cek sampai tayang.
 
-## 11. Checklist sebelum tayang
+## 11. Undangan Format Pintu yang sudah ada
+
+Cek tabel ini sebelum membuat undangan baru, supaya minimal 5 elemen berbeda dan krem atau cincin ganda tidak dipakai berturut-turut.
+
+| Undangan | Palet | Ubin / tepi / sudut / medali | Huruf (judul, nama, teks) | Pintu | Bingkai | Latar terang |
+|---|---|---|---|---|---|---|
+| Melayu | Hijau diraja + emas | Songket / pucuk rebung / awan larat / bunga cengkih | Cinzel, Alex Brush, Lora | Samping | Cincin ganda | Krem |
+| Gorga Toba (Batak) | T9 Merah Karat Gorga: merah karat, hitam, putih, emas | Gorga spiral / ipon-ipon / spiral bersulur / Desa Na Ualu | Forum, Allura, Crimson Pro | Atas-bawah | Modern 1 px | Abu putih |
+
+Bagian gelap Gorga Toba selang-seling: merah (pembuka, tanda kasih) dan hitam (hitung mundur, penutup).
+
+## 12. Checklist sebelum tayang
 
 - [ ] Kedelapan ciri khas (bagian 1) ada dan berfungsi: pintu terbuka, sudut tergambar, nama muncul dari kabur, kelopak berjatuhan, mozaik 12 foto.
 - [ ] Minimal lima elemen berbeda dari undangan Format Pintu lain (bagian 6).

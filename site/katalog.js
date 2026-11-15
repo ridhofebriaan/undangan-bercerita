@@ -70,6 +70,17 @@ window.KATALOG = {
       siap: true,
     },
     {
+      kode: "batak-gorga-toba",
+      adat: "Batak",
+      nama: "Gorga Toba",
+      harga: 99000,
+      tag: "Pakai foto",
+      deskripsi: "Merah karat, hitam, dan putih khas gorga Batak dengan sentuhan emas. Cover pintu bergorga yang terbuka atas-bawah, umpasa Batak, kelopak merah-putih, galeri 12 foto.",
+      demo: "tema/batak-gorga-toba/?to=Bapak%20Ahmad",
+      gambar: "assets/katalog/batak-gorga-toba.webp",
+      siap: true,
+    },
+    {
       kode: "melayu",
       adat: "Melayu",
       nama: "Melayu",
