@@ -24,7 +24,7 @@ Sumber ada di bagian akhir.
 |---|---|---|
 | Saturasi warna terang | C ≤ 0.15 | C > 0.15 dan L > 0.6 (dan neon bila C > 0.20) |
 | Jangkar gelap | L < 0.42, C 0.04–0.15 (nada permata) | Tidak ada nada gelap, atau gelap yang terlalu jenuh (C > 0.17) |
-| Netral latar | L > 0.88, C 0.005–0.04 (gading/krem) | Putih murni #FFFFFF, atau latar terang yang terlalu berwarna (C > 0.05) |
+| Netral latar | L > 0.88, C 0.005–0.04 (gading, krem, atau abu berona palet) | Putih murni #FFFFFF, atau latar terang yang terlalu berwarna (C > 0.05) |
 | Hitam | Hitam hangat (sedikit cokelat/hijau/biru) | Hitam murni #000000 |
 | Emas | Antik/sampanye: h 50–100°, C 0.06–0.13, L 0.6–0.82 | Emas kuning terang (#FFD700, C > 0.15) |
 | Jumlah warna | 3–4 | Lebih dari 5 |
@@ -53,9 +53,20 @@ Palet yang lolos pemeriksa bisa tetap terlihat murah kalau penerapannya salah. I
 - **Ornamen hemat:** satu motif khas yang diulang konsisten lebih mewah daripada banyak ornamen berbeda.
 - **Huruf ikut menentukan:** serif tipis dengan spasi lega terasa mahal; huruf tebal dan rapat terasa promosi.
 
+## Hindari warna bawaan: krem bukan pilihan default
+
+Latar krem hangat dengan huruf serif dan aksen cokelat atau emas adalah gaya bawaan desain buatan AI. Kalau dipakai terus, semua tema terlihat sama. Pengalaman di proyek undangan: lima tema berturut-turut berlatar krem, lalu user menegurnya ("itu warna default Claude"). Aturannya:
+
+- **Netral diambil dari rona palet.** Latar terang memakai rona yang sama dengan jangkar gelap, dibuat sangat pucat (L > 0.88, C 0.006–0.03). Contoh: navy menjadi abu kabut kebiruan, hijau tua menjadi abu embun kehijauan, plum menjadi merah muda pudar, marun boleh tetap gading hangat.
+- **Krem dibatasi.** Paling banyak 2 tema di katalog boleh berlatar krem atau gading. Periksa latar tema yang sudah ada sebelum memilih.
+- **Selalu ada opsi gelap.** Dari setiap set kandidat palet, minimal satu opsi memakai latar gelap dominan (jangkar gelap sebagai latar utama, bagian terang sebagai selingan).
+- **Butiran ikut menyesuaikan.** Tekstur kertas di latar diwarnai sesuai rona palet, bukan cokelat untuk semua tema.
+
+`periksa.py` memberi pengingat `INGAT` (tanpa potong skor) bila netral berwarna krem, atau bila rona netral jauh dari rona jangkar gelap.
+
 ## Proses kerja
 
-1. Tentukan suasana (contoh: adat Minang, malam, keraton) dan pilih atau susun **3 kandidat palet** dari pustaka di bawah. Sesuaikan bila perlu.
+1. Tentukan suasana (contoh: adat Minang, malam, keraton), cek latar tema yang sudah ada di katalog, lalu susun **3 kandidat palet**. Minimal satu kandidat berlatar netral berona palet dan satu berlatar gelap dominan. Krem hanya bila katalog belum punya 2 tema krem.
 2. Jalankan `periksa.py` untuk setiap kandidat. Perbaiki sampai skor ≥ 85.
 3. Tunjukkan ketiganya ke user sebagai contoh warna, dan sebutkan skor serta alasannya singkat.
 4. User memilih. **Simpan pilihan user ke memory** sebagai patokan selera ("palet yang disukai: ...").
@@ -76,6 +87,8 @@ Palet yang lolos pemeriksa bisa tetap terlihat murah kalau penerapannya salah. I
 | Plum Malam | `#3b1f33` | `#f4ebe7` | `#ead7d3` blush | `#b98673` rose gold | Malam, romantis |
 | Mocha Gading | `#5e4537` | `#f6f0e6` | `#d8c3a0` | `#b8a07a` | Quiet luxury, minimalis |
 | Batu Bali | `#2f4d40` | `#f6f2ea` | `#d9d0bf` batu paras | `#b39257` | Bali, tropis |
+| Biru Kabut | `#263a57` | `#e9eef3` abu kebiruan | `#94a8bf` | `#b8975a` | Sunda (Siger Kencana) |
+| Hijau Embun | `#1e4744` | `#eaf1ed` abu kehijauan | `#a9bfb7` | `#b8975a` | Bugis (Baju Bodo) |
 | Hitam Emas | `#17130f` | `#efe6d6` | — | `#c5a35f` | Keraton malam, wayang |
 
 ## Tanda bahaya cepat (tanpa alat)
@@ -85,6 +98,7 @@ Palet yang lolos pemeriksa bisa tetap terlihat murah kalau penerapannya salah. I
 - Putih terasa silau.
 - Lebih dari dua warna menonjol dalam satu layar.
 - Semua bagian berlatar satu warna rata tanpa tekstur atau ilustrasi.
+- Semua tema di katalog berlatar krem yang sama.
 - Ornamen dan emas ada di setiap sudut.
 
 ## Sumber

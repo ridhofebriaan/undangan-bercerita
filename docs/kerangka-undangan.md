@@ -60,7 +60,7 @@ Mengikuti skill **warna-mewah** ([`docs/skills/warna-mewah/`](skills/warna-mewah
 
 - **Komposisi 3–4 warna:**
   - satu jangkar gelap yang dalam dan tidak mencolok (contoh Minang: merah marun);
-  - satu netral hangat untuk latar dan kartu (gading atau krem, bukan putih murni);
+  - satu netral pucat untuk latar dan kartu, diambil dari rona jangkar gelap (contoh: abu kabut kebiruan untuk navy, abu embun kehijauan untuk hijau tua), bukan putih murni;
   - satu aksen kalem (contoh: hijau sage);
   - emas antik atau sampanye.
 - **Proporsi 60-30-10:** netral 60%, jangkar gelap 30%, aksen dan emas paling banyak 10% luas layar. Emas dipakai sebagai kilau tipis (garis, nama, ikon), bukan blok.
@@ -73,7 +73,10 @@ Mengikuti skill **warna-mewah** ([`docs/skills/warna-mewah/`](skills/warna-mewah
   python3 docs/skills/warna-mewah/periksa.py gelap=#.. terang=#.. aksen=#.. emas=#.. teks=#.. --teks teks:terang
   ```
 
-- **Alur memilih:** saya usulkan 3 palet yang lolos pemeriksa, user memilih, dan pilihan itu menjadi patokan berikutnya.
+- **Krem bukan pilihan bawaan.** Latar krem dengan serif dan emas adalah gaya bawaan desain AI, dan kalau dipakai terus semua tema terlihat sama. Paling banyak 2 tema di katalog boleh berlatar krem atau gading. Butiran kertas di latar ikut diwarnai sesuai rona palet.
+- **Alur memilih:** cek dulu latar tema yang sudah ada di katalog. Lalu usulkan 3 palet yang lolos pemeriksa: minimal satu berlatar netral berona palet dan satu berlatar gelap dominan. User memilih, dan pilihan itu menjadi patokan berikutnya.
+
+  Latar tema saat ini: Minang gading hangat, Jawa krem sogan (2 tema krem, kuota penuh), Sunda abu kabut kebiruan, Bugis abu embun kehijauan.
 
 ### 4.3 Huruf
 
@@ -182,6 +185,7 @@ Riset warna, motif, prosesi, dan istilah per adat ada di [`riset/panduan-adat.md
 - [ ] Semua tombol minimal 44 px.
 - [ ] Kontras teks minimal 4,5:1.
 - [ ] Palet lolos `periksa.py` (skor ≥ 85), emas ≤ 10% layar, dan tidak ada latar polos.
+- [ ] Latar tidak krem, kecuali katalog belum punya 2 tema krem; pengingat `INGAT` dari `periksa.py` sudah ditindaklanjuti.
 - [ ] Semua foto pasangan memakai busana adat yang sama dengan tema (tidak ada foto adat lain).
 - [ ] Tidak ada error di konsol, dan tidak ada file yang gagal dimuat.
 - [ ] Siap dalam kurang dari 3 detik di HP kelas menengah. Ukuran total di bawah 3 MB tanpa musik.

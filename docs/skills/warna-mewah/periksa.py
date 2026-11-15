@@ -68,7 +68,7 @@ def periksa(palet, pasangan_teks):
             temuan.append((15, "BURUK", f"{nama}: terang dan jenuh (C={C:.2f}). Warna mewah lebih kalem; pakai versi dusty/muted."))
         # 2. Warna dasar (gelap/terang) terlalu jenuh
         if peran == "terang" and C > 0.05:
-            temuan.append((10, "CATATAN", f"{nama}: latar terang terlalu berwarna (C={C:.2f}). Netral kaya (gading/krem) idealnya C 0.005-0.04."))
+            temuan.append((10, "CATATAN", f"{nama}: latar terang terlalu berwarna (C={C:.2f}). Netral kaya idealnya C 0.005-0.04 (gading, krem, atau abu berona palet)."))
         if peran == "gelap" and C > 0.17:
             temuan.append((10, "CATATAN", f"{nama}: jangkar gelap terlalu jenuh (C={C:.2f}). Nada permata yang mewah biasanya C 0.04-0.15."))
         # 3. Putih murni & hitam murni
@@ -102,9 +102,20 @@ def periksa(palet, pasangan_teks):
     if not ada_gelap:
         temuan.append((12, "CATATAN", "Tidak ada jangkar gelap/dalam (L<0.42). Kemewahan butuh satu nada dalam sebagai bobot."))
     if not ada_netral:
-        temuan.append((8, "CATATAN", "Tidak ada netral terang yang kaya (gading/krem) untuk ruang bernapas."))
+        temuan.append((8, "CATATAN", "Tidak ada netral terang yang kaya (gading, krem, atau abu berona palet) untuk ruang bernapas."))
 
-    # 7. Kontras teks
+    # 7. Pengingat anti-bawaan (0 poin): krem adalah gaya bawaan AI, jangan dipakai tanpa alasan
+    gelap = [(H, C) for (peran, hx), (L, C, H) in info.items() if peran == "gelap"]
+    for (peran, hx), (L, C, H) in info.items():
+        if peran != "terang" or L <= 0.88 or C < 0.008:
+            continue
+        if 45 <= H <= 105:
+            temuan.append((0, "INGAT", f"{peran} {hx}: netral krem/gading. Krem bukan pilihan bawaan; maksimal 2 tema krem di katalog. Pertimbangkan netral berona palet."))
+        for Hg, Cg in gelap:
+            if Cg >= 0.03 and beda_hue(H, Hg) > 90:
+                temuan.append((0, "INGAT", f"{peran} {hx}: rona netral ({H:.0f}°) jauh dari jangkar gelap ({Hg:.0f}°). Netral yang serumpun dengan jangkar terasa lebih menyatu."))
+
+    # 8. Kontras teks
     for a, b in pasangan_teks:
         k = kontras(a, b)
         if k < 4.5:

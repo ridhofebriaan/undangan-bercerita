@@ -1,12 +1,12 @@
-/* Tema "Siger Kencana" (Sunda). Palet Biru Mega Mendung (pilihan user, skor warna-mewah 100).
+/* Tema "Siger Kencana" (Sunda). Palet Biru Mega Mendung (pilihan user, skor warna-mewah 100), latar abu kabut #e9eef3.
    Ilustrasi toile: litografi Gunung Gede (C.W. Mieling menurut F.W. Junghuhn, 1850-an) dan cempaka (Flora de Filipinas, Blanco),
    domain publik, diwarnai biru tua. Motif awan mega mendung digambar sendiri (awan.svg, mega.svg). */
 :root {
-  --bg: #f3efe6;
-  --bg-outer: #e4e0d6;
-  --surface: #faf8f3;
+  --bg: #e9eef3;
+  --bg-outer: #dbe2ea;
+  --surface: #f6f8fa;
   --primary: #263a57;
-  --primary-ink: #f3efe6;
+  --primary-ink: #eef2f6;
   --accent: #b8975a;
   --accent-text: #7a5f30;
   --aksen-biru: #94a8bf;
@@ -14,13 +14,15 @@
   --muted: #4d5666;
   --line: rgba(38, 58, 87, 0.16);
   --gelap: #263a57;
-  --on-gelap: #f3efe6;
+  --on-gelap: #eef2f6;
   --emas-terang: #d6bd8c;
   --cover-bg: #263a57;
   --font-display: "Bodoni Moda", Georgia, serif;
   --font-name: "Parisienne", cursive;
   --font-body: "Nunito Sans", system-ui, sans-serif;
 }
+/* Latar abu kabut kebiruan (bukan krem), butiran kertas ikut kebiruan */
+.k2 { --butiran: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.15 0 0 0 0 0.23 0 0 0 0 0.34 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
 body { font-weight: 300; }
 
 /* ---------- Cover biru tua: Gunung Gede samar, awan mega mendung emas di sudut ---------- */
