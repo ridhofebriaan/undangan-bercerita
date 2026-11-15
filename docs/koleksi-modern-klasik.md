@@ -81,7 +81,12 @@ Dokumen ini adalah standar untuk semua undangan koleksi **Modern Klasik**. Kolek
   - atribut `muted autoplay playsinline loop preload="none"`;
   - video dimuat saat mendekati layar dan dijeda saat keluar layar;
   - bila tamu memilih kurangi gerak (`prefers-reduced-motion`) atau hemat data (Save-Data), yang tampil hanya poster.
-- **Gaya:** gerak lambat dan kamera tenang. Tidak ada teks, watermark, atau transisi ramai di dalam video.
+- **Gambar awal (poster) wajib tajam dan langsung tampil:**
+  - setiap video punya poster berupa foto tajam, diambil dari frame terbaik dan sama dengan frame pertama video, supaya pergantian dari foto ke video tidak melompat;
+  - resolusi poster sama dengan video, format JPG atau WebP, paling besar 150 KB;
+  - poster tampil sejak detik pertama halaman dibuka. Poster hero dimuat lebih dulu (`preload`), poster lain dimuat bersama bagiannya;
+  - video baru menggantikan poster setelah benar-benar siap diputar (event `canplay`), dengan pudar halus sekitar 400 ms;
+  - **dilarang:** gambar blur atau buram sebagai pengganti sementara, layar hitam atau kosong, dan ikon loading berputar. Selama video belum siap, yang terlihat tetap poster.
 - **Bobot halaman:** muatan awal di bawah 3 MB, dan total dengan semua video paling banyak 12 MB.
 - **Sumber:**
   - demo memakai Pexels Video (bebas untuk usaha), diperiksa visual satu per satu;
@@ -137,6 +142,7 @@ Menu melayang tetap dipakai.
 - [ ] Tidak ada huruf sambung dan tidak ada ornamen.
 - [ ] Muatan awal di bawah 3 MB, setiap video ≤ 2,5 MB, dan setiap video punya poster.
 - [ ] Video tidak berputar saat kurangi gerak atau hemat data (dicek dengan emulasi).
+- [ ] Dibuka dengan emulasi jaringan lambat (3G): yang terlihat sejak awal adalah poster tajam, bukan gambar blur, layar hitam, atau ikon loading.
 - [ ] Semua foto dan video berbusana modern formal, dan lisensinya tercatat di `KREDIT.md`.
 - [ ] Uji di lebar 360 px: tanpa error, tanpa geser ke samping, dan tombol ≥ 44 px.
 - [ ] Zona waktu benar (`zonaWaktu`).
