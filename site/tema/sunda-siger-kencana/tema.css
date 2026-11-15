@@ -1,0 +1,103 @@
+/* Tema "Siger Kencana" (Sunda). Palet Biru Mega Mendung (pilihan user, skor warna-mewah 100).
+   Ilustrasi toile: litografi Gunung Gede (C.W. Mieling menurut F.W. Junghuhn, 1850-an) dan cempaka (Flora de Filipinas, Blanco),
+   domain publik, diwarnai biru tua. Motif awan mega mendung digambar sendiri (awan.svg, mega.svg). */
+:root {
+  --bg: #f3efe6;
+  --bg-outer: #e4e0d6;
+  --surface: #faf8f3;
+  --primary: #263a57;
+  --primary-ink: #f3efe6;
+  --accent: #b8975a;
+  --accent-text: #7a5f30;
+  --aksen-biru: #94a8bf;
+  --ink: #232a36;
+  --muted: #4d5666;
+  --line: rgba(38, 58, 87, 0.16);
+  --gelap: #263a57;
+  --on-gelap: #f3efe6;
+  --emas-terang: #d6bd8c;
+  --cover-bg: #263a57;
+  --font-display: "Bodoni Moda", Georgia, serif;
+  --font-name: "Parisienne", cursive;
+  --font-body: "Nunito Sans", system-ui, sans-serif;
+}
+body { font-weight: 300; }
+
+/* ---------- Cover biru tua: Gunung Gede samar, awan mega mendung emas di sudut ---------- */
+.cover { background: var(--gelap) var(--butiran); }
+.cover::before { content: ""; position: absolute; inset: 0 0 auto; height: 58%; background: url("aset/latar.webp") center top / cover no-repeat; opacity: 0.16; filter: brightness(5) saturate(0.2);
+  -webkit-mask-image: linear-gradient(#000 50%, transparent); mask-image: linear-gradient(#000 50%, transparent); }
+.cover::after { content: ""; position: absolute; left: -10%; bottom: -3%; width: 64%; height: 42%; background: url("aset/cempaka.webp") left bottom / contain no-repeat; opacity: 0.2; filter: brightness(5) saturate(0.2); }
+.orn-cover { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+.orn-cover::before, .orn-cover::after { content: ""; position: absolute; top: 0; bottom: 0; width: 22px; background: var(--emas-terang); -webkit-mask: url("mega.svg") top center / 22px auto repeat-y; mask: url("mega.svg") top center / 22px auto repeat-y; opacity: 0.7; }
+.orn-cover::before { left: 10px; }
+.orn-cover::after { right: 10px; }
+.orn-cover .o { position: absolute; background: var(--emas-terang); -webkit-mask: url("awan.svg") center / contain no-repeat; mask: url("awan.svg") center / contain no-repeat; }
+.orn-cover .o1 { top: 7%; left: -14%; width: 62%; aspect-ratio: 120 / 64; opacity: 0.4; }
+.orn-cover .o2 { right: -16%; bottom: 9%; width: 70%; aspect-ratio: 120 / 64; opacity: 0.3; transform: scaleX(-1); }
+.cover-inner { z-index: 1; padding: 40px 34px; background: radial-gradient(closest-side, var(--gelap) 55%, transparent); }
+.cover .label { color: var(--emas-terang); }
+.cover .couple { font-size: clamp(56px, 16vw, 70px); color: var(--on-gelap); }
+.cover .couple .amp { color: var(--emas-terang); }
+.cover .cover-date { color: var(--on-gelap); }
+.cover .guest { color: var(--on-gelap-lembut); }
+.cover .guest-name { color: var(--on-gelap); }
+.cover .btn-open { background: var(--emas-terang); color: var(--gelap); }
+.cover .btn-open { animation-name: glow-emas; }
+@keyframes glow-emas { 50% { box-shadow: 0 0 0 8px color-mix(in srgb, var(--emas-terang) 22%, transparent); } }
+
+.label { font-family: var(--font-body); font-weight: 400; letter-spacing: 0.34em; font-size: 11.5px; color: var(--accent-text); }
+.couple { font-family: var(--font-name); font-weight: 400; color: var(--primary); line-height: 1.08; }
+.couple .amp { font-family: var(--font-display); font-style: italic; font-size: 0.36em; color: var(--accent-text); margin: 2px 0; }
+.cover-date, .hero-date { font-family: var(--font-display); font-size: 18px; letter-spacing: 0.04em; color: var(--ink); }
+.guest-name { font-family: var(--font-display); font-style: italic; font-size: 24px; color: var(--primary); }
+.btn-open { background: var(--primary); color: var(--primary-ink); }
+
+/* ---------- Hero: foto penuh memudar, aksara Sunda, awan samar ---------- */
+.sec-hero { min-height: 0; padding-bottom: 70px; }
+.sec-hero .lapis-b { background: url("aset/latar.webp") center bottom / 160% auto no-repeat; opacity: 0.16; }
+.sec-hero .lapis-d { background: var(--aksen-biru); -webkit-mask: url("awan.svg") right -40px bottom 40px / 170px auto no-repeat; mask: url("awan.svg") right -40px bottom 40px / 170px auto no-repeat; opacity: 0.55; }
+.aksara { font-family: "Noto Sans Sundanese", serif; font-size: 22px; color: var(--accent-text); margin: 0 0 6px; }
+.couple.big { font-size: clamp(58px, 17vw, 76px); }
+.hashtag { font-family: var(--font-body); letter-spacing: 0.14em; font-size: 12.5px; color: var(--accent-text); }
+
+/* ---------- Bagian gelap: Gunung Gede samar terang, pita mega mendung di tepi ---------- */
+.gelap .lapis-b { background: url("aset/latar.webp") center / cover no-repeat; opacity: 0.09; filter: brightness(5) saturate(0.2); }
+.k2 .tepi { -webkit-mask-image: url("mega.svg"); mask-image: url("mega.svg"); opacity: 0.7; }
+.k2 #app > .sec.gelap { padding-left: 40px; padding-right: 40px; }
+.sec-salam .bismillah { color: var(--on-gelap); }
+
+/* Kartu ayat dengan cempaka di atasnya */
+.sec-salam .ayat { margin-top: 36px; padding-top: 150px; }
+.sec-salam .ayat::before { content: ""; position: absolute; left: 50%; top: 12px; width: 150px; height: 136px; margin-left: -75px; background: url("aset/cempaka.webp") center / contain no-repeat; }
+.ayat .arabic { color: var(--primary); }
+.ayat-arti { font-family: var(--font-display); font-style: italic; font-size: 16px; line-height: 1.75; color: var(--ink); }
+.ayat cite { color: var(--accent-text); }
+
+/* Mempelai: cempaka di sudut, awan biru muda */
+.sec-mempelai .lapis-b { background: var(--aksen-biru); -webkit-mask: url("awan.svg") left -90px top 34px / 190px auto no-repeat; mask: url("awan.svg") left -90px top 34px / 190px auto no-repeat; opacity: 0.4; }
+.sec-mempelai .lapis-d { background: url("aset/cempaka.webp") right -70px bottom 16% / 190px auto no-repeat; opacity: 0.45; }
+.person-role { margin: 0 0 4px; font-family: var(--font-body); font-weight: 400; font-size: 11.5px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--accent-text); }
+.k2 .person-name { font-family: var(--font-display); font-size: 25px; }
+.big-amp { font-family: var(--font-name); font-size: 60px; }
+
+/* Kisah */
+.kisah-kartu .tl-title { font-family: var(--font-display); }
+
+/* Galeri, acara, ucapan: Gunung Gede samar; awan di galeri */
+.sec-galeri .lapis-b, .sec-acara .lapis-b, .sec-rsvp .lapis-b { background: url("aset/latar.webp") center bottom / 170% auto no-repeat; opacity: 0.13; }
+.sec-galeri .lapis-d { background: var(--aksen-biru); -webkit-mask: url("awan.svg") right -50px top 46px / 180px auto no-repeat; mask: url("awan.svg") right -50px top 46px / 180px auto no-repeat; opacity: 0.45; }
+.galeri-kutipan { font-family: var(--font-display); }
+.sec-streaming .lapis-d { background: url("aset/pohon.webp") right -30px bottom -10px / 170px auto no-repeat; opacity: 0.3; }
+.event-name, .sec-title { font-family: var(--font-display); }
+.k2 .sec-title { font-size: 34px; }
+.k2 .event-name { font-size: 28px; }
+
+/* Penutup: pohon Gede di bawah */
+.sec-penutup { padding-bottom: 120px; }
+.sec-penutup .lapis-d { background: var(--emas-terang); -webkit-mask: url("awan.svg") center bottom 6px / 220px auto no-repeat; mask: url("awan.svg") center bottom 6px / 220px auto no-repeat; opacity: 0.35; }
+.penutup-inner .couple { font-family: var(--font-name); font-size: 56px; color: var(--on-gelap); }
+.credit { background: var(--gelap); color: var(--on-gelap-lembut); }
+.credit a { color: var(--emas-terang); }
+.music-btn { background: var(--primary); }
+.music-btn svg { fill: var(--primary-ink); }

@@ -66,6 +66,12 @@
 .k2 .bingkai-wadah { position: relative; width: min(72%, 280px); margin: 22px auto 30px; }
 .k2 .bingkai-wadah .bingkai { width: 100%; margin: 0; }
 
+/* Hero foto penuh (gayaFoto.hero = "penuh"): foto menempel ke atas selebar layar, lalu memudar ke latar */
+.k2 #app > .sec-hero:has(.bingkai-penuh) { align-items: flex-start; padding-top: 0; }
+.k2 .sec-hero:has(.bingkai-penuh) .hero-inner { display: flex; flex-direction: column; align-items: center; width: 100%; }
+.k2 .bingkai-wadah:has(.bingkai-penuh) { order: -1; width: calc(100% + 52px); margin: 0 -26px -56px; }
+.k2 .bingkai-wadah .bingkai-penuh { width: 100%; margin: 0; box-shadow: none; -webkit-mask-image: linear-gradient(#000 55%, transparent 94%); mask-image: linear-gradient(#000 55%, transparent 94%); }
+
 /* Profil mempelai */
 .k2 .person-photo.bingkai { width: 190px; height: auto; margin: 0 auto 22px; border: 0; }
 .k2 .person-name { font-family: var(--font-display); font-weight: 500; font-size: 27px; color: var(--primary); }
@@ -92,6 +98,13 @@
 .k2 .galeri-carousel::-webkit-scrollbar { display: none; }
 .k2 .galeri-carousel .g-item, .k2 .galeri-carousel .g-item:first-child { flex: 0 0 74%; aspect-ratio: 3 / 4; grid-column: auto; scroll-snap-align: center; border-radius: 999px 999px 18px 18px; }
 .k2 .g-item { border-radius: 16px; }
+/* Berserak: cetakan foto bertepi tipis yang miring acak, kolom kanan sedikit turun */
+.k2 .galeri-berserak { gap: 0 14px; padding: 4px 6px 30px; }
+.k2 .galeri-berserak .g-item, .k2 .galeri-berserak .g-item:first-child { grid-column: auto; aspect-ratio: 4 / 5; padding: 5px; margin-bottom: -4px; border-radius: 3px; background: var(--surface); box-shadow: 0 20px 30px -20px rgba(15, 22, 38, 0.6), 0 2px 6px -3px rgba(15, 22, 38, 0.3); rotate: -3.5deg; }
+.k2 .galeri-berserak .g-item img { border-radius: 1px; }
+.k2 .galeri-berserak .g-item:nth-child(4n + 2) { rotate: 3deg; translate: 0 28px; }
+.k2 .galeri-berserak .g-item:nth-child(4n + 3) { rotate: 2deg; }
+.k2 .galeri-berserak .g-item:nth-child(4n) { rotate: -2.5deg; translate: 0 28px; }
 .k2 .carousel-titik { display: flex; justify-content: center; gap: 7px; margin-top: 16px; }
 .k2 .carousel-titik i { width: 7px; height: 7px; border-radius: 50%; background: color-mix(in srgb, var(--primary) 25%, transparent); transition: width 0.3s, background 0.3s; }
 .k2 .carousel-titik i.aktif { width: 20px; border-radius: 4px; background: var(--primary); }

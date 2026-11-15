@@ -112,7 +112,7 @@ Setiap undangan memilih kombinasi dari tiga daftar di bawah. Hero, profil, kisah
 | `mozaik` | Mozaik besar-kecil |
 | `carousel` | Digeser ke samping |
 | `cerita` | Slide penuh layar seperti Instagram Story |
-| `berserak` | Polaroid berserakan |
+| `berserak` | Cetakan foto bertepi tipis, miring berserakan |
 | `film` | Pita film |
 
 **Cara foto muncul**
@@ -125,9 +125,12 @@ Setiap undangan memilih kombinasi dari tiga daftar di bawah. Hero, profil, kisah
 | `mekar` | Muncul dari tengah bingkai |
 | `balik` | Berbalik seperti kartu |
 
-Contoh kombinasi:
-- **Minang:** hero `siluet` gonjong + `parallax`, profil `oval`, galeri `carousel`.
-- **Jawa:** hero `penuh` + `zoom`, profil `lengkung`, galeri `berserak`.
+Sudah tersedia di engine: bentuk `lengkung`, `oval`, `lingkaran`, `persegi`, `penuh`; galeri `kisi`, `mozaik`, `carousel`, `berserak`; gerak `zoom`, `parallax`, `tirai`; garis tipis 1 px (`garis: "tipis"`). Sisanya belum dibuat.
+
+Kombinasi yang sudah dipakai:
+- **Minang (Rumah Gadang):** hero `lengkung` + `parallax`, profil `oval`, kisah `persegi`, galeri `carousel`.
+- **Jawa (Sekar Kedhaton):** hero `lengkung` + `tirai`, profil `lengkung`, kisah `lingkaran`, galeri `mozaik`.
+- **Sunda (Siger Kencana):** hero `penuh` + `zoom`, profil `lingkaran` bergaris tipis, kisah `persegi` + `tirai`, galeri `berserak`.
 
 ## 6. Paket aset per adat
 

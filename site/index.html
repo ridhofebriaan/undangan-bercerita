@@ -240,6 +240,10 @@
         });
         jumlah.textContent = n + " tema ditampilkan";
       }
+      // Sembunyikan filter jenis yang tidak punya tema
+      document.querySelectorAll("#f-tag .chip-btn").forEach(function (b) {
+        if (b.dataset.f !== "semua" && !grid.querySelector('.tile[data-tag="' + b.dataset.f + '"]')) b.hidden = true;
+      });
       // Filter hanya berguna bila temanya banyak
       if (daftar.length <= 3) {
         fAdat.hidden = true;

@@ -37,6 +37,17 @@ window.KATALOG = {
       siap: true,
     },
     {
+      kode: "sunda-siger-kencana",
+      adat: "Sunda",
+      nama: "Siger Kencana",
+      harga: 129000,
+      tag: "Pakai foto",
+      deskripsi: "Biru mega mendung dan emas dengan ilustrasi toile Gunung Gede dan cempaka, awan mega mendung, aksara Sunda, foto hero layar penuh, galeri foto berserak.",
+      demo: "tema/sunda-siger-kencana/?to=Bapak%20Ahmad",
+      gambar: "assets/katalog/sunda-siger-kencana.webp",
+      siap: true,
+    },
+    {
       kode: "melayu",
       adat: "Melayu",
       nama: "Melayu",
