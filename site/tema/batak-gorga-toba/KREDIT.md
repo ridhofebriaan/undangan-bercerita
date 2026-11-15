@@ -4,4 +4,4 @@
 - `ubin.svg` (gorga spiral), `tepi.svg` (gorga ipon-ipon), `sudut.svg` (spiral bersulur), `medali.svg` (Desa Na Ualu): digambar sendiri.
 - Umpasa "Sahat-sahat ni solu": pantun adat Batak Toba (tradisi lisan).
 - Ayat: Pengkhotbah 4:12 (Terjemahan Baru).
-- `../../assets/musik/musik-1.m4a`: musik sementara. Ganti ke musik gondang atau uning-uningan Batak bila berkasnya sudah ada.
+- `../../assets/musik/musik-batak.m4a`: dari berkas `batak.mp3` yang disediakan pemilik, dikonversi ke AAC.

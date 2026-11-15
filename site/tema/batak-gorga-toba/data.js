@@ -96,8 +96,7 @@ window.UNDANGAN = {
   ],
   alamatKado: "Jl. Cempaka Putih Tengah No. 21, Jakarta Pusat 10510 (a.n. Tiurma)",
 
-  // Sementara memakai musik umum; ganti ke musik gondang atau uning-uningan Batak bila berkasnya sudah ada
-  musik: "../../assets/musik/musik-1.m4a",
+  musik: "../../assets/musik/musik-batak.m4a",
 
   penutup: "Merupakan suatu kehormatan dan sukacita bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu. Atas kehadiran dan doanya, kami ucapkan mauliate godang.",
 
