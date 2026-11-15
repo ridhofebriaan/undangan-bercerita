@@ -76,7 +76,7 @@ Dokumen ini adalah standar untuk semua undangan koleksi **Modern Klasik**. Kolek
   - MP4 H.264, resolusi 720p (tegak 720×1280 atau 4:5 720×900), 24–30 fps;
   - tanpa audio, berulang mulus;
   - target 1–2 MB per klip (maksimal 2,5 MB);
-  - poster JPG wajib ada.
+  - poster wajib ada (aturannya di bawah).
 - **Pemutaran:**
   - atribut `muted autoplay playsinline loop preload="none"`;
   - video dimuat saat mendekati layar dan dijeda saat keluar layar;
@@ -87,6 +87,7 @@ Dokumen ini adalah standar untuk semua undangan koleksi **Modern Klasik**. Kolek
   - poster tampil sejak detik pertama halaman dibuka. Poster hero dimuat lebih dulu (`preload`), poster lain dimuat bersama bagiannya;
   - video baru menggantikan poster setelah benar-benar siap diputar (event `canplay`), dengan pudar halus sekitar 400 ms;
   - **dilarang:** gambar blur atau buram sebagai pengganti sementara, layar hitam atau kosong, dan ikon loading berputar. Selama video belum siap, yang terlihat tetap poster.
+- **Gaya video:** gerak lambat dan kamera tenang. Tidak ada teks, watermark, atau transisi ramai di dalam video.
 - **Bobot halaman:** muatan awal di bawah 3 MB, dan total dengan semua video paling banyak 12 MB.
 - **Sumber:**
   - demo memakai Pexels Video (bebas untuk usaha), diperiksa visual satu per satu;
