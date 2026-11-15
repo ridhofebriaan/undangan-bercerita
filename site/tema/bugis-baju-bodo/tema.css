@@ -1,0 +1,96 @@
+/* Tema "Baju Bodo" (Bugis). Palet Hijau Bangsawan (pilihan user, skor warna-mewah 100).
+   Ilustrasi toile: kapal paduakang/padewakang Makassar (gravur 1863 dan gambar 1899) serta daun pacar (Flora de Filipinas, Blanco),
+   domain publik, diwarnai hijau tua. Atap timpa' laja dan kotak sarung sutra digambar sendiri (timpa.svg, sutra.svg). */
+:root {
+  --bg: #f4efe4;
+  --bg-outer: #e6e0d2;
+  --surface: #faf7f0;
+  --primary: #1e4744;
+  --primary-ink: #f4efe4;
+  --accent: #b8975a;
+  --accent-text: #765b2c;
+  --aksen-hijau: #a9bfb7;
+  --ink: #1f2a28;
+  --muted: #4a5753;
+  --line: rgba(30, 71, 68, 0.16);
+  --gelap: #1e4744;
+  --on-gelap: #f4efe4;
+  --emas-terang: #d6bd8c;
+  --cover-bg: #f4efe4;
+  --font-display: "Prata", Georgia, serif;
+  --font-name: "Great Vibes", cursive;
+  --font-body: "Mulish", system-ui, sans-serif;
+  /* Bingkai hero: atap rumah Bugis dengan anjong bersilang */
+  --siluet: polygon(0% 100%, 0% 38%, 47.3% 11.5%, 38% 6.3%, 38% 3.3%, 50% 10%, 62% 3.3%, 62% 6.3%, 52.7% 11.5%, 100% 38%, 100% 100%);
+}
+body { font-weight: 300; }
+
+/* ---------- Cover gading: kapal paduakang di bawah, atap timpa' laja di atas nama ---------- */
+.cover { background: var(--bg) var(--butiran); }
+.cover::before { content: ""; position: absolute; inset: auto 0 0; height: 46%; background: url("aset/latar.webp") center bottom / cover no-repeat; opacity: 0.5;
+  -webkit-mask-image: linear-gradient(transparent, #000 40%); mask-image: linear-gradient(transparent, #000 40%); }
+.cover::after { content: ""; position: absolute; right: -14%; top: -2%; width: 60%; height: 34%; background: url("aset/pacar.webp") right top / contain no-repeat; opacity: 0.5; transform: scaleY(-1); }
+.orn-cover { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+.orn-cover::before, .orn-cover::after { content: ""; position: absolute; top: 0; bottom: 0; width: 22px; background: var(--accent); -webkit-mask: url("sutra.svg") top center / 22px auto repeat-y; mask: url("sutra.svg") top center / 22px auto repeat-y; opacity: 0.8; }
+.orn-cover::before { left: 10px; }
+.orn-cover::after { right: 10px; }
+.orn-cover .o1 { position: absolute; left: 50%; top: 13%; width: 150px; aspect-ratio: 120 / 90; margin-left: -75px; background: var(--accent); -webkit-mask: url("timpa.svg") center / contain no-repeat; mask: url("timpa.svg") center / contain no-repeat; opacity: 0.75; }
+.orn-cover .o2 { position: absolute; left: -12%; top: 4%; width: 52%; height: 22%; background: url("aset/pacar.webp") left top / contain no-repeat; opacity: 0.4; }
+.cover-inner { z-index: 1; padding: 130px 32px 28%; background: radial-gradient(closest-side, var(--bg) 60%, transparent); }
+.label { font-family: var(--font-body); font-weight: 400; letter-spacing: 0.36em; font-size: 11.5px; color: var(--accent-text); }
+.couple { font-family: var(--font-name); font-weight: 400; color: var(--primary); line-height: 1.1; }
+.couple .amp { font-family: var(--font-display); font-style: normal; font-size: 0.32em; color: var(--accent-text); margin: 4px 0; }
+.cover .couple { font-size: clamp(58px, 17vw, 72px); }
+.cover-date, .hero-date { font-family: var(--font-display); font-size: 17px; letter-spacing: 0.04em; color: var(--ink); }
+.guest-name { font-family: var(--font-display); font-size: 23px; color: var(--primary); }
+.btn-open { background: var(--primary); color: var(--primary-ink); }
+
+/* ---------- Hero: foto dalam siluet atap Bugis, mekar dari tengah ---------- */
+.sec-hero { min-height: 0; }
+.sec-hero .lapis-b { background: url("aset/latar.webp") center bottom / 170% auto no-repeat; opacity: 0.2; }
+.sec-hero .lapis-d { background: url("aset/kapal.webp") right -40px top 60px / 160px auto no-repeat; opacity: 0.35; }
+.sec-hero .bingkai-wadah { width: min(78%, 300px); }
+.aksara { font-family: "Noto Sans Buginese", serif; font-size: 26px; letter-spacing: 0.08em; color: var(--accent-text); margin: 0 0 4px; }
+.couple.big { font-size: clamp(60px, 18vw, 78px); }
+.hashtag { font-family: var(--font-body); letter-spacing: 0.14em; font-size: 12.5px; color: var(--accent-text); }
+
+/* ---------- Bagian gelap: kapal samar terang, pita sarung sutra di tepi ---------- */
+.gelap .lapis-b { background: url("aset/latar.webp") center bottom / cover no-repeat; opacity: 0.1; filter: brightness(5) saturate(0.2); }
+.k2 .tepi { -webkit-mask-image: url("sutra.svg"); mask-image: url("sutra.svg"); opacity: 0.7; }
+.k2 #app > .sec.gelap { padding-left: 40px; padding-right: 40px; }
+.sec-salam .bismillah { color: var(--on-gelap); }
+
+/* Kartu ayat dengan daun pacar (Mappacci) di atasnya */
+.sec-salam .ayat { margin-top: 36px; padding-top: 140px; }
+.sec-salam .ayat::before { content: ""; position: absolute; left: 50%; top: 14px; width: 170px; height: 120px; margin-left: -85px; background: url("aset/pacar.webp") center / contain no-repeat; }
+.ayat .arabic { color: var(--primary); }
+.ayat-arti { font-family: var(--font-body); font-style: italic; font-size: 15.5px; line-height: 1.75; color: var(--ink); }
+.ayat cite { color: var(--accent-text); }
+
+/* Mempelai: atap timpa' laja samar, daun pacar di sudut */
+.sec-mempelai .lapis-b { background: var(--aksen-hijau); -webkit-mask: url("timpa.svg") center top 30px / 240px auto no-repeat; mask: url("timpa.svg") center top 30px / 240px auto no-repeat; opacity: 0.25; }
+.sec-mempelai .lapis-d { background: url("aset/pacar.webp") right -70px bottom 14% / 190px auto no-repeat; opacity: 0.4; }
+.person-role { margin: 0 0 4px; font-family: var(--font-body); font-weight: 500; font-size: 11.5px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--accent-text); }
+.k2 .person-name { font-family: var(--font-display); font-size: 24px; }
+.big-amp { font-family: var(--font-name); font-size: 64px; }
+
+/* Kisah */
+.kisah-kartu .tl-title { font-family: var(--font-display); }
+
+/* Galeri, acara, ucapan: kapal samar */
+.sec-galeri .lapis-b, .sec-acara .lapis-b, .sec-rsvp .lapis-b { background: url("aset/latar.webp") center bottom / 170% auto no-repeat; opacity: 0.14; }
+.sec-galeri .lapis-d { background: url("aset/kapal.webp") left -40px top 40px / 150px auto no-repeat; opacity: 0.3; }
+.galeri-kutipan { font-family: var(--font-display); }
+.sec-streaming .lapis-d { background: url("aset/kapal.webp") right -30px bottom 10px / 170px auto no-repeat; opacity: 0.3; }
+.event-name, .sec-title { font-family: var(--font-display); }
+.k2 .sec-title { font-size: 33px; }
+.k2 .event-name { font-size: 27px; }
+
+/* Penutup: atap timpa' laja emas di bawah nama */
+.sec-penutup { padding-bottom: 130px; }
+.sec-penutup .lapis-d { background: var(--emas-terang); -webkit-mask: url("timpa.svg") center bottom 10px / 160px auto no-repeat; mask: url("timpa.svg") center bottom 10px / 160px auto no-repeat; opacity: 0.4; }
+.penutup-inner .couple { font-family: var(--font-name); font-size: 58px; color: var(--on-gelap); }
+.credit { background: var(--gelap); color: var(--on-gelap-lembut); }
+.credit a { color: var(--emas-terang); }
+.music-btn { background: var(--primary); }
+.music-btn svg { fill: var(--primary-ink); }

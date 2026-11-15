@@ -6,7 +6,10 @@
 
   var D = window.UNDANGAN;
   if (!D) return;
-  var TZ = "Asia/Jakarta";
+  // Zona waktu acara: D.zonaWaktu = "WIB" (bawaan), "WITA", atau "WIT"
+  var ZONA = { WIB: "Asia/Jakarta", WITA: "Asia/Makassar", WIT: "Asia/Jayapura" };
+  var ZW = ZONA[D.zonaWaktu] ? D.zonaWaktu : "WIB";
+  var TZ = ZONA[ZW];
   var params = new URLSearchParams(location.search);
   var guest = (params.get("to") || "").trim().slice(0, 60);
 
@@ -325,7 +328,7 @@
   if (D.teksAcara) ac.appendChild(el("p", "sec-desc reveal", D.teksAcara));
   D.acara.forEach(function (a) {
     var c = el("article", "card event reveal");
-    var waktu = a.selesai ? jam(a.mulai) + " - " + jam(a.selesai) + " WIB" : jam(a.mulai) + " WIB - selesai";
+    var waktu = a.selesai ? jam(a.mulai) + " - " + jam(a.selesai) + " " + ZW : jam(a.mulai) + " " + ZW + " - selesai";
     var peta = el("a", "btn btn-primary btn-sm", "Lihat Lokasi");
     peta.href = linkPeta(a.peta || a.tempat + ", " + a.alamat);
     peta.target = "_blank";
@@ -374,7 +377,7 @@
       grid.appendChild(b);
     });
     gl.appendChild(grid);
-    if (K2 && GF.galeri === "carousel") {
+    if (K2 && (GF.galeri === "carousel" || GF.galeri === "film")) {
       // Titik penanda posisi carousel
       var titik = el("div", "carousel-titik");
       D.galeri.forEach(function (_, i) { var d = el("i"); if (!i) d.className = "aktif"; titik.appendChild(d); });

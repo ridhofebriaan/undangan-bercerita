@@ -48,6 +48,17 @@ window.KATALOG = {
       siap: true,
     },
     {
+      kode: "bugis-baju-bodo",
+      adat: "Bugis",
+      nama: "Baju Bodo",
+      harga: 129000,
+      tag: "Pakai foto",
+      deskripsi: "Hijau bangsawan dan emas dengan ilustrasi toile kapal padewakang dan daun pacar, foto berbingkai atap rumah Bugis, aksara Lontara, galeri pita film.",
+      demo: "tema/bugis-baju-bodo/?to=Bapak%20Ahmad",
+      gambar: "assets/katalog/bugis-baju-bodo.webp",
+      siap: true,
+    },
+    {
       kode: "melayu",
       adat: "Melayu",
       nama: "Melayu",

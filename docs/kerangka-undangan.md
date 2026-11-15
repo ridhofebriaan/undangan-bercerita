@@ -125,12 +125,15 @@ Setiap undangan memilih kombinasi dari tiga daftar di bawah. Hero, profil, kisah
 | `mekar` | Muncul dari tengah bingkai |
 | `balik` | Berbalik seperti kartu |
 
-Sudah tersedia di engine: bentuk `lengkung`, `oval`, `lingkaran`, `persegi`, `penuh`; galeri `kisi`, `mozaik`, `carousel`, `berserak`; gerak `zoom`, `parallax`, `tirai`; garis tipis 1 px (`garis: "tipis"`). Sisanya belum dibuat.
+Sudah tersedia di engine: bentuk `lengkung`, `oval`, `lingkaran`, `persegi`, `penuh`, `siluet` (bentuk diisi tema lewat `--siluet`); galeri `kisi`, `mozaik`, `carousel`, `berserak`, `film`; gerak `zoom`, `parallax`, `tirai`, `mekar`; garis tipis 1 px (`garis: "tipis"`). Sisanya belum dibuat. Catatan: `siluet` tidak bisa digabung dengan gerak `tirai`.
 
 Kombinasi yang sudah dipakai:
 - **Minang (Rumah Gadang):** hero `lengkung` + `parallax`, profil `oval`, kisah `persegi`, galeri `carousel`.
 - **Jawa (Sekar Kedhaton):** hero `lengkung` + `tirai`, profil `lengkung`, kisah `lingkaran`, galeri `mozaik`.
 - **Sunda (Siger Kencana):** hero `penuh` + `zoom`, profil `lingkaran` bergaris tipis, kisah `persegi` + `tirai`, galeri `berserak`.
+- **Bugis (Baju Bodo):** hero `siluet` atap rumah Bugis + `mekar`, profil `oval` + `mekar`, kisah `lengkung`, galeri `film`.
+
+Zona waktu acara diatur lewat `zonaWaktu` di data.js: `"WIB"` (bawaan), `"WITA"` (Sulawesi, Bali, Kalimantan bagian timur dan selatan, NTB, NTT), atau `"WIT"` (Maluku, Papua).
 
 ## 6. Paket aset per adat
 
