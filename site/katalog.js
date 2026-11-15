@@ -20,7 +20,7 @@ window.KATALOG = {
       nama: "Atelier",
       harga: 249000,
       tag: "Premium",
-      deskripsi: "Koleksi Modern Klasik untuk pasangan profesional: espresso dan perunggu, video sinematik, kartu akses bernomor untuk tiap tamu, susunan acara bergaya agenda, dress code, dan info tamu.",
+      deskripsi: "Koleksi Modern Klasik untuk pasangan profesional: video sinematik, kartu akses bernomor dengan segel yang ditahan untuk dibuka, galeri gaya Story, konfirmasi bertahap dengan kartu masuk ber-QR, dan agenda hidup di hari H.",
       demo: "tema/modern-atelier/?to=Bapak%20Ahmad&no=48&kursi=2",
       gambar: "assets/katalog/modern-atelier.webp",
       siap: true,

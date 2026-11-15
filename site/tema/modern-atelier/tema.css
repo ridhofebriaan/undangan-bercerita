@@ -18,6 +18,10 @@
   --on-gelap: #231b18;
   --emas-terang: #765a40;
   --cover-bg: #1d1714;
+  /* Kartu masuk (hasil konfirmasi) selalu bergaya kartu akses gelap */
+  --kartu-bg: #1d1714;
+  --kartu-teks: #ede8e2;
+  --kartu-logam: #a8825f;
   --font-display: "Gilda Display", "Times New Roman", serif;
   --font-name: "Gilda Display", "Times New Roman", serif;
   --font-body: "Manrope", system-ui, sans-serif;

@@ -19,7 +19,7 @@ const [out, ...kodes] = process.argv.slice(2);
     const snap = async (label) => { shots.push({ label, data: (await p.screenshot({ encoding: "base64" })) }); };
     await snap("cover");
     const ms = await p.evaluate(() => parseInt(getComputedStyle(document.getElementById("cover")).getPropertyValue("--buka-ms"), 10) || 900);
-    await p.tap(".btn-open");
+    await p.evaluate(() => document.querySelector(".btn-open").click());
     await wait(Math.round(ms * 0.55));
     await snap("membuka");
     await wait(ms + 1800);

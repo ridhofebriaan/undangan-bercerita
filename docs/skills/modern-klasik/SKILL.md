@@ -23,7 +23,16 @@ description: Merancang, membangun, atau menilai undangan koleksi Modern Klasik R
    - hanya poster yang tampil saat tamu memilih kurangi gerak atau hemat data.
 9. **Poster wajib tajam dan tampil sejak awal.** Poster sama dengan frame pertama video, ≤ 150 KB. Video baru menggantikan poster setelah `canplay`, dengan pudar 400 ms. **Dilarang** gambar blur, layar hitam, dan ikon loading.
 10. **Bobot dan gerak:** muatan awal < 3 MB, total ≤ 12 MB. Gerak 600–1.200 ms, halus, tanpa pantulan atau zoom besar.
-11. **Nada:** ringkas, tanpa emoji dan tanda seru. Format tanggal `Sabtu, 18 September 2027 · 16.00 WIB`.
+11. **Interaksi koleksi** (dokumen bagian 15):
+    - segel tekan-dan-tahan;
+    - kilau foil yang hanya bergerak karena tamu;
+    - hero mengikuti gulir;
+    - galeri Story;
+    - konfirmasi bertahap dengan kartu masuk ber-QR;
+    - agenda hidup di hari H.
+
+    Semuanya aktif otomatis lewat `koleksi`, dan masing-masing wajib punya jalan alternatif (keyboard, kurangi gerak, hemat data).
+12. **Nada:** ringkas, tanpa emoji dan tanda seru. Format tanggal `Sabtu, 18 September 2027 · 16.00 WIB`.
 
 ## Cara kerja
 
@@ -38,6 +47,7 @@ description: Merancang, membangun, atau menilai undangan koleksi Modern Klasik R
 5. **Uji:** jalankan server `cd site && python3 -m http.server 8765`, lalu:
    - `node tools/uji.js <keluaran> <kode>` untuk error, lebar, dan tombol;
    - `node tools/hd.js <awalan> <kode> <bagian...>` untuk cek visual;
+   - `node tools/uji-interaksi.js <kode>` untuk menguji segel, hero, Story, konfirmasi dan kartu masuk, serta agenda hari H;
    - `node tools/uji-video.js <kode>` untuk memeriksa video berputar, bobot (awal < 3 MB, total ≤ 12 MB), kurangi gerak, hemat data, dan poster hero di 3G;
    - parameter tautan tamu bisa ditambah lewat `Q="&no=48&kursi=2"` di depan perintah `uji.js` atau `hd.js`.
 6. **Tayang:** entri `site/katalog.js` dan thumbnail cover 360×740 @1,5× (JPG dan WebP) di `site/assets/katalog/`. Lalu commit, push, dan tunggu sampai halaman tayang.

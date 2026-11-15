@@ -4,6 +4,7 @@
   "description": "Alat bantu pembuatan tema undangan RB Digital (lihat tools/README.md)",
   "dependencies": {
     "ffmpeg-static": "5.2.0",
-    "puppeteer-core": "23.11.1"
+    "puppeteer-core": "23.11.1",
+    "qrcode-generator": "1.4.4"
   }
 }

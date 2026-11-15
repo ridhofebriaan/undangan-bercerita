@@ -3,6 +3,17 @@
 // Tema hanya mengatur tampilan lewat CSS; struktur dan fitur sama untuk semua tema.
 (function () {
   "use strict";
+  // Folder engine, untuk memuat berkas pendamping (mis. vendor/qrcode.js) hanya saat dibutuhkan
+  var BASE = ((document.currentScript && document.currentScript.src) || "").replace(/[^/]*$/, "");
+  function muatSkrip(src, cb) {
+    var ada = document.querySelector('script[data-src="' + src + '"]');
+    if (ada) { if (ada.dataset.siap) cb(); else ada.addEventListener("load", cb); return; }
+    var sc = document.createElement("script");
+    sc.src = src;
+    sc.dataset.src = src;
+    sc.addEventListener("load", function () { sc.dataset.siap = "1"; cb(); });
+    document.head.appendChild(sc);
+  }
 
   var D = window.UNDANGAN;
   if (!D) return;
@@ -64,7 +75,8 @@
   var MK = D.koleksi === "modern-klasik";
   if (D.koleksi) document.body.classList.add("koleksi-" + D.koleksi);
   // Kurangi gerak atau hemat data: video tidak dimuat, yang tampil poster saja
-  var HEMAT = (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) || !!(navigator.connection && navigator.connection.saveData);
+  var KURANGI = !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
+  var HEMAT = KURANGI || !!(navigator.connection && navigator.connection.saveData);
   // Klip video berposter: poster tajam tampil sejak awal, video menggantikan setelah benar-benar berputar.
   // v = { src, poster, alt, malas }. Video baru dimuat saat mendekati layar dan dijeda di luar layar (lihat bagian bawah).
   var klipVideo = [];
@@ -128,6 +140,11 @@
   }
   function linkPeta(q) {
     return /^https?:/.test(q) ? q : "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
+  }
+  function linkKalender(a, judulAcara) {
+    var akhir = a.selesai || new Date(new Date(a.mulai).getTime() + 2 * 36e5).toISOString();
+    return "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + encodeURIComponent(judulAcara || a.nama) +
+      "&dates=" + gcal(a.mulai) + "/" + gcal(akhir) + "&location=" + encodeURIComponent(a.tempat + ", " + a.alamat);
   }
   function gcal(iso) {
     return new Date(iso).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
@@ -208,6 +225,58 @@
   var app = document.getElementById("app");
   document.title = D.judul || ("Undangan " + namaPendek);
 
+  // ---------- Koleksi: segel tekan-dan-tahan ----------
+  // Lingkaran logam terisi selama segel ditahan (1 detik), lalu undangan terbuka. Klik keyboard atau terprogram langsung membuka.
+  function segel() {
+    var b = el("button", "btn-open segel");
+    b.type = "button";
+    b.setAttribute("aria-label", teks("tombolBuka", "Buka Undangan") + " (tekan dan tahan)");
+    var K = 2 * Math.PI * 34;
+    b.innerHTML = '<svg viewBox="0 0 80 80" aria-hidden="true"><circle class="segel-dasar" cx="40" cy="40" r="34"/>' +
+      '<circle class="segel-isi" cx="40" cy="40" r="34" stroke-dasharray="' + K.toFixed(1) + '" stroke-dashoffset="' + K.toFixed(1) + '"/></svg>';
+    b.appendChild(el("span", "segel-teks", D.monogram || namaPendek));
+    var isi = b.querySelector(".segel-isi");
+    var p = 0, arah = 0, t0 = 0, raf = 0, terbukaSegel = false, DUR = 1000;
+    function gambar() {
+      isi.style.strokeDashoffset = (K * (1 - p)).toFixed(1);
+      if (!KURANGI) document.documentElement.style.setProperty("--kilau", (p * 100).toFixed(1) + "%");
+    }
+    function langkah(t) {
+      var dt = t0 ? t - t0 : 0;
+      t0 = t;
+      p = Math.max(0, Math.min(1, p + (arah * dt) / (arah > 0 ? DUR : DUR / 2)));
+      gambar();
+      if (p >= 1 && !terbukaSegel) {
+        terbukaSegel = true;
+        if (navigator.vibrate) navigator.vibrate(18);
+        setTimeout(buka, 180);
+        raf = 0;
+        return;
+      }
+      raf = (arah > 0 && p < 1) || (arah < 0 && p > 0) ? requestAnimationFrame(langkah) : 0;
+    }
+    function gerak(a) { arah = a; t0 = 0; if (!raf) raf = requestAnimationFrame(langkah); }
+    b.addEventListener("pointerdown", function (e) {
+      if (terbukaSegel) return;
+      e.preventDefault();
+      if (b.setPointerCapture) { try { b.setPointerCapture(e.pointerId); } catch (x) { /* abaikan */ } }
+      gerak(1);
+    });
+    ["pointerup", "pointercancel", "lostpointercapture"].forEach(function (ev) {
+      b.addEventListener(ev, function () {
+        if (terbukaSegel || arah <= 0) return;
+        if (p < 0.4) {
+          var hint = document.querySelector(".segel-petunjuk");
+          if (hint) { hint.classList.add("ingat"); setTimeout(function () { hint.classList.remove("ingat"); }, 1400); }
+        }
+        gerak(-1);
+      });
+    });
+    b.addEventListener("click", function (e) { if (e.detail === 0 && !terbukaSegel) { terbukaSegel = true; buka(); } });
+    b.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+    return b;
+  }
+
   // ---------- Cover ----------
   var cover = el("div", "cover");
   cover.id = "cover";
@@ -230,7 +299,6 @@
         return f;
       })(),
       MK ? add(el("div", "akses-atas"), el("span", "", teks("labelPribadi", "Undangan Pribadi")), nomorUndangan() ? el("span", "no-undangan", nomorUndangan()) : null) : null,
-      MK && D.monogram ? el("p", "monogram", D.monogram) : null,
       el("p", "label", D.label || "Undangan Pernikahan"),
       namaPasangan(),
       el("p", "cover-date", tanggal(acaraUtama.mulai)),
@@ -239,12 +307,13 @@
         el("p", "guest-name", guest || "Bapak/Ibu/Saudara/i"),
         MK && kursi ? el("p", "guest-kursi", teks("kursi", "Berlaku untuk") + " " + kursi + " orang") : null,
         el("p", "guest-note", teks("catatanTamu", "Mohon maaf bila ada kesalahan penulisan nama dan gelar"))),
-      (function () {
+      MK ? segel() : (function () {
         var b = el("button", "btn btn-primary btn-open", teks("tombolBuka", "Buka Undangan"));
         b.type = "button";
         b.addEventListener("click", buka);
         return b;
       })(),
+      MK ? el("p", "segel-petunjuk", teks("petunjukSegel", "Tekan dan tahan segel untuk membuka")) : null,
       MK && UND.catatan ? el("p", "catatan-privasi", UND.catatan) : null));
   document.body.insertBefore(cover, app);
   document.body.classList.add("locked");
@@ -370,6 +439,7 @@
   setInterval(renderCd, 1000);
 
   // ---------- Acara ----------
+  var agendaHidup = [];
   var ac = section("acara", "Rangkaian Acara");
   if (D.teksAcara) ac.appendChild(el("p", "sec-desc reveal", D.teksAcara));
   D.acara.forEach(function (a) {
@@ -381,6 +451,23 @@
     peta.rel = "noopener";
     add(c, el("h3", "event-name", a.nama), el("p", "event-date", tanggal(a.mulai)), el("p", "event-time", waktu),
       el("p", "event-place", a.tempat), el("p", "event-addr", a.alamat), peta);
+    if (MK) {
+      // Agenda hidup: penanda status di hari H, tombol rute dan kalender per acara
+      peta.remove();
+      var rute = el("a", "btn btn-primary btn-sm", teks("tombolRute", "Rute"));
+      rute.href = "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(a.peta || a.tempat + ", " + a.alamat);
+      rute.target = "_blank";
+      rute.rel = "noopener";
+      var kal = el("a", "btn btn-ghost btn-sm", teks("tombolKalender", "Kalender"));
+      kal.href = linkKalender(a, a.nama + " " + namaPendek);
+      kal.target = "_blank";
+      kal.rel = "noopener";
+      var status = el("p", "event-status");
+      status.hidden = true;
+      c.insertBefore(status, c.firstChild);
+      add(c, add(el("div", "event-tombol"), rute, kal));
+      agendaHidup.push({ el: c, status: status, a: a });
+    }
     ac.appendChild(c);
   });
   var mapWrap = el("div", "map reveal");
@@ -392,6 +479,34 @@
   mapWrap.appendChild(iframe);
   ac.appendChild(mapWrap);
   app.appendChild(ac);
+  if (agendaHidup.length) {
+    // Simulasi waktu untuk uji atau demo: ?sekarang=2027-12-04T16:30 (zona waktu acara)
+    var OFFSET = { WIB: "+07:00", WITA: "+08:00", WIT: "+09:00" }[ZW];
+    var simulasi = params.get("sekarang");
+    var kini = function () {
+      if (!simulasi) return Date.now();
+      var t = Date.parse(simulasi.length <= 16 ? simulasi + ":00" + OFFSET : simulasi);
+      return isNaN(t) ? Date.now() : t;
+    };
+    var perbaruiAgenda = function () {
+      var n = kini(), berikut = null;
+      agendaHidup.forEach(function (x) {
+        var m = Date.parse(x.a.mulai), sl = x.a.selesai ? Date.parse(x.a.selesai) : m + 2 * 36e5;
+        x.st = n >= sl ? "selesai" : n >= m ? "berlangsung" : "";
+        if (!x.st && m - n < 864e5 && (!berikut || m < Date.parse(berikut.a.mulai))) berikut = x;
+      });
+      agendaHidup.forEach(function (x) {
+        var st = x.st || (x === berikut ? "berikutnya" : "");
+        x.el.classList.toggle("event-selesai", st === "selesai");
+        x.el.classList.toggle("event-berlangsung", st === "berlangsung");
+        x.status.hidden = !st;
+        x.status.textContent = st === "berlangsung" ? teks("sedangBerlangsung", "Sedang berlangsung")
+          : st === "berikutnya" ? teks("acaraBerikutnya", "Berikutnya") : st === "selesai" ? teks("acaraSelesai", "Selesai") : "";
+      });
+    };
+    perbaruiAgenda();
+    setInterval(perbaruiAgenda, 60000);
+  }
 
   // ---------- Kisah (opsional) ----------
   if (D.kisah && D.kisah.length) {
@@ -425,7 +540,7 @@
         img.loading = "lazy";
         b.appendChild(img);
       }
-      b.addEventListener("click", function () { lightbox(i, b); });
+      b.addEventListener("click", function () { if (MK) cerita(i, b); else lightbox(i, b); });
       grid.appendChild(b);
     });
     gl.appendChild(grid);
@@ -442,6 +557,109 @@
     }
     app.appendChild(gl);
   }
+  // ---------- Koleksi: galeri gaya Story (layar penuh, ketuk kiri/kanan, tahan untuk jeda) ----------
+  function cerita(start, opener) {
+    var item = D.galeri, idx = 0, t0 = 0, dur = 5000, jedaMulai = 0, raf = 0, tahan = 0, tahanLama = false, y0 = null;
+    var st = el("div", "cerita");
+    st.setAttribute("role", "dialog");
+    st.setAttribute("aria-modal", "true");
+    st.setAttribute("aria-label", "Galeri");
+    var garis = el("div", "cerita-garis");
+    var batang = item.map(function () { var b = el("b"); garis.appendChild(add(el("i"), b)); return b; });
+    var panggung = el("div", "cerita-panggung");
+    var img = el("img");
+    img.alt = "";
+    var vid = el("video");
+    vid.muted = true;
+    vid.loop = true;
+    vid.playsInline = true;
+    vid.setAttribute("playsinline", "");
+    vid.hidden = true;
+    vid.addEventListener("playing", function () { vid.hidden = false; });
+    add(panggung, img, vid);
+    var hitung = el("p", "cerita-hitung");
+    function tbl(cls, label, isi) {
+      var b = el("button", cls);
+      b.type = "button";
+      b.setAttribute("aria-label", label);
+      if (isi) b.innerHTML = isi;
+      return b;
+    }
+    var kiri = tbl("cerita-kiri", "Sebelumnya");
+    var kanan = tbl("cerita-kanan", "Berikutnya");
+    var tutup = tbl("cerita-tutup", "Tutup", '<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>');
+    add(st, panggung, garis, hitung, kiri, kanan, tutup);
+    function putar() { var pv = vid.play(); if (pv && pv.catch) pv.catch(function () {}); }
+    function tampil(n) {
+      if (n >= item.length) { selesai(); return; }
+      idx = Math.max(0, n);
+      var it = item[idx];
+      batang.forEach(function (b, i) { b.style.width = i < idx ? "100%" : "0%"; });
+      vid.pause();
+      vid.hidden = true;
+      vid.removeAttribute("src");
+      if (it && typeof it === "object") {
+        img.src = it.poster;
+        if (!HEMAT) { vid.src = it.video; putar(); }
+        dur = 6000;
+      } else {
+        img.src = it;
+        dur = 5000;
+      }
+      hitung.textContent = (idx + 1) + " / " + item.length;
+      t0 = performance.now();
+      jedaMulai = 0;
+    }
+    function frame(t) {
+      if (!jedaMulai) {
+        var p = Math.min(1, (t - t0) / dur);
+        batang[idx].style.width = (p * 100).toFixed(1) + "%";
+        if (p >= 1) tampil(idx + 1);
+      }
+      if (st.isConnected) raf = requestAnimationFrame(frame);
+    }
+    function jeda() { if (!jedaMulai) { jedaMulai = performance.now(); vid.pause(); } }
+    function lanjut() {
+      if (!jedaMulai) return;
+      t0 += performance.now() - jedaMulai;
+      jedaMulai = 0;
+      if (vid.getAttribute("src")) putar();
+    }
+    [kiri, kanan].forEach(function (b, i) {
+      b.addEventListener("pointerdown", function () { tahanLama = false; tahan = setTimeout(function () { tahanLama = true; jeda(); }, 260); });
+      ["pointerup", "pointercancel", "pointerleave"].forEach(function (ev) { b.addEventListener(ev, function () { clearTimeout(tahan); lanjut(); }); });
+      b.addEventListener("click", function () {
+        if (tahanLama) { tahanLama = false; return; }
+        tampil(idx + (i ? 1 : -1));
+      });
+    });
+    function selesai() {
+      cancelAnimationFrame(raf);
+      vid.pause();
+      document.removeEventListener("keydown", kunci);
+      st.remove();
+      document.body.classList.remove("ada-cerita");
+      if (opener) opener.focus();
+    }
+    function kunci(e) {
+      if (e.key === "Escape") selesai();
+      else if (e.key === "ArrowRight") tampil(idx + 1);
+      else if (e.key === "ArrowLeft") tampil(idx - 1);
+    }
+    st.addEventListener("touchstart", function (e) { y0 = e.touches[0].clientY; }, { passive: true });
+    st.addEventListener("touchend", function (e) {
+      if (y0 !== null && e.changedTouches[0].clientY - y0 > 90) selesai();
+      y0 = null;
+    });
+    tutup.addEventListener("click", selesai);
+    document.addEventListener("keydown", kunci);
+    document.body.appendChild(st);
+    document.body.classList.add("ada-cerita");
+    tampil(start);
+    raf = requestAnimationFrame(frame);
+    tutup.focus();
+  }
+
   function lightbox(start, opener) {
     var fotos = D.galeri, idx = start;
     var lb = el("div", "lightbox");
@@ -564,6 +782,196 @@
     form.ucapan.value = "";
     note.textContent = teks("terimaKasih", ISLAM ? "Jazakumullahu khairan, ucapan Anda sudah terkirim." : "Terima kasih, ucapan Anda sudah terkirim.");
   });
+
+  // ---------- Koleksi: konfirmasi bertahap + kartu masuk ber-QR ----------
+  // Formulir asli tetap dipakai sebagai penyimpan data (diisi lalu dikirim lewat requestSubmit).
+  if (MK) {
+    form.hidden = true;
+    var lk = el("div", "rsvp-langkah reveal");
+    lk.setAttribute("aria-live", "polite");
+    rv.insertBefore(lk, form);
+    var KK = KEY + "-kartu";
+    var maksKursi = kursi || 4;
+    var jawab = { nama: guest, hadir: "", jumlah: 1, ucapan: "" };
+    var muatKartu = function () { try { return JSON.parse(localStorage.getItem(KK)); } catch (e) { return null; } };
+    var simpanKartu = function (x) { try { localStorage.setItem(KK, JSON.stringify(x)); } catch (e) { /* mode privat */ } };
+    var urutan = function () {
+      var u = [];
+      if (!guest) u.push("nama");
+      u.push("hadir");
+      // Sebelum memilih, hitung jalur "hadir" agar jumlah langkah tidak berubah di tengah jalan
+      if (jawab.hadir !== "Berhalangan" && maksKursi > 1) u.push("kursi");
+      u.push("ucapan");
+      return u;
+    };
+    var pilihan = function (label, nilai, fn) {
+      var b = el("button", "pilihan", label);
+      b.type = "button";
+      b.addEventListener("click", function () { fn(nilai); });
+      return b;
+    };
+    var langkah = function (nama, fokus) {
+      var u = urutan(), i = u.indexOf(nama), isi = [];
+      var lanjutKe = function () { langkah(urutan()[urutan().indexOf(nama) + 1], true); };
+      lk.innerHTML = "";
+      if (nama === "nama") {
+        var inp = el("input");
+        inp.id = "rsvp-langkah-nama";
+        inp.maxLength = 60;
+        inp.autocomplete = "name";
+        inp.value = jawab.nama || "";
+        inp.setAttribute("aria-label", "Nama Anda");
+        var lanjutBtn = el("button", "btn btn-primary", teks("tombolLanjut", "Lanjut"));
+        lanjutBtn.type = "button";
+        lanjutBtn.addEventListener("click", function () { var v = inp.value.trim(); if (!v) { inp.focus(); return; } jawab.nama = v; lanjutKe(); });
+        isi = [el("h3", "langkah-tanya", teks("tanyaNama", "Siapa nama Anda?")), add(el("div", "langkah-isian"), inp), lanjutBtn];
+      } else if (nama === "hadir") {
+        isi = [el("h3", "langkah-tanya", teks("tanyaHadir", "Apakah Anda akan hadir?")), add(el("div", "pilihan-baris"),
+          pilihan(teks("hadir", "Akan hadir"), "Hadir", function (v) { jawab.hadir = v; lanjutKe(); }),
+          pilihan(teks("berhalangan", "Berhalangan"), "Berhalangan", function (v) { jawab.hadir = v; jawab.jumlah = 1; langkah("ucapan", true); }))];
+      } else if (nama === "kursi") {
+        var baris = el("div", "pilihan-baris");
+        for (var k = 1; k <= maksKursi; k++) baris.appendChild(pilihan(k + " orang", k, function (v) { jawab.jumlah = v; langkah("ucapan", true); }));
+        isi = [el("h3", "langkah-tanya", teks("tanyaKursi", "Berapa orang yang akan hadir?")),
+          kursi ? el("p", "langkah-catatan", "Undangan ini berlaku untuk " + kursi + " orang.") : null, baris];
+      } else {
+        var ta = el("textarea");
+        ta.id = "rsvp-langkah-ucapan";
+        ta.rows = 3;
+        ta.maxLength = 280;
+        ta.placeholder = teks("contohUcapan", "Tulis ucapan singkat");
+        ta.value = jawab.ucapan;
+        ta.setAttribute("aria-label", "Ucapan");
+        var kirimBtn = el("button", "btn btn-primary", teks("tombolKirim", "Kirim Konfirmasi"));
+        kirimBtn.type = "button";
+        kirimBtn.addEventListener("click", function () { jawab.ucapan = ta.value.trim(); kirimJawab(); });
+        isi = [el("h3", "langkah-tanya", teks("tanyaUcapan", "Ucapan untuk kedua mempelai")), el("p", "langkah-catatan", "Opsional."),
+          add(el("div", "langkah-isian"), ta), kirimBtn];
+      }
+      add(lk, el("p", "langkah-ke", "Langkah " + (i + 1) + " dari " + u.length));
+      isi.forEach(function (x) { add(lk, x); });
+      if (i > 0) {
+        var kembali = el("button", "langkah-kembali", teks("tombolKembali", "Kembali"));
+        kembali.type = "button";
+        kembali.addEventListener("click", function () { langkah(u[i - 1], true); });
+        lk.appendChild(kembali);
+      }
+      if (fokus) { var f = lk.querySelector("input, textarea, .pilihan"); if (f) f.focus({ preventScroll: true }); }
+    };
+    var kirimJawab = function () {
+      form.nama.value = jawab.nama;
+      form.hadir.value = jawab.hadir;
+      form.jumlah.value = String(jawab.jumlah);
+      form.ucapan.value = jawab.ucapan;
+      if (form.requestSubmit) form.requestSubmit(); else form.dispatchEvent(new Event("submit", { cancelable: true }));
+      var hasil = { nama: jawab.nama, hadir: jawab.hadir, jumlah: jawab.jumlah, no: noTamu };
+      simpanKartu(hasil);
+      tampilHasil(hasil);
+    };
+    var tampilHasil = function (h) {
+      lk.innerHTML = "";
+      var ubah = el("button", "langkah-kembali", teks("ubahJawaban", "Ubah jawaban"));
+      ubah.type = "button";
+      ubah.addEventListener("click", function () { jawab = { nama: h.nama, hadir: "", jumlah: 1, ucapan: "" }; langkah(urutan()[0], true); });
+      if (h.hadir !== "Hadir") {
+        add(lk, el("h3", "langkah-tanya", teks("terimaKasihJudul", "Terima kasih")),
+          el("p", "langkah-catatan", teks("terimaBerhalangan", "Doa dan ucapan Anda sangat berarti bagi kami.")), ubah);
+        return;
+      }
+      var no = nomorUndangan();
+      var km = el("div", "kartu-masuk");
+      add(km,
+        add(el("div", "km-atas"), el("span", "", teks("kartuMasuk", "Kartu Masuk")), no ? el("span", "no-undangan", no) : null),
+        D.monogram ? el("p", "monogram", D.monogram) : null,
+        el("p", "km-nama", h.nama),
+        el("p", "km-kursi", h.jumlah + " " + teks("labelKursi", "kursi")),
+        el("div", "km-qr"),
+        el("p", "km-acara", tanggal(acaraUtama.mulai) + " · " + jam(acaraUtama.mulai) + " " + ZW),
+        el("p", "km-tempat", acaraUtama.tempat));
+      var simpanBtn = el("button", "btn btn-primary", teks("simpanKartu", "Simpan Kartu"));
+      simpanBtn.type = "button";
+      add(lk, el("p", "langkah-ke", teks("kartuSiap", "Kartu masuk Anda")), km,
+        el("p", "langkah-catatan", teks("catatanKartu", "Tunjukkan kartu ini di meja registrasi.")), simpanBtn, ubah);
+      var isiQr = [D.judul || namaPendek, no, h.nama, h.jumlah + " kursi"].filter(Boolean).join(" | ");
+      muatSkrip(BASE + "vendor/qrcode.js", function () {
+        if (!window.qrcode) return;
+        if (qrcode.stringToBytesFuncs && qrcode.stringToBytesFuncs["UTF-8"]) qrcode.stringToBytes = qrcode.stringToBytesFuncs["UTF-8"];
+        var qr = qrcode(0, "M");
+        qr.addData(isiQr);
+        qr.make();
+        km.querySelector(".km-qr").innerHTML = qr.createSvgTag({ cellSize: 4, margin: 2, scalable: true });
+        km.qr = qr;
+      });
+      simpanBtn.addEventListener("click", function () { simpanGambarKartu(km, h, no); });
+    };
+    // Gambar kartu masuk ke kanvas, lalu bagikan (HP) atau unduh sebagai PNG
+    var simpanGambarKartu = function (km, h, no) {
+      var gs = getComputedStyle(km);
+      var W = 1080, H = 1500, c = document.createElement("canvas");
+      c.width = W;
+      c.height = H;
+      var x = c.getContext("2d");
+      var fd = getComputedStyle(document.body).getPropertyValue("--font-display").trim() || "serif";
+      var fb = getComputedStyle(document.body).getPropertyValue("--font-body").trim() || "sans-serif";
+      var logam = gs.getPropertyValue("--logam").trim() || "#a8825f";
+      x.fillStyle = gs.backgroundColor;
+      x.fillRect(0, 0, W, H);
+      x.strokeStyle = logam;
+      x.lineWidth = 2;
+      x.strokeRect(48, 48, W - 96, H - 96);
+      x.fillStyle = gs.color;
+      x.textBaseline = "middle";
+      x.font = "500 26px " + fb;
+      x.textAlign = "left";
+      x.fillText(teks("kartuMasuk", "Kartu Masuk").toUpperCase(), 100, 120);
+      if (no) { x.textAlign = "right"; x.fillStyle = logam; x.fillText(no, W - 100, 120); }
+      x.textAlign = "center";
+      x.strokeStyle = logam;
+      x.beginPath();
+      x.arc(W / 2, 290, 70, 0, Math.PI * 2);
+      x.stroke();
+      x.fillStyle = logam;
+      x.font = "40px " + fd;
+      x.fillText(D.monogram || "", W / 2, 292);
+      x.fillStyle = gs.color;
+      x.font = "64px " + fd;
+      x.fillText(h.nama, W / 2, 470, W - 200);
+      x.fillStyle = logam;
+      x.font = "500 26px " + fb;
+      x.fillText((h.jumlah + " " + teks("labelKursi", "kursi")).toUpperCase(), W / 2, 545);
+      if (km.qr) {
+        var n = km.qr.getModuleCount(), ukuran = 460, sel = ukuran / (n + 4), x0 = (W - ukuran) / 2, y0 = 610;
+        x.fillStyle = "#f4f1ed";
+        x.fillRect(x0, y0, ukuran, ukuran);
+        x.fillStyle = "#1d1714";
+        for (var r = 0; r < n; r++) for (var q = 0; q < n; q++) if (km.qr.isDark(r, q)) x.fillRect(x0 + (q + 2) * sel, y0 + (r + 2) * sel, Math.ceil(sel), Math.ceil(sel));
+      }
+      x.fillStyle = gs.color;
+      x.font = "30px " + fb;
+      x.fillText(tanggal(acaraUtama.mulai) + " · " + jam(acaraUtama.mulai) + " " + ZW, W / 2, 1160);
+      x.fillText(acaraUtama.tempat, W / 2, 1210, W - 200);
+      x.font = "40px " + fd;
+      x.fillText(namaPendek, W / 2, 1330);
+      c.toBlob(function (blob) {
+        if (!blob) return;
+        var namaBerkas = "kartu-masuk-" + (D.id || "undangan") + ".png";
+        var berkas = typeof File === "function" ? new File([blob], namaBerkas, { type: "image/png" }) : null;
+        if (berkas && navigator.canShare && navigator.canShare({ files: [berkas] })) {
+          navigator.share({ files: [berkas], title: teks("kartuMasuk", "Kartu Masuk") }).catch(function () {});
+        } else {
+          var a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = namaBerkas;
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+        }
+      }, "image/png");
+    };
+    var lama = muatKartu();
+    if (lama && (!guest || lama.nama === guest)) tampilHasil(lama);
+    else langkah(urutan()[0]);
+  }
 
   // ---------- Amplop digital ----------
   if (D.hadiah && D.hadiah.length) {
@@ -818,6 +1226,25 @@
       });
     }, { rootMargin: "200px 0px" });
     klipVideo.forEach(function (v) { vo.observe(v); });
+  }
+
+  // ---------- Koleksi: kilau foil di kartu akses + hero sinematik mengikuti gulir ----------
+  if (MK && !KURANGI) {
+    var akar = document.documentElement;
+    var kilau = function (x) { akar.style.setProperty("--kilau", Math.max(0, Math.min(100, x)).toFixed(1) + "%"); };
+    // Kilau mengikuti sentuhan atau kursor di cover, dan kemiringan HP (Android; iOS cukup sentuhan)
+    cover.addEventListener("pointermove", function (e) { kilau((e.clientX / window.innerWidth) * 100); });
+    window.addEventListener("deviceorientation", function (e) { if (e.gamma != null && !cover.hidden) kilau(50 + e.gamma * 1.5); });
+    var wadahHero = hero.querySelector(".bingkai-wadah");
+    if (wadahHero) {
+      var antreHero = false;
+      var gulirHero = function () {
+        antreHero = false;
+        var r = hero.getBoundingClientRect();
+        wadahHero.style.setProperty("--hero-p", Math.max(0, Math.min(1, -r.top / (r.height * 0.7))).toFixed(3));
+      };
+      window.addEventListener("scroll", function () { if (!antreHero) { antreHero = true; requestAnimationFrame(gulirHero); } }, { passive: true });
+    }
   }
 
   // ---------- Kerangka v2: menu melayang + parallax lapisan ----------

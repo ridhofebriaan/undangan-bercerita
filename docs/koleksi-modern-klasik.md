@@ -26,7 +26,7 @@ Dokumen ini adalah standar untuk semua undangan koleksi **Modern Klasik**. Kolek
 | Batas konfirmasi | "Mohon konfirmasi sebelum 1 September 2027" |
 | Monogram atau segel | Inisial pasangan dalam lingkaran garis tipis, atau segel lilin |
 | Catatan privasi | "Undangan ini bersifat pribadi" dalam huruf kecil |
-| Kartu masuk QR (opsional) | QR berisi nama dan nomor tamu untuk registrasi di lokasi |
+| Kartu masuk ber-QR | Muncul setelah tamu mengonfirmasi hadir: nama, nomor undangan, kursi, dan QR untuk registrasi di lokasi |
 
 ## 4. Warna
 
@@ -99,7 +99,7 @@ Dokumen ini adalah standar untuk semua undangan koleksi **Modern Klasik**. Kolek
 
 | No | Bagian | Isi dan catatan |
 |---|---|---|
-| 1 | Cover (kartu akses) | Monogram, nama tamu, nomor undangan, jumlah kursi, tombol "Buka Undangan" |
+| 1 | Cover (kartu akses) | Nama tamu, nomor undangan, jumlah kursi, dan segel monogram yang dibuka dengan menekan dan menahan |
 | 2 | Hero | Video berulang selebar layar, nama pasangan, tanggal |
 | 3 | Pembuka | Salam singkat. Ayat atau kutipan opsional, satu kalimat saja |
 | 4 | Mempelai | Potret editorial, nama lengkap, orang tua (opsional) |
@@ -108,8 +108,8 @@ Dokumen ini adalah standar untuk semua undangan koleksi **Modern Klasik**. Kolek
 | 7 | Acara | Format agenda: waktu, acara, tempat. Peta dan tombol tambah ke kalender |
 | 8 | Dress code | Gaya busana (misalnya *black tie optional*) dan contoh warna |
 | 9 | Info tamu | Parkir, hotel terdekat, kebijakan anak, protokol |
-| 10 | Galeri | Campuran foto dan video, tata letak kisi editorial atau pita film |
-| 11 | Konfirmasi (RSVP) | Batas waktu, jumlah kursi sesuai undangan, ucapan |
+| 10 | Galeri | Campuran foto dan video dalam kisi editorial. Diketuk membuka tampilan Story layar penuh |
+| 11 | Konfirmasi (RSVP) | Batas waktu, lalu konfirmasi bertahap (hadir, kursi, ucapan), lalu kartu masuk |
 | 12 | Tanda kasih | Opsional dan diskret, tersembunyi di balik tombol |
 | 13 | Penutup | Monogram, terima kasih, nomor undangan diulang |
 
@@ -124,7 +124,8 @@ Menu melayang tetap dipakai.
 ## 10. Gerak
 
 - Durasi 600–1.200 ms dengan perlambatan halus. Yang boleh: pudar, geser kecil, dan garis yang tergambar.
-- Tidak ada pantulan, zoom besar, kelopak, partikel, atau kilau.
+- Tidak ada pantulan, zoom besar, kelopak, partikel, atau kilau yang berkelip sendiri.
+- Yang boleh: sorotan foil yang bergerak hanya karena tamu (HP dimiringkan, layar disentuh, segel ditahan), dan gerak yang terikat pada gulir di hero.
 - Semua gerak mati bila tamu memilih kurangi gerak.
 
 ## 11. Daftar larangan
@@ -148,6 +149,7 @@ Menu melayang tetap dipakai.
 - [ ] Semua foto dan video berbusana modern formal, dan lisensinya tercatat di `KREDIT.md`.
 - [ ] Uji di lebar 360 px: tanpa error, tanpa geser ke samping, dan tombol ≥ 44 px.
 - [ ] Zona waktu benar (`zonaWaktu`).
+- [ ] `node tools/uji-interaksi.js <kode>` lulus semua: segel, hero, Story, konfirmasi dan kartu masuk, agenda hari H, tanpa error.
 - [ ] Teks ringkas tanpa tanda seru.
 
 ## 13. Alur kerja
@@ -183,4 +185,24 @@ Hadiah tampil diskret di balik tombol "Lihat Rekening & Alamat". Saat tamu memil
 - skenario hemat data;
 - poster hero di jaringan 3G.
 
-**Belum dibuat:** kartu masuk QR dan versi dua bahasa (`bahasa: "id" | "en"`).
+**Belum dibuat:** versi dua bahasa (`bahasa: "id" | "en"`).
+
+## 15. Interaksi koleksi
+
+Semua interaksi ini otomatis aktif untuk tema dengan `koleksi: "modern-klasik"`. Setiap interaksi wajib punya jalan alternatif, supaya tidak ada tamu yang tertahan.
+
+| No | Interaksi | Cara kerja | Jalan alternatif |
+|---|---|---|---|
+| 1 | Segel tekan-dan-tahan | Di cover, tamu menekan dan menahan monogram selama 1 detik. Lingkaran logam terisi, HP Android bergetar halus, lalu undangan terbuka. Ketukan singkat memunculkan pengingat "Tekan dan tahan" | Tombol keyboard (Enter atau spasi) langsung membuka |
+| 2 | Kilau foil | Sorotan logam di nama dan nomor undangan bergerak mengikuti kemiringan HP (Android), sentuhan di cover, dan tahanan segel | Mati saat kurangi gerak. Tanpa interaksi, teks tampil polos |
+| 3 | Hero sinematik | Video hero membesar sedikit dan meredup saat digulir. Label, nama, dan tanggal muncul bertahap setelah undangan dibuka | Saat kurangi gerak, semua langsung tampil tanpa gerak |
+| 4 | Galeri Story | Mengetuk foto membuka tampilan layar penuh dengan garis waktu. Foto tampil 5 detik dan video 6 detik. Ketuk kanan untuk maju, ketuk kiri untuk mundur, tahan untuk jeda, geser ke bawah atau Esc untuk menutup | Panah kiri dan kanan di keyboard. Video diganti poster saat hemat data |
+| 5 | Konfirmasi bertahap | Satu pertanyaan per layar: nama (bila tautan tanpa nama), hadir atau berhalangan, jumlah kursi (dibatasi sesuai undangan), dan ucapan. Hasilnya **kartu masuk** ber-QR yang bisa disimpan sebagai gambar (bagikan atau unduh) dan tetap tampil saat undangan dibuka ulang | Tombol "Kembali" di tiap langkah dan "Ubah jawaban" setelah selesai |
+| 6 | Agenda hidup | Di hari H, acara diberi penanda "Sedang berlangsung", "Berikutnya" (24 jam ke depan), atau "Selesai". Tiap acara punya tombol Rute (Google Maps) dan Kalender | Demo atau uji dengan `&sekarang=2027-12-04T16:30` di tautan |
+
+**Teks yang bisa diganti lewat `D.teks`:** `petunjukSegel`, `tombolRute`, `tombolKalender`, `sedangBerlangsung`, `acaraBerikutnya`, `acaraSelesai`, `tanyaNama`, `tanyaHadir`, `tanyaKursi`, `tanyaUcapan`, `tombolLanjut`, `tombolKembali`, `tombolKirim`, `ubahJawaban`, `kartuMasuk`, `kartuSiap`, `catatanKartu`, `simpanKartu`, `labelKursi`, `terimaBerhalangan`.
+
+**Token tema untuk kartu masuk:** `--kartu-bg`, `--kartu-teks`, `--kartu-logam`. Kartu masuk sebaiknya selalu bergaya kartu akses gelap, juga pada tema bermode terang.
+
+**Pustaka:** QR dibuat dengan `qrcode-generator` (MIT, `site/engine/vendor/qrcode.js`). Pustaka ini hanya dimuat saat kartu masuk ditampilkan.
+

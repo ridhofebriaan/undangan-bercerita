@@ -37,7 +37,7 @@ async function halaman(b, opsi = {}) {
     await h.p.goto(URL, { waitUntil: "networkidle0" });
     const awal = h.bobot().awal;
     h.tandaiBuka();
-    await h.p.tap(".btn-open");
+    await h.p.evaluate(() => document.querySelector(".btn-open").click());
     await wait(3500);
     const hero = await h.p.evaluate(() => { const k = document.querySelector(".sec-hero .klip"); return k ? { siap: k.classList.contains("siap"), adaVideo: !!k.querySelector("video") } : null; });
     // Gulir ke bawah perlahan agar semua video sempat dimuat
@@ -55,7 +55,7 @@ async function halaman(b, opsi = {}) {
   for (const [nama, opsi] of [["KURANGI GERAK", { kurangiGerak: true }], ["HEMAT DATA", { hematData: true }]]) {
     const h = await halaman(b, opsi);
     await h.p.goto(URL, { waitUntil: "networkidle0" });
-    await h.p.tap(".btn-open");
+    await h.p.evaluate(() => document.querySelector(".btn-open").click());
     await wait(2500);
     const r = await h.p.evaluate(() => ({ video: document.querySelectorAll(".klip video").length, poster: [...document.querySelectorAll(".klip-poster")].filter((i) => i.complete || i.loading === "lazy").length, klip: document.querySelectorAll(".klip").length }));
     console.log(`${nama.padEnd(13)} video dimuat ${r.video} (harus 0) | poster ${r.poster}/${r.klip} | ${h.err.length ? h.err.join("; ") : "tanpa error"}`);
@@ -67,7 +67,7 @@ async function halaman(b, opsi = {}) {
     const h = await halaman(b, { lambat: true });
     await h.p.goto(URL, { waitUntil: "domcontentloaded" });
     await wait(1500);
-    await h.p.tap(".btn-open");
+    await h.p.evaluate(() => document.querySelector(".btn-open").click());
     await wait(1500);
     const r = await h.p.evaluate(() => { const i = document.querySelector(".sec-hero .klip-poster"); return i ? { muat: i.complete && i.naturalWidth > 0, lebar: i.naturalWidth, filter: getComputedStyle(i).filter } : null; });
     await h.p.screenshot({ path: `${out}/${kode}-3g-hero.png` });
