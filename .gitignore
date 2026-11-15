@@ -5,3 +5,5 @@ node_modules/
 tools/out/
 # Skill Claude Code lokal (tidak ikut repo)
 .claude/
+# Catatan pribadi pemilik (folder assets/ di root, bukan site/assets/)
+/assets/
