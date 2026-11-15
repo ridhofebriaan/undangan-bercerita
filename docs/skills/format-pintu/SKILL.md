@@ -21,12 +21,13 @@ description: Membuat undangan RB Digital dengan Format Pintu, yaitu pola tema Me
 2. **Engine dasar saja:** `engine/undangan.css` ditambah `tema.css`. Tanpa `kerangka: true` dan tanpa `koleksi`.
 3. **Tiap undangan berbeda di minimal 5 elemen:** palet, motif ubin, pita tepi, sudut, medali, huruf, arah pintu, bentuk bingkai, warna kelopak, atau bagian gelap. Ornamen SVG digambar sendiri.
 4. **Aturan bersama tetap berlaku:**
-   - palet lolos `periksa.py` ≥ 85, dan **latar tidak krem bawaan** (skill warna-mewah);
-   - **bingkai modern tanpa cincin ganda**, cukup bayangan atau garis 1 px;
+   - palet lolos `periksa.py` ≥ 85 (skill warna-mewah);
+   - latar bawaannya netral berona palet, dan bingkai bawaannya modern (bayangan atau garis 1 px);
+   - **krem dan cincin ganda boleh sesekali**: jangan dipakai di dua undangan berturut-turut, dan paling banyak sepertiga;
    - foto sesuai tema atau adat;
    - aset legal dan dicatat di `KREDIT.md`;
    - `zonaWaktu` diisi benar.
-5. **Bagian yang tidak disalin dari Melayu:** latar krem `#f7f1e3` dan bingkai cincin ganda (`box-shadow` berlapis). Keduanya dibuat sebelum aturan baru.
+5. **Krem `#f7f1e3` dan cincin ganda (`box-shadow` berlapis) dari Melayu** hanya dipertahankan bila aturan "sesekali" terpenuhi. Selain itu, ganti dengan netral berona palet dan bingkai modern.
 
 ## Cara kerja
 
@@ -52,6 +53,6 @@ description: Membuat undangan RB Digital dengan Format Pintu, yaitu pola tema Me
 
 - Templat memuat `../../tema/melayu/tema.css`. Salinan jadi diam-diam memakai CSS Melayu.
 - `og:image` mengarah ke alamat lama `/rb-digital/`, sehingga pratinjau WhatsApp kosong.
-- Latar krem dan bingkai cincin ganda, yang ditegur user sebagai bawaan atau kuno.
+- Latar krem dan bingkai cincin ganda dipakai terus-menerus. User tidak keberatan bila sesekali, tapi menegurnya bila berulang.
 - Foto busana adat yang tidak sesuai tema.
 - Mengerjakan perintah setengah jalan. Jalankan perintah user sampai tuntas.

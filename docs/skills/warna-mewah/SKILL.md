@@ -58,7 +58,7 @@ Palet yang lolos pemeriksa bisa tetap terlihat murah kalau penerapannya salah. I
 Latar krem hangat dengan huruf serif dan aksen cokelat atau emas adalah gaya bawaan desain buatan AI. Kalau dipakai terus, semua tema terlihat sama. Pengalaman di proyek undangan: lima tema berturut-turut berlatar krem, lalu user menegurnya ("itu warna default Claude"). Aturannya:
 
 - **Netral diambil dari rona palet.** Latar terang memakai rona yang sama dengan jangkar gelap, dibuat sangat pucat (L > 0.88, C 0.006–0.03). Contoh: navy menjadi abu kabut kebiruan, hijau tua menjadi abu embun kehijauan, plum menjadi merah muda pudar, marun boleh tetap gading hangat.
-- **Krem dibatasi.** Paling banyak 2 tema di katalog boleh berlatar krem atau gading. Periksa latar tema yang sudah ada sebelum memilih.
+- **Krem dibatasi, bukan dilarang.** User tidak keberatan krem sesekali. Yang ditolak adalah krem terus-menerus. Jadi krem atau gading tidak dipakai di dua undangan baru berturut-turut, dan paling banyak sepertiga tema di katalog. Periksa latar tema yang sudah ada sebelum memilih.
 - **Selalu ada opsi gelap.** Dari setiap set kandidat palet, minimal satu opsi memakai latar gelap dominan (jangkar gelap sebagai latar utama, bagian terang sebagai selingan).
 - **Butiran ikut menyesuaikan.** Tekstur kertas di latar diwarnai sesuai rona palet, bukan cokelat untuk semua tema.
 
@@ -66,7 +66,7 @@ Latar krem hangat dengan huruf serif dan aksen cokelat atau emas adalah gaya baw
 
 ## Proses kerja
 
-1. Tentukan suasana (contoh: adat Minang, malam, keraton), cek latar tema yang sudah ada di katalog, lalu susun **3 kandidat palet**. Minimal satu kandidat berlatar netral berona palet dan satu berlatar gelap dominan. Krem hanya bila katalog belum punya 2 tema krem.
+1. Tentukan suasana (contoh: adat Minang, malam, keraton), cek latar tema yang sudah ada di katalog, lalu susun **3 kandidat palet**. Minimal satu kandidat berlatar netral berona palet dan satu berlatar gelap dominan. Krem hanya bila undangan sebelumnya tidak krem dan jumlahnya di katalog belum melewati sepertiga.
 2. Jalankan `periksa.py` untuk setiap kandidat. Perbaiki sampai skor ≥ 85.
 3. Tunjukkan ketiganya ke user sebagai contoh warna, dan sebutkan skor serta alasannya singkat.
 4. User memilih. **Simpan pilihan user ke memory** sebagai patokan selera ("palet yang disukai: ...").

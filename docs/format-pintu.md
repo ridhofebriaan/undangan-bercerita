@@ -117,9 +117,9 @@ Ornamen digambar sendiri dalam satu warna logam palet. Tidak boleh menyalin moti
 
 - **Warna:**
   - wajib lolos `python3 docs/skills/warna-mewah/periksa.py` dengan skor ≥ 85;
-  - **latar terang tidak krem bawaan**, tapi netral pucat berona palet. Tema Melayu masih krem karena dibuat sebelum aturan ini;
+  - latar terang bawaannya netral pucat berona palet. Krem seperti tema Melayu **sesekali boleh**: jangan dipakai di dua undangan baru berturut-turut, dan paling banyak sepertiga tema di katalog;
   - logam paling banyak 10% layar.
-- **Bingkai foto modern:** lengkung tanpa cincin ganda. Cukup bayangan halus atau satu garis tipis 1 px warna logam. Tema Melayu masih memakai cincin ganda (`box-shadow` berlapis) karena dibuat sebelum aturan ini, jadi bagian itu tidak ikut disalin.
+- **Bingkai foto:** bawaannya modern, yaitu lengkung dengan bayangan halus atau satu garis tipis 1 px warna logam. Cincin ganda seperti tema Melayu (`box-shadow` berlapis) **sesekali boleh**: jangan dipakai di dua undangan berturut-turut, dan paling banyak sepertiga undangan Format Pintu.
 - **Foto sesuai tema:** undangan bertema adat wajib memakai foto berbusana adat yang sama. Undangan umum memakai foto pasangan yang serasi dengan suasananya.
 - **Aset legal:** foto dari Pexels atau Unsplash (bebas untuk usaha) atau foto klien. Ornamen digambar sendiri. Musik bebas lisensi. Semuanya dicatat di `KREDIT.md`.
 - **Zona waktu** acara diisi lewat `zonaWaktu` (WIB, WITA, atau WIT).
@@ -162,7 +162,7 @@ Total semua foto paling banyak sekitar 2,5 MB, sehingga muatan awal tanpa musik 
 4. **Ornamen:** gambar `ubin.svg`, `tepi.svg`, `sudut.svg`, dan `medali.svg` baru sesuai tema. Pratinjau di atas latar gelap dan terang sebelum dipakai.
 5. **`tema.css`:**
    - ganti token `:root` dan nama berkas SVG;
-   - terapkan bingkai modern (hapus cincin ganda);
+   - pilih bingkai: modern (bawaan) atau cincin ganda bila undangan sebelumnya tidak memakainya;
    - pilih variasi dari bagian 6.
 6. **Foto:** cari dan potong sesuai bagian 8, lalu catat di `KREDIT.md`.
 7. **Musik:** user menaruh berkas di `site/assets/musik/`, lalu dikonversi dengan `afconvert -f m4af -d aac -b 112000 masuk.mp3 keluar.m4a`. Berkas mp3 mentah tidak di-commit.
@@ -174,7 +174,7 @@ Total semua foto paling banyak sekitar 2,5 MB, sehingga muatan awal tanpa musik 
 
 - [ ] Kedelapan ciri khas (bagian 1) ada dan berfungsi: pintu terbuka, sudut tergambar, nama muncul dari kabur, kelopak berjatuhan, mozaik 12 foto.
 - [ ] Minimal lima elemen berbeda dari undangan Format Pintu lain (bagian 6).
-- [ ] Palet lolos `periksa.py` (≥ 85), latar tidak krem bawaan, dan bingkai tanpa cincin ganda.
+- [ ] Palet lolos `periksa.py` (≥ 85). Krem dan cincin ganda hanya sesekali: tidak berturut-turut, dan paling banyak sepertiga.
 - [ ] Foto sesuai tema atau adat, dan `KREDIT.md` lengkap.
 - [ ] `index.html` memuat `tema.css` relatif, dan `og:image` beralamat lengkap ke `undangan-bercerita`.
 - [ ] Uji di lebar 360 px: tanpa error, tanpa geser ke samping, tombol ≥ 44 px.

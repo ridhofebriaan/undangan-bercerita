@@ -110,7 +110,7 @@ def periksa(palet, pasangan_teks):
         if peran != "terang" or L <= 0.88 or C < 0.008:
             continue
         if 45 <= H <= 105:
-            temuan.append((0, "INGAT", f"{peran} {hx}: netral krem/gading. Krem bukan pilihan bawaan; maksimal 2 tema krem di katalog. Pertimbangkan netral berona palet."))
+            temuan.append((0, "INGAT", f"{peran} {hx}: netral krem/gading. Krem boleh sesekali: tidak berturut-turut dan paling banyak sepertiga katalog. Pertimbangkan netral berona palet."))
         for Hg, Cg in gelap:
             if Cg >= 0.03 and beda_hue(H, Hg) > 90:
                 temuan.append((0, "INGAT", f"{peran} {hx}: rona netral ({H:.0f}°) jauh dari jangkar gelap ({Hg:.0f}°). Netral yang serumpun dengan jangkar terasa lebih menyatu."))
