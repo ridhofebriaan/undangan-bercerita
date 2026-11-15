@@ -10,4 +10,4 @@ Semua foto dan video demo berasal dari Pexels (Pexels License, bebas untuk usaha
   - `video/selingan2.mp4`: 32019982, dua tangan di pagar;
   - `video/g-korsase.mp4`: 27047851, korsase di jas.
 - Poster video (`video/*.jpg`) diambil dari frame pertama tiap klip dengan `tools/video.js`.
-- `../../assets/musik/musik-1.m4a`: musik sementara. Ganti ke instrumental piano atau string bila berkasnya sudah ada.
+- `../../assets/musik/musik-atelier.m4a`: dari berkas `modern-ateliar1.mp3` yang disediakan pemilik, dikonversi ke AAC.

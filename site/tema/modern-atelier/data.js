@@ -95,7 +95,7 @@ window.UNDANGAN = {
   alamatKado: "Jl. Senopati No. 88, Kebayoran Baru, Jakarta Selatan 12190 (a.n. Alya)",
   teksHadiah: "Kehadiran Anda sudah lebih dari cukup. Bila ingin memberi tanda kasih, detailnya ada di bawah ini.",
 
-  musik: "../../assets/musik/musik-1.m4a",
+  musik: "../../assets/musik/musik-atelier.m4a",
   penutup: "Kehadiran dan doa restu Anda adalah hadiah terbaik bagi kami.",
   contohUcapan: [
     { nama: "Tim Corporate Finance", hadir: "Hadir", ucapan: "Selamat menempuh hidup baru, Alya dan Raka. Bahagia selalu." },
