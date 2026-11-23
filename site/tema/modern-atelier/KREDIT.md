@@ -1,6 +1,6 @@
 # Kredit aset tema Atelier (koleksi Modern Klasik)
 
-Semua foto dan video demo berasal dari Pexels (Pexels License, bebas untuk usaha). Semuanya diolah menjadi monokrom hangat oleh RB Digital. Untuk klien diganti foto dan video klien.
+Semua foto dan video demo berasal dari Pexels (Pexels License, bebas untuk usaha). Semuanya diolah menjadi monokrom hangat oleh FB Digital. Untuk klien diganti foto dan video klien.
 
 - **Foto pasangan** (satu sesi, fotografer Pexels 463686151, serta 15825603): nomor foto 15957029, 15825598, 15891240, 15825603.
 - **Foto detail tanpa wajah:** 29139351 (dasi kupu-kupu dan gaun), 37828095 (genggaman tangan).

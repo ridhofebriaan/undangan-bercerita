@@ -1,6 +1,6 @@
 # Kredit aset tema Sekar Kedhaton
 
-Semua ilustrasi berstatus domain publik (Wikimedia Commons), lalu diwarnai ulang sogan oleh RB Digital:
+Semua ilustrasi berstatus domain publik (Wikimedia Commons), lalu diwarnai ulang sogan oleh FB Digital:
 
 - `aset/latar.webp`: litografi Gunung Sumbing, C.W. Mieling menurut F.W. Junghuhn (1850-an).
 - `aset/candi.webp`: F.W. Junghuhn, *Dieng-Plateau in Zentral-Java* (1856). [Commons](https://commons.wikimedia.org/wiki/File:Junghuhn_Dieng-Plateau_in_Zentral-Java.jpg)

@@ -1,4 +1,4 @@
-# RB Digital: Undangan Pernikahan Digital
+# FB Digital: Undangan Pernikahan Digital
 
 Situs statis yang tayang di GitHub Pages dari folder `site/`. Tidak ada proses build dan tidak ada server.
 

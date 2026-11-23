@@ -1,8 +1,8 @@
-# Kerangka Undangan Digital RB Digital
+# Kerangka Undangan Digital FB Digital
 
 > **Format lain:** [Format Pintu](format-pintu.md) (pola tema Melayu) dan [koleksi Modern Klasik](koleksi-modern-klasik.md).
 
-Dokumen ini adalah standar baku untuk semua undangan RB Digital. Setiap undangan baru wajib mengikuti kerangka ini. Yang boleh berbeda antarundangan hanya **paket aset** (ilustrasi, ornamen, palet, huruf) dan **gaya foto**.
+Dokumen ini adalah standar baku untuk semua undangan FB Digital. Setiap undangan baru wajib mengikuti kerangka ini. Yang boleh berbeda antarundangan hanya **paket aset** (ilustrasi, ornamen, palet, huruf) dan **gaya foto**.
 
 - **Acuan struktur:** [our-wedding.link/design/traditional-minang](https://our-wedding.link/design/traditional-minang). Yang diambil hanya alur, komponen, dan prinsip tata letaknya. Ilustrasi, foto, teks, dan kode milik mereka **tidak** disalin.
 - **Status:** versi 1, 13 November 2026.
@@ -33,7 +33,7 @@ Urutan tetap. Bagian opsional boleh dihilangkan, tetapi urutan sisanya tidak diu
 | 10 | Live streaming | Opsional | Teks pengantar dan tombol tautan siaran | Link siaran |
 | 11 | Amplop & kado | Opsional | Rekening dengan tombol salin, alamat kado dengan tombol salin | Bank, nomor, nama, alamat |
 | 12 | Ucapan & doa | Wajib | Daftar ucapan dan formulir (nama, kehadiran, jumlah, ucapan) | Tidak ada |
-| 13 | Penutup | Wajib | Kalimat terima kasih, salam penutup, nama pasangan, kredit RB Digital | Kalimat penutup (opsional) |
+| 13 | Penutup | Wajib | Kalimat terima kasih, salam penutup, nama pasangan, kredit FB Digital | Kalimat penutup (opsional) |
 
 ## 3. Komponen standar
 

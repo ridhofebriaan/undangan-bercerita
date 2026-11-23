@@ -1,6 +1,6 @@
 # Kredit aset tema Siger Kencana
 
-Ilustrasi berstatus domain publik (Wikimedia Commons), lalu diwarnai ulang biru tua oleh RB Digital:
+Ilustrasi berstatus domain publik (Wikimedia Commons), lalu diwarnai ulang biru tua oleh FB Digital:
 
 - `aset/latar.webp`, `aset/pohon.webp`: litografi Gunung Gede, C.W. Mieling menurut F.W. Junghuhn (1850-an). [Commons](https://commons.wikimedia.org/wiki/File:Franz_Junghuhn,_10_Gunung_Gede.jpg)
 - `aset/cempaka.webp`: *Michelia champaca*, Flora de Filipinas (M. Blanco, 1880-1883). [Commons](https://commons.wikimedia.org/wiki/File:Michelia_champaca_Blanco1.191-cropped.jpg)

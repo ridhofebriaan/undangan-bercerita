@@ -1,6 +1,6 @@
 ---
 name: modern-klasik
-description: Merancang, membangun, atau menilai undangan koleksi Modern Klasik RB Digital — untuk pasangan profesional berpikiran modern, kesan elegan, mewah, profesional, dan terbatas, dengan konten campuran foto dan video. Gunakan saat user meminta undangan modern/profesional/elegan/limited, undangan dengan video prewedding, atau memperbaiki tema koleksi ini.
+description: Merancang, membangun, atau menilai undangan koleksi Modern Klasik FB Digital — untuk pasangan profesional berpikiran modern, kesan elegan, mewah, profesional, dan terbatas, dengan konten campuran foto dan video. Gunakan saat user meminta undangan modern/profesional/elegan/limited, undangan dengan video prewedding, atau memperbaiki tema koleksi ini.
 ---
 
 # Koleksi Modern Klasik

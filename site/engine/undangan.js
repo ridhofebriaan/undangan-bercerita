@@ -1,4 +1,4 @@
-// Mesin undangan RB Digital.
+// Mesin undangan FB Digital.
 // Membaca window.UNDANGAN (data.js) lalu menyusun seluruh halaman.
 // Tema hanya mengatur tampilan lewat CSS; struktur dan fitur sama untuk semua tema.
 (function () {
@@ -412,8 +412,8 @@
     "&location=" + encodeURIComponent(utama.tempat + ", " + utama.alamat);
   if (K2) {
     // Tombol pengingat: berkas kalender .ics dengan alarm sehari sebelumnya
-    var ics = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//RB Digital//Undangan//ID", "BEGIN:VEVENT",
-      "UID:" + (D.id || "undangan") + "@rbdigital", "DTSTAMP:" + gcal(new Date().toISOString()),
+    var ics = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//FB Digital//Undangan//ID", "BEGIN:VEVENT",
+      "UID:" + (D.id || "undangan") + "@fbdigital", "DTSTAMP:" + gcal(new Date().toISOString()),
       "DTSTART:" + gcal(utama.mulai), "DTEND:" + gcal(utama.selesai || new Date(new Date(utama.mulai).getTime() + 2 * 36e5).toISOString()),
       "SUMMARY:Pernikahan " + namaPendek, "LOCATION:" + utama.tempat + ", " + utama.alamat,
       "BEGIN:VALARM", "TRIGGER:-P1D", "ACTION:DISPLAY", "DESCRIPTION:Besok pernikahan " + namaPendek, "END:VALARM",
@@ -1091,7 +1091,7 @@
   }
 
   var foot = el("footer", "credit");
-  var a = el("a", "", "RB Digital");
+  var a = el("a", "", "FB Digital");
   a.href = D.katalogUrl || "../../";
   foot.appendChild(document.createTextNode("Undangan digital oleh "));
   foot.appendChild(a);

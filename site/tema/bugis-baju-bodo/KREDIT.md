@@ -1,6 +1,6 @@
 # Kredit aset tema Baju Bodo
 
-Ilustrasi berstatus domain publik (Wikimedia Commons), lalu diwarnai ulang hijau tua oleh RB Digital:
+Ilustrasi berstatus domain publik (Wikimedia Commons), lalu diwarnai ulang hijau tua oleh FB Digital:
 
 - `aset/latar.webp`: gravur kapal paduakang Sulawesi, 1863. [Commons](https://commons.wikimedia.org/wiki/File:Paduakan_ships_of_Celebes_(1863).png)
 - `aset/kapal.webp`: gambar perahu padewakang Makassar, 1899. [Commons](https://commons.wikimedia.org/wiki/File:A_Pirate_of_the_Persian_Gulf,_likely_a_Padewakang.jpg)

@@ -1,6 +1,6 @@
 # Panduan Desain Undangan per Adat
 
-Hasil riset (November 2026) untuk 100 template RB Digital. Dipakai sebagai acuan warna, ornamen, istilah, dan musik.
+Hasil riset (November 2026) untuk 100 template FB Digital. Dipakai sebagai acuan warna, ornamen, istilah, dan musik.
 Makna motif diambil dari sumber populer dan jurnal; untuk klaim budaya yang detail, cek ulang ke sumber keraton atau perias adat.
 
 ## Prinsip umum

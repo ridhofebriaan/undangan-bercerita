@@ -1,6 +1,6 @@
 ---
 name: format-pintu
-description: Membuat undangan RB Digital dengan Format Pintu, yaitu pola tema Melayu (cover dua daun pintu bermotif yang terbuka, foto sampul lengkung, hero foto penuh, selang-seling bagian gelap bermotif, nama huruf sambung, sudut ornamen tergambar, kelopak berjatuhan, galeri mozaik 12 foto). Gunakan saat user meminta undangan "seperti tema Melayu", "format pintu", atau beberapa undangan dengan format yang sama dengan tema Melayu.
+description: Membuat undangan FB Digital dengan Format Pintu, yaitu pola tema Melayu (cover dua daun pintu bermotif yang terbuka, foto sampul lengkung, hero foto penuh, selang-seling bagian gelap bermotif, nama huruf sambung, sudut ornamen tergambar, kelopak berjatuhan, galeri mozaik 12 foto). Gunakan saat user meminta undangan "seperti tema Melayu", "format pintu", atau beberapa undangan dengan format yang sama dengan tema Melayu.
 ---
 
 # Format Pintu

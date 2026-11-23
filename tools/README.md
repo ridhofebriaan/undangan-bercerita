@@ -1,4 +1,4 @@
-# Alat bantu tema RB Digital
+# Alat bantu tema FB Digital
 
 Pasang sekali: `cd tools && npm install` (puppeteer-core memakai Google Chrome yang sudah terpasang, ffmpeg dari paket `ffmpeg-static`).
 Server lokal untuk uji: `cd site && python3 -m http.server 8765`.
