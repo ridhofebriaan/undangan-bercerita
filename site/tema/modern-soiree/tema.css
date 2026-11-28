@@ -1,0 +1,61 @@
+/* Tema "Soirée" (koleksi Modern Klasik, docs/koleksi-modern-klasik.md).
+   Palet K1 Navy Sampanye, mode terang (pilihan user, skor warna-mewah 100). Foto dan video berwarna redup (saturasi 0,55).
+   Beda dari Atelier: mode terang dengan cover dan selingan navy, pembuka geser ke atas (tampilan.buka = "geser"), huruf Italiana + Outfit.
+   Bentuk dan tata letak diatur engine/modern-klasik.css; file ini hanya token warna, huruf, dan sentuhan tema. */
+:root {
+  --bg: #e6e8ec;
+  --bg-outer: #d9dce2;
+  --surface: #eef0f3;
+  --primary: #161c27;
+  --primary-ink: #e6e8ec;
+  --accent: #c3ae84;
+  --accent-text: #6f5f3c; /* sampanye tua untuk teks kecil di latar terang (5,1:1) */
+  --logam: #6f5f3c;
+  --ink: #1f2533;
+  --muted: #4f5666;
+  --line: rgba(22, 28, 39, 0.14);
+  /* Bagian selingan navy (D.tampilan.gelap) */
+  --gelap: #161c27;
+  --on-gelap: #ece9e2;
+  --emas-terang: #c3ae84;
+  --cover-bg: #161c27;
+  /* Kartu masuk (hasil konfirmasi) bergaya kartu akses navy */
+  --kartu-bg: #161c27;
+  --kartu-teks: #ece9e2;
+  --kartu-logam: #c3ae84;
+  --font-display: "Italiana", "Times New Roman", serif;
+  --font-name: "Italiana", "Times New Roman", serif;
+  --font-body: "Outfit", system-ui, sans-serif;
+}
+body { font-weight: 300; }
+/* --logam dipasang engine di .koleksi-modern-klasik (body), jadi nilai terang ditulis di sini, bukan di :root */
+.koleksi-modern-klasik { --logam: #6f5f3c; }
+/* Garis pemisah tetap sampanye muda (hiasan, bukan teks) */
+.koleksi-modern-klasik .orn-divider { background: var(--accent); }
+
+/* Token dibalik di cover dan bagian selingan navy, supaya semua elemen di dalamnya ikut kontras */
+.koleksi-modern-klasik .cover,
+.koleksi-modern-klasik .sec.gelap {
+  --primary: #ece9e2;
+  --primary-ink: #161c27;
+  --ink: #e6e8ec;
+  --muted: #a9b0be;
+  --line: rgba(230, 232, 236, 0.16);
+  --surface: #1d2431;
+  --accent-text: #c3ae84;
+  --logam: #c3ae84;
+}
+
+/* Judul Italiana lebih tipis: sedikit dibesarkan dan dirapatkan */
+.koleksi-modern-klasik .sec-title { font-size: 36px; letter-spacing: 0.02em; }
+.koleksi-modern-klasik .couple { letter-spacing: 0.14em; }
+
+/* Cover: foto pasangan samar di balik kartu akses navy */
+.cover .photo-bg img { object-position: center 30%; }
+.koleksi-modern-klasik .cover .photo-bg img { opacity: 0.3; }
+
+/* Musik dan kredit */
+.music-btn { background: var(--primary); }
+.music-btn svg { fill: var(--accent); }
+.credit { color: var(--muted); }
+.credit a { color: var(--accent-text); }

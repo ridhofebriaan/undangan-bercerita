@@ -277,6 +277,67 @@
     return b;
   }
 
+  // ---------- Koleksi: geser ke atas (tampilan.buka = "geser") ----------
+  // Monogram diseret ke atas di sepanjang garis logam. Sampai ujung, undangan terbuka; dilepas sebelum itu, monogram kembali.
+  // Ketukan singkat memunculkan pengingat. Enter/spasi (klik keyboard) langsung membuka.
+  function geser() {
+    var w = el("div", "geser");
+    var jalur = el("div", "geser-jalur");
+    jalur.setAttribute("aria-hidden", "true");
+    jalur.appendChild(el("i", "geser-isi"));
+    var b = el("button", "btn-open geser-knop");
+    b.type = "button";
+    b.setAttribute("aria-label", teks("tombolBuka", "Buka Undangan") + " (geser ke atas)");
+    b.appendChild(el("span", "segel-teks", D.monogram || namaPendek));
+    add(w, jalur, b);
+    var JARAK = 112, p = 0, y0 = 0, tarik = false, selesai = false, gerakMaks = 0;
+    function set(v) {
+      p = Math.max(0, Math.min(1, v));
+      w.style.setProperty("--p", p.toFixed(3));
+      if (!KURANGI) document.documentElement.style.setProperty("--kilau", (p * 100).toFixed(1) + "%");
+    }
+    function tuntas() {
+      if (selesai) return;
+      selesai = true;
+      set(1);
+      if (navigator.vibrate) navigator.vibrate(18);
+      setTimeout(buka, 160);
+    }
+    b.addEventListener("pointerdown", function (e) {
+      if (selesai) return;
+      e.preventDefault();
+      if (b.setPointerCapture) { try { b.setPointerCapture(e.pointerId); } catch (x) { /* abaikan */ } }
+      tarik = true; y0 = e.clientY; gerakMaks = 0;
+      JARAK = parseFloat(getComputedStyle(w).getPropertyValue("--jarak")) || JARAK;
+      w.classList.remove("balik");
+      w.classList.add("aktif");
+    });
+    b.addEventListener("pointermove", function (e) {
+      if (!tarik || selesai) return;
+      var d = (y0 - e.clientY) / JARAK;
+      gerakMaks = Math.max(gerakMaks, Math.abs(y0 - e.clientY));
+      set(d);
+      if (p >= 0.98) tuntas();
+    });
+    ["pointerup", "pointercancel", "lostpointercapture"].forEach(function (ev) {
+      b.addEventListener(ev, function () {
+        if (!tarik) return;
+        tarik = false;
+        w.classList.remove("aktif");
+        if (selesai) return;
+        if (gerakMaks < 8) {
+          var hint = document.querySelector(".segel-petunjuk");
+          if (hint) { hint.classList.add("ingat"); setTimeout(function () { hint.classList.remove("ingat"); }, 1400); }
+        }
+        w.classList.add("balik");
+        set(0);
+      });
+    });
+    b.addEventListener("click", function (e) { if (e.detail === 0 && !selesai) { selesai = true; buka(); } });
+    b.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+    return w;
+  }
+
   // ---------- Cover ----------
   var cover = el("div", "cover");
   cover.id = "cover";
@@ -307,13 +368,13 @@
         el("p", "guest-name", guest || "Bapak/Ibu/Saudara/i"),
         MK && kursi ? el("p", "guest-kursi", teks("kursi", "Berlaku untuk") + " " + kursi + " orang") : null,
         el("p", "guest-note", teks("catatanTamu", "Mohon maaf bila ada kesalahan penulisan nama dan gelar"))),
-      MK ? segel() : (function () {
+      MK ? (V.buka === "geser" ? geser() : segel()) : (function () {
         var b = el("button", "btn btn-primary btn-open", teks("tombolBuka", "Buka Undangan"));
         b.type = "button";
         b.addEventListener("click", buka);
         return b;
       })(),
-      MK ? el("p", "segel-petunjuk", teks("petunjukSegel", "Tekan dan tahan segel untuk membuka")) : null,
+      MK ? el("p", "segel-petunjuk", V.buka === "geser" ? teks("petunjukGeser", "Geser monogram ke atas untuk membuka") : teks("petunjukSegel", "Tekan dan tahan segel untuk membuka")) : null,
       MK && UND.catatan ? el("p", "catatan-privasi", UND.catatan) : null));
   document.body.insertBefore(cover, app);
   document.body.classList.add("locked");

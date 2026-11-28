@@ -25,19 +25,41 @@ const cek = (nama, lulus, info = "") => hasil.push(`${lulus ? "LULUS" : "GAGAL"}
   await p.screenshot({ path: `${out}/${kode}-i-cover.png` });
   await p.evaluate(() => document.documentElement.style.removeProperty("--kilau"));
 
-  // 1. Segel: ketuk singkat tidak membuka (muncul pengingat), tahan 1,3 detik membuka
-  const s = await p.$(".segel");
-  const k = await s.boundingBox();
-  const cx = k.x + k.width / 2, cy = k.y + k.height / 2;
-  await p.mouse.move(cx, cy);
-  await p.mouse.down(); await wait(120); await p.mouse.up();
-  await wait(150);
-  const ketuk = await p.evaluate(() => ({ terbuka: document.body.classList.contains("terbuka"), ingat: document.querySelector(".segel-petunjuk").classList.contains("ingat") }));
-  cek("Segel: ketuk singkat tidak membuka dan memberi pengingat", !ketuk.terbuka && ketuk.ingat);
-  await wait(800);
-  await p.mouse.down(); await wait(1300); await p.mouse.up();
-  await wait(400);
-  cek("Segel: tahan 1,3 detik membuka undangan", await p.evaluate(() => document.body.classList.contains("terbuka")));
+  const terbuka = () => p.evaluate(() => document.body.classList.contains("terbuka"));
+  const ingat = () => p.evaluate(() => document.querySelector(".segel-petunjuk").classList.contains("ingat"));
+  if (await p.$(".geser-knop")) {
+    // 1b. Geser ke atas: ketuk singkat memberi pengingat, geser setengah lalu lepas kembali, geser sampai ujung membuka
+    const g = await (await p.$(".geser-knop")).boundingBox();
+    const gx = g.x + g.width / 2, gy = g.y + g.height / 2;
+    const jarak = await p.evaluate(() => parseFloat(getComputedStyle(document.querySelector(".geser")).getPropertyValue("--jarak")));
+    await p.mouse.move(gx, gy);
+    await p.mouse.down(); await wait(120); await p.mouse.up();
+    await wait(150);
+    cek("Geser: ketuk singkat tidak membuka dan memberi pengingat", !(await terbuka()) && (await ingat()));
+    await wait(800);
+    await p.mouse.move(gx, gy); await p.mouse.down();
+    for (let i = 1; i <= 6; i++) { await p.mouse.move(gx, gy - (jarak * 0.4 * i) / 6); await wait(30); }
+    await p.mouse.up(); await wait(600);
+    const balik = await p.evaluate(() => parseFloat(getComputedStyle(document.querySelector(".geser")).getPropertyValue("--p")));
+    cek("Geser: dilepas di tengah, monogram kembali", !(await terbuka()) && balik < 0.05, "--p " + balik);
+    await p.mouse.move(gx, gy); await p.mouse.down();
+    for (let i = 1; i <= 12; i++) { await p.mouse.move(gx, gy - (jarak * 1.1 * i) / 12); await wait(30); }
+    await p.mouse.up(); await wait(500);
+    cek("Geser: sampai ujung membuka undangan", await terbuka());
+  } else {
+    // 1. Segel: ketuk singkat tidak membuka (muncul pengingat), tahan 1,3 detik membuka
+    const s = await p.$(".segel");
+    const k = await s.boundingBox();
+    const cx = k.x + k.width / 2, cy = k.y + k.height / 2;
+    await p.mouse.move(cx, cy);
+    await p.mouse.down(); await wait(120); await p.mouse.up();
+    await wait(150);
+    cek("Segel: ketuk singkat tidak membuka dan memberi pengingat", !(await terbuka()) && (await ingat()));
+    await wait(800);
+    await p.mouse.down(); await wait(1300); await p.mouse.up();
+    await wait(400);
+    cek("Segel: tahan 1,3 detik membuka undangan", await terbuka());
+  }
   await wait(2600);
   await p.screenshot({ path: `${out}/${kode}-i-hero.png` });
 
@@ -87,8 +109,14 @@ const cek = (nama, lulus, info = "") => hasil.push(`${lulus ? "LULUS" : "GAGAL"}
   await wait(600);
   cek("Konfirmasi: kartu masuk tetap ada setelah dibuka ulang", await p.evaluate(() => !!document.querySelector(".kartu-masuk")));
 
-  // 6. Agenda hidup (simulasi hari H pukul 16.30)
-  await p.goto(DASAR + "&sekarang=2027-12-04T16:30", { waitUntil: "networkidle0" });
+  // 6. Agenda hidup: simulasi 30 menit setelah acara pertama dimulai (dibaca dari data tema, zona waktu acara)
+  const sekarang = await p.evaluate(() => {
+    const m = window.UNDANGAN.acara[0].mulai.slice(0, 16);
+    const d = new Date(m + ":00Z");
+    d.setUTCMinutes(d.getUTCMinutes() + 30);
+    return d.toISOString().slice(0, 16);
+  });
+  await p.goto(DASAR + "&sekarang=" + sekarang, { waitUntil: "networkidle0" });
   const ag = await p.evaluate(() => [...document.querySelectorAll(".event")].map((e) => (e.querySelector(".event-name").textContent + ": " + (e.querySelector(".event-status").hidden ? "-" : e.querySelector(".event-status").textContent))));
   cek("Agenda: status hari H", ag[0].endsWith("Sedang berlangsung") && ag[1].endsWith("Berikutnya"), ag.join(" | "));
   await p.evaluate(() => { document.querySelector(".btn-open").click(); });

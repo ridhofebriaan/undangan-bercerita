@@ -37,6 +37,8 @@ Dokumen ini adalah standar untuk semua undangan koleksi **Modern Klasik**. Kolek
   - **Terang:** latar netral dingin atau abu batu.
   - **Gelap:** latar arang atau hitam hangat, dengan bagian terang sebagai selingan.
 - **Palet terpilih untuk undangan pertama (15 Nov 2026): M6 Espresso & Perunggu, mode gelap.** Gelap `#231b18`, terang `#e9e5e1`, aksen `#6b5a50`, perunggu `#a8825f`. Skor `periksa.py` 100.
+- **Undangan kedua, Soirée (28 Nov 2026): K1 Navy Sampanye, mode terang.** Navy `#161c27`, latar `#e6e8ec`, aksen `#56607a`, sampanye `#c3ae84` (teks dan logam di latar terang `#6f5f3c`). Cover dan bagian selingan navy. Skor `periksa.py` 100.
+- **Mode terang:** `--logam` diisi engine di `.koleksi-modern-klasik` (body), jadi nilai logam untuk latar terang ditulis di `.koleksi-modern-klasik { --logam: ... }`, bukan di `:root`. Token untuk cover dan bagian navy dibalik di `.koleksi-modern-klasik .cover, .koleksi-modern-klasik .sec.gelap`.
 - Foto dan video diselaraskan dengan palet, misalnya hitam-putih atau warna redup. Penyelarasan dikerjakan saat memproses berkas, bukan dengan filter CSS yang berat.
 
 ## 5. Huruf
@@ -149,7 +151,7 @@ Menu melayang tetap dipakai.
 - [ ] Semua foto dan video berbusana modern formal, dan lisensinya tercatat di `KREDIT.md`.
 - [ ] Uji di lebar 360 px: tanpa error, tanpa geser ke samping, dan tombol ≥ 44 px.
 - [ ] Zona waktu benar (`zonaWaktu`).
-- [ ] `node tools/uji-interaksi.js <kode>` lulus semua: segel, hero, Story, konfirmasi dan kartu masuk, agenda hari H, tanpa error.
+- [ ] `node tools/uji-interaksi.js <kode>` lulus semua: segel atau geser, hero, Story, konfirmasi dan kartu masuk, agenda hari H (disimulasikan otomatis 30 menit setelah acara pertama), tanpa error.
 - [ ] Teks ringkas tanpa tanda seru.
 
 ## 13. Alur kerja
@@ -175,7 +177,8 @@ Sudah tersedia (15 Nov 2026). Contoh lengkap ada di `site/tema/modern-atelier/` 
 | `dressCode: { judul, teks, warna: [{ nama, hex }] }` | Bagian dress code dengan contoh warna |
 | `infoTamu: [{ judul, teks }]` | Bagian info tamu |
 | `batasKonfirmasi: "2027-11-20"` | Batas konfirmasi di bagian konfirmasi dan RSVP. Pilihan jumlah tamu dibatasi sesuai kursi |
-| `tampilan.gelap` | Untuk tema bermode gelap, berisi bagian selingan berlatar terang. Tema membalik token warnanya di `.koleksi-modern-klasik .sec.gelap` |
+| `tampilan.gelap` | Bagian selingan. Tema bermode gelap: selingan terang (Atelier). Tema bermode terang: selingan navy/gelap (Soirée). Tema membalik token warnanya di `.koleksi-modern-klasik .sec.gelap` |
+| `tampilan.buka: "geser"` | Pembuka geser ke atas sebagai pengganti segel tekan-dan-tahan (lihat bagian 15). Tanpa isian ini, pembuka memakai segel |
 
 Hadiah tampil diskret di balik tombol "Lihat Rekening & Alamat". Saat tamu memilih kurangi gerak atau hemat data, video tidak dimuat sama sekali.
 
@@ -194,13 +197,14 @@ Semua interaksi ini otomatis aktif untuk tema dengan `koleksi: "modern-klasik"`.
 | No | Interaksi | Cara kerja | Jalan alternatif |
 |---|---|---|---|
 | 1 | Segel tekan-dan-tahan | Di cover, tamu menekan dan menahan monogram selama 1 detik. Lingkaran logam terisi, HP Android bergetar halus, lalu undangan terbuka. Ketukan singkat memunculkan pengingat "Tekan dan tahan" | Tombol keyboard (Enter atau spasi) langsung membuka |
+| 1b | Geser ke atas (`tampilan.buka: "geser"`) | Monogram diseret naik di sepanjang garis logam. Sampai ujung, HP bergetar halus dan undangan terbuka; dilepas di tengah, monogram kembali. Ketukan singkat memunculkan pengingat "Geser monogram ke atas". Jarak geser memendek otomatis di layar pendek | Tombol keyboard (Enter atau spasi) langsung membuka |
 | 2 | Kilau foil | Sorotan logam di nama dan nomor undangan bergerak mengikuti kemiringan HP (Android), sentuhan di cover, dan tahanan segel | Mati saat kurangi gerak. Tanpa interaksi, teks tampil polos |
 | 3 | Hero sinematik | Video hero membesar sedikit dan meredup saat digulir. Label, nama, dan tanggal muncul bertahap setelah undangan dibuka | Saat kurangi gerak, semua langsung tampil tanpa gerak |
 | 4 | Galeri Story | Mengetuk foto membuka tampilan layar penuh dengan garis waktu. Foto tampil 5 detik dan video 6 detik. Ketuk kanan untuk maju, ketuk kiri untuk mundur, tahan untuk jeda, geser ke bawah atau Esc untuk menutup | Panah kiri dan kanan di keyboard. Video diganti poster saat hemat data |
 | 5 | Konfirmasi bertahap | Satu pertanyaan per layar: nama (bila tautan tanpa nama), hadir atau berhalangan, jumlah kursi (dibatasi sesuai undangan), dan ucapan. Hasilnya **kartu masuk** ber-QR yang bisa disimpan sebagai gambar (bagikan atau unduh) dan tetap tampil saat undangan dibuka ulang | Tombol "Kembali" di tiap langkah dan "Ubah jawaban" setelah selesai |
 | 6 | Agenda hidup | Di hari H, acara diberi penanda "Sedang berlangsung", "Berikutnya" (24 jam ke depan), atau "Selesai". Tiap acara punya tombol Rute (Google Maps) dan Kalender | Demo atau uji dengan `&sekarang=2027-12-04T16:30` di tautan |
 
-**Teks yang bisa diganti lewat `D.teks`:** `petunjukSegel`, `tombolRute`, `tombolKalender`, `sedangBerlangsung`, `acaraBerikutnya`, `acaraSelesai`, `tanyaNama`, `tanyaHadir`, `tanyaKursi`, `tanyaUcapan`, `tombolLanjut`, `tombolKembali`, `tombolKirim`, `ubahJawaban`, `kartuMasuk`, `kartuSiap`, `catatanKartu`, `simpanKartu`, `labelKursi`, `terimaBerhalangan`.
+**Teks yang bisa diganti lewat `D.teks`:** `petunjukSegel`, `petunjukGeser`, `tombolRute`, `tombolKalender`, `sedangBerlangsung`, `acaraBerikutnya`, `acaraSelesai`, `tanyaNama`, `tanyaHadir`, `tanyaKursi`, `tanyaUcapan`, `tombolLanjut`, `tombolKembali`, `tombolKirim`, `ubahJawaban`, `kartuMasuk`, `kartuSiap`, `catatanKartu`, `simpanKartu`, `labelKursi`, `terimaBerhalangan`.
 
 **Token tema untuk kartu masuk:** `--kartu-bg`, `--kartu-teks`, `--kartu-logam`. Kartu masuk sebaiknya selalu bergaya kartu akses gelap, juga pada tema bermode terang.
 

@@ -26,6 +26,17 @@ window.KATALOG = {
       siap: true,
     },
     {
+      kode: "modern-soiree",
+      adat: "Modern Klasik",
+      nama: "Soirée",
+      harga: 249000,
+      tag: "Premium",
+      deskripsi: "Koleksi Modern Klasik bermode terang: navy dan sampanye, video sinematik berwarna redup, kartu akses navy yang dibuka dengan menggeser monogram ke atas, galeri gaya Story, konfirmasi bertahap dengan kartu masuk ber-QR.",
+      demo: "tema/modern-soiree/?to=Bapak%20Ahmad&no=48&kursi=2",
+      gambar: "assets/katalog/modern-soiree.webp",
+      siap: true,
+    },
+    {
       kode: "minang-rumah-gadang",
       adat: "Minangkabau",
       nama: "Rumah Gadang",

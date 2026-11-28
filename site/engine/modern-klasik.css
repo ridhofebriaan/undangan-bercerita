@@ -157,6 +157,23 @@
 .segel-petunjuk { margin: 14px 0 0; font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--muted); transition: color 0.4s ease; }
 .segel-petunjuk.ingat { color: var(--logam); }
 
+/* 1b. Geser ke atas (tampilan.buka = "geser"): monogram diseret naik di sepanjang garis logam */
+.geser { --p: 0; --jarak: 112px; position: relative; width: 72px; height: 184px; margin: 2px auto 0; }
+.geser-jalur { position: absolute; left: 50%; top: 4px; bottom: 36px; width: 1px; margin-left: -0.5px; background: color-mix(in srgb, var(--logam) 30%, transparent); }
+.geser-jalur::before { content: ""; position: absolute; left: -4px; top: -4px; width: 9px; height: 9px; border: 1px solid var(--logam); transform: rotate(45deg); background: var(--cover-bg, var(--bg)); }
+.geser-isi { position: absolute; left: 0; bottom: 0; width: 1px; height: calc(var(--p) * 100%); background: var(--logam); }
+.geser-knop { position: absolute; left: 50%; bottom: 0; display: grid; place-items: center; width: 72px; height: 72px; margin-left: -36px; padding: 0; border: 1px solid var(--logam); border-radius: 50%; background: var(--cover-bg, var(--bg)); color: var(--logam); cursor: grab; touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
+  transform: translateY(calc(var(--p) * var(--jarak) * -1)); box-shadow: 0 0 0 calc(var(--p) * 6px) color-mix(in srgb, var(--logam) 18%, transparent); }
+.geser.aktif .geser-knop { cursor: grabbing; }
+.geser.balik .geser-knop { transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.45s ease; }
+.geser.balik .geser-isi { transition: height 0.45s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.geser-knop .segel-teks { font-size: 19px; }
+.geser-knop:focus-visible { outline: 1px solid var(--logam); outline-offset: 6px; }
+@media (max-height: 780px) {
+  .geser { --jarak: 74px; height: 140px; }
+  .koleksi-modern-klasik .cover .akses-atas { margin-bottom: 28px; }
+}
+
 /* 2. Kilau foil: sorotan bergerak mengikuti kemiringan HP, sentuhan, dan tahanan segel (bukan kilau otomatis) */
 .koleksi-modern-klasik .cover .couple .nm { display: inline-block; color: transparent; -webkit-background-clip: text; background-clip: text;
   background: linear-gradient(100deg, var(--primary) 0 40%, color-mix(in srgb, var(--logam) 55%, #fff) 50%, var(--primary) 60% 100%) var(--kilau, 0%) 0 / 300% 100% no-repeat; -webkit-background-clip: text; background-clip: text; }

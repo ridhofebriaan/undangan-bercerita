@@ -67,7 +67,11 @@ description: Merancang, membangun, atau menilai undangan koleksi Modern Klasik F
 - `kerangka.css` memasang `--on-gelap` dan `--emas-terang` di `body.k2`, sehingga nilai di `:root` tema tertimpa. `modern-klasik.css` sudah mengarahkannya ke token selingan. Jangan andalkan nilai `:root` untuk kedua token ini.
 - Kontras logam di latar terang mudah jatuh di bawah 4,5:1. Cek dengan hitungan kontras, lalu gelapkan logam khusus untuk bagian terang.
 - Klip stok yang menampilkan wajah orang lain membuat pasangan di video berbeda dengan di foto. Pakai klip detail tanpa wajah (tangan, dasi, korsase), atau video klien sendiri.
+- Di mode terang, `--logam` di `:root` tertimpa nilai engine di `.koleksi-modern-klasik` (body), sehingga angka jam acara jadi pucat. Tulis `--logam` terang di `.koleksi-modern-klasik { }`.
+- Hindari klip minuman beralkohol (sampanye, anggur) sebagai video utama: sebagian besar pembeli Muslim.
 
 ## Palet terpilih
 
 Undangan pertama: **M6 Espresso & Perunggu**, mode gelap. Gelap `#231b18`, terang `#e9e5e1`, aksen `#6b5a50`, perunggu `#a8825f`.
+
+Undangan kedua (Soirée): **K1 Navy Sampanye**, mode terang. Navy `#161c27`, latar `#e6e8ec`, aksen `#56607a`, sampanye `#c3ae84`. Cover dan selingan navy, pembuka **geser ke atas** (`tampilan.buka: "geser"`). Setiap undangan koleksi ini sebaiknya berbeda mode, palet, huruf, nada foto, dan pembuka.
