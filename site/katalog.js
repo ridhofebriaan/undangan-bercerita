@@ -81,6 +81,17 @@ window.KATALOG = {
       siap: true,
     },
     {
+      kode: "bali-kori-agung",
+      adat: "Bali",
+      nama: "Kori Agung",
+      harga: 99000,
+      tag: "Pakai foto",
+      deskripsi: "Hitam poleng dan emas prada khas Bali. Cover pintu kori yang berayun terbuka, salam Om Swastyastu dan sloka, kelopak bunga jepun, galeri 12 foto.",
+      demo: "tema/bali-kori-agung/?to=Bapak%20Ahmad",
+      gambar: "assets/katalog/bali-kori-agung.webp",
+      siap: true,
+    },
+    {
       kode: "melayu",
       adat: "Melayu",
       nama: "Melayu",

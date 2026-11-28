@@ -354,7 +354,9 @@
       ar = el("p", "arabic", D.ayat.arab);
       ar.lang = "ar";
     }
-    add(ay, ar, el("p", "ayat-arti", "“" + D.ayat.arti + "”"), el("cite", "", D.ayat.sumber));
+    // Sloka (mis. Sanskerta untuk Hindu): teks latin miring di atas arti
+    var sl = D.ayat.sloka ? el("p", "sloka", D.ayat.sloka) : null;
+    add(ay, ar, sl, el("p", "ayat-arti", "“" + D.ayat.arti + "”"), el("cite", "", D.ayat.sumber));
     add(salam, sw, ay);
   } else {
     salam.appendChild(sw);

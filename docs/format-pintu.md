@@ -85,7 +85,8 @@ Salin `site/tema/melayu/tema.css` sebagai titik awal. Bagian-bagian berikut adal
 - **Variasi arah pintu (boleh):**
   - dua daun ke samping (bawaan);
   - dua daun atas-bawah: `top/bottom` 50% dan `translateY(∓101%)`;
-  - satu daun bergeser ke atas.
+  - satu daun bergeser ke atas;
+  - dua daun berayun ke dalam (3D): `.cover { perspective: 1500px; --buka-ms: 1350 }`, `transform-origin` di tepi luar, `rotateY(±105deg)`, `backface-visibility: hidden`, dan opacity baru turun di akhir (tunda 0,95 detik) supaya ayunannya terlihat.
 - **Sudut tergambar:** `sudut.svg` memuat `<style>` sendiri. Garis memakai `stroke-dasharray` lalu animasi `draw` selama 2,4 detik, titik-titik muncul setelahnya, dan semuanya hormat pada `prefers-reduced-motion`. Dipakai di sudut cover (`.orn-cover::before/::after`, 104 px) dan sudut kartu acara (`.event::before/::after`, 58 px).
 - **Pita tepi:** `tepi.svg` diulang mendatar di bawah cover, hero, dan penutup (tinggi 28 px).
 - **Hero:** `.sec-hero` setinggi `100svh`. `.has-photo .photo-bg::after` memberi gradasi gelap dari atas (92%) ke tengah (0%) lalu sedikit gelap di bawah. Animasi `slow-zoom` berdurasi 18 detik.
@@ -144,7 +145,7 @@ Total semua foto paling banyak sekitar 2,5 MB, sehingga muatan awal tanpa musik 
 | `foto: { sampul, hero }` | Ya | Bagian 8 |
 | `kelopak` | Ya | Jumlah kelopak (disarankan 12–18) |
 | `pasangan` | Ya | `urutan`, serta `wanita` dan `pria` (`panggilan`, `nama`, `ortu`, `foto`, `instagram`) |
-| `salam`, `ayat` | Ya | `ayat: { arab, arti, sumber }`. Untuk agama lain, ganti dengan kutipan kitab yang sesuai |
+| `salam`, `ayat` | Ya | `ayat: { arab, sloka, arti, sumber }`. `sloka` (teks latin miring, misalnya Sanskerta) untuk Hindu. Untuk agama lain, ganti dengan kutipan kitab yang sesuai |
 | `pembuka: { judul, teks }` | Opsional | Bagian gelap kedua |
 | `teksAcara`, `acara[]` | Ya | `acara`: `nama`, `mulai`, `selesai`, `tempat`, `alamat`, `peta`, `utama` |
 | `kisah[]` | Opsional | `waktu`, `judul`, `teks` |
@@ -178,8 +179,11 @@ Cek tabel ini sebelum membuat undangan baru, supaya minimal 5 elemen berbeda dan
 |---|---|---|---|---|---|---|
 | Melayu | Hijau diraja + emas | Songket / pucuk rebung / awan larat / bunga cengkih | Cinzel, Alex Brush, Lora | Samping | Cincin ganda | Krem |
 | Gorga Toba (Batak) | T9 Merah Karat Gorga: merah karat, hitam, putih, emas | Gorga spiral / ipon-ipon / spiral bersulur / Desa Na Ualu | Forum, Allura, Crimson Pro | Atas-bawah | Modern 1 px | Abu putih |
+| Kori Agung (Bali) | B1 Hitam Poleng: hitam hangat, abu putih, abu batu, emas prada | Poleng + patra punggel / pita poleng / undakan pura + patra / bunga jepun | Marcellus, Pinyon Script, EB Garamond | Berayun 3D ke dalam | Modern berbayang (sampul 1 px) | Abu putih `#eae9e6` |
 
 Bagian gelap Gorga Toba selang-seling: merah (pembuka, tanda kasih) dan hitam (hitung mundur, penutup).
+
+Kori Agung: semua bagian gelap hitam poleng; teks hero diletakkan di bawah (wajah dan pintu pura berukir tetap terlihat); agama Hindu dengan sloka Manawa Dharmasastra.
 
 ## 12. Checklist sebelum tayang
 

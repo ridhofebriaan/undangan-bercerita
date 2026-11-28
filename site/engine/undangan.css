@@ -142,6 +142,7 @@ img { max-width: 100%; display: block; }
   border-radius: var(--radius);
 }
 .ayat .arabic { font-size: 22px; margin: 0 0 12px; }
+.ayat .sloka { font-style: italic; font-size: 16px; line-height: 1.6; margin: 0 0 12px; color: var(--primary); }
 .ayat-arti { margin: 0; font-size: 14.5px; font-style: italic; color: var(--ink); }
 .ayat cite { display: block; margin-top: 10px; font-style: normal; font-size: 13px; letter-spacing: 0.1em; color: var(--accent-text); }
 
