@@ -10,4 +10,4 @@ Semua foto dan video demo berasal dari Pexels (Pexels License, bebas untuk usaha
   - `video/g-manset.mp4`: 31161134, manset tuksedo (hitam-putih);
   - `video/g-meja.mp4`: 32054939, meja jamuan berkristal.
 - Poster video (`video/*.jpg`) diambil dari frame pertama tiap klip dengan `tools/video.js`.
-- `../../assets/musik/musik-1.m4a`: musik sementara. Ganti ke instrumental piano atau string bila berkasnya sudah ada.
+- `../../assets/musik/musik-soiree.m4a`: dari berkas `klasik3.mp3` yang disediakan pemilik, dikonversi ke AAC.

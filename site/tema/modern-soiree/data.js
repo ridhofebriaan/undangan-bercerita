@@ -102,8 +102,7 @@ window.UNDANGAN = {
   alamatKado: "Jl. Raya Darmo Permai III No. 21, Surabaya 60226 (a.n. Clarissa)",
   teksHadiah: "Kehadiran Anda sudah lebih dari cukup. Bila ingin memberi tanda kasih, detailnya ada di bawah ini.",
 
-  // Sementara memakai musik umum; ganti ke instrumental piano atau string bila berkasnya sudah ada
-  musik: "../../assets/musik/musik-1.m4a",
+  musik: "../../assets/musik/musik-soiree.m4a",
   penutup: "Kehadiran dan doa restu Anda adalah hadiah terbaik bagi kami.",
   contohUcapan: [
     { nama: "Tim Radiologi RS Darmo", hadir: "Hadir", ucapan: "Selamat menempuh hidup baru, Clarissa dan Jonathan. Tuhan memberkati." },

@@ -66,8 +66,7 @@ window.UNDANGAN = {
   ],
   alamatKado: "Jl. Sultan Adam, Kompleks Mekkah No. 27, Banjarmasin Utara 70123 (a.n. Raudah)",
 
-  // Sementara memakai musik umum; ganti ke musik panting Banjar bila berkasnya sudah ada
-  musik: "../../assets/musik/musik-1.m4a",
+  musik: "../../assets/musik/musik-banjar.m4a",
   penutup: "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu. Atas kehadiran dan doanya, kami ucapkan terima kasih.",
   contohUcapan: [
     { nama: "Keluarga H. Syarkawi", hadir: "Hadir", ucapan: "Barakallahu lakuma. Salamat bapangantin, mudahan jadi keluarga nang sakinah, mawaddah, warahmah." },

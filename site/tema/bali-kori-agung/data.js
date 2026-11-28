@@ -99,8 +99,7 @@ window.UNDANGAN = {
   ],
   alamatKado: "Jl. Tukad Badung No. 27, Renon, Denpasar Selatan 80226 (a.n. Ayu)",
 
-  // Sementara memakai musik umum; ganti ke musik gamelan Bali bila berkasnya sudah ada
-  musik: "../../assets/musik/musik-1.m4a",
+  musik: "../../assets/musik/musik-bali.m4a",
 
   penutup: "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu. Atas kehadiran dan doa restunya, kami ucapkan matur suksma.",
 
