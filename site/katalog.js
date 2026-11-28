@@ -70,6 +70,17 @@ window.KATALOG = {
       siap: true,
     },
     {
+      kode: "banjar-sasirangan",
+      adat: "Banjar",
+      nama: "Sasirangan",
+      harga: 129000,
+      tag: "Pakai foto",
+      deskripsi: "Kuning kunyit khas Banjar dengan ilustrasi toile rumah panggung tepi sungai Banjarmasin dan bekantan, pita sasirangan gigi haruan, rumah Bubungan Tinggi, tulisan Arab, galeri kisi.",
+      demo: "tema/banjar-sasirangan/?to=Bapak%20Ahmad",
+      gambar: "assets/katalog/banjar-sasirangan.webp",
+      siap: true,
+    },
+    {
       kode: "batak-gorga-toba",
       adat: "Batak",
       nama: "Gorga Toba",

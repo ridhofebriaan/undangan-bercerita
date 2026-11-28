@@ -89,7 +89,7 @@ body { font-weight: 300; }
 .k2 .event-name { font-size: 27px; }
 
 /* Penutup: atap timpa' laja emas di bawah nama */
-.sec-penutup { padding-bottom: 130px; }
+.k2 #app > .sec-penutup { padding-bottom: 170px; }
 .sec-penutup .lapis-d { background: var(--emas-terang); -webkit-mask: url("timpa.svg") center bottom 10px / 160px auto no-repeat; mask: url("timpa.svg") center bottom 10px / 160px auto no-repeat; opacity: 0.4; }
 .penutup-inner .couple { font-family: var(--font-name); font-size: 58px; color: var(--on-gelap); }
 .credit { background: var(--gelap); color: var(--on-gelap-lembut); }

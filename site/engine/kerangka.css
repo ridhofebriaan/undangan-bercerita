@@ -93,6 +93,10 @@
 .k2 .kisah-kartu li:has(.bingkai-lingkaran, .bingkai-oval, .bingkai-lengkung) { padding-top: 26px; }
 .k2 .kisah-kartu :is(.tl-date, .tl-title, .tl-text) { padding: 0 20px; }
 .k2 .kisah-kartu .tl-title { font-family: var(--font-display); font-weight: 500; font-size: 26px; color: var(--primary); }
+/* Tanda & di nama pada bagian gelap (mis. penutup) memakai emas terang agar terlihat */
+.k2 .gelap .couple .amp { color: var(--emas-terang); }
+/* Kartu kisah berlatar terang walau bagiannya gelap: tanggal memakai emas tua, bukan emas terang */
+.k2 .gelap .kisah-kartu .tl-date { color: var(--accent-text); }
 .k2 .kisah-kartu .tl-text { color: var(--muted); }
 
 /* ---------- Klip video berposter (D.video, item galeri video) ---------- */

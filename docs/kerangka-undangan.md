@@ -78,7 +78,7 @@ Mengikuti skill **warna-mewah** ([`docs/skills/warna-mewah/`](skills/warna-mewah
 - **Krem bukan pilihan bawaan.** Latar krem dengan serif dan emas adalah gaya bawaan desain AI, dan kalau dipakai terus semua tema terlihat sama. Krem atau gading **sesekali boleh**: jangan dipakai di dua undangan baru berturut-turut, dan paling banyak sepertiga tema di katalog. Butiran kertas di latar ikut diwarnai sesuai rona palet.
 - **Alur memilih:** cek dulu latar tema yang sudah ada di katalog. Lalu usulkan 3 palet yang lolos pemeriksa: minimal satu berlatar netral berona palet dan satu berlatar gelap dominan. User memilih, dan pilihan itu menjadi patokan berikutnya.
 
-  Latar tema saat ini: Minang gading hangat, Jawa krem sogan, Melayu krem (3 dari 7 tema, sudah melewati sepertiga), Sunda abu kabut kebiruan, Bugis abu embun kehijauan, Atelier espresso gelap. Jadi undangan berikutnya sebaiknya tidak krem dulu.
+  Latar tema saat ini: Minang gading hangat, Jawa krem sogan, Melayu krem (3 tema krem), Sunda abu kabut kebiruan, Bugis abu embun kehijauan, Batak abu putih, Bali abu putih poleng, Banjar abu netral `#ecebe6`, Atelier espresso gelap. Krem sudah 3 dari 11 tema, jadi undangan berikutnya sebaiknya tidak krem dulu.
 
 ### 4.3 Huruf
 
@@ -137,6 +137,7 @@ Kombinasi yang sudah dipakai:
 - **Jawa (Sekar Kedhaton):** hero `lengkung` + `tirai`, profil `lengkung`, kisah `lingkaran`, galeri `mozaik`.
 - **Sunda (Siger Kencana):** hero `penuh` + `zoom`, profil `lingkaran` bergaris tipis, kisah `persegi` + `tirai`, galeri `berserak`.
 - **Bugis (Baju Bodo):** hero `siluet` atap rumah Bugis + `mekar`, profil `oval` + `mekar`, kisah `lengkung`, galeri `film`.
+- **Banjar (Sasirangan):** hero `oval` + `parallax`, profil `lengkung` + `tirai`, kisah `lingkaran` + `mekar`, galeri `kisi`.
 
 Zona waktu acara diatur lewat `zonaWaktu` di data.js: `"WIB"` (bawaan), `"WITA"` (Sulawesi, Bali, Kalimantan bagian timur dan selatan, NTB, NTT), atau `"WIT"` (Maluku, Papua).
 
@@ -160,7 +161,8 @@ Hanya bagian ini yang dibuat baru untuk setiap undangan.
 - Jawa: paes, kebaya beludru atau dodot, beskap dan blangkon.
 - Sunda: siger, kebaya putih, ronce melati panjang.
 - Melayu: baju kurung atau kebaya labuh, tanjak atau songkok.
-- Bali: payas agung, udeng.
+- Bali: payas agung atau payas madya, udeng.
+- Banjar: baju kuning bersulam emas, laung, mahkota ronce bunga, sarung hitam-emas (bagajah gamuling baular lulut).
 
 Bila foto yang sesuai belum tersedia, **jangan pakai foto adat lain**. Isi slot foto dengan ilustrasi atau ornamen tema, lalu catat bahwa foto klien akan menggantikannya.
 
@@ -196,6 +198,8 @@ Riset warna, motif, prosesi, dan istilah per adat ada di [`riset/panduan-adat.md
 - [ ] Pratinjau link WhatsApp (judul, deskripsi, gambar) tampil.
 - [ ] Semua aset tercatat lisensinya, dan kredit CC-BY tercantum.
 - [ ] Istilah adat dan teks agama sudah diperiksa.
+- [ ] Token bagian gelap (`--on-gelap`, `--on-gelap-lembut`, `--emas-terang`) ditulis di blok `.k2 { }` pada `tema.css`, bukan di `:root`, karena `kerangka.css` mengisinya di `.k2`. Emas terang harus ≥ 4,5:1 di atas warna gelap.
+- [ ] Padding per bagian ditulis dengan selektor `.k2 #app > .sec-<nama>`; selektor `.sec-<nama>` saja kalah oleh aturan kerangka. Cek ornamen penutup tidak menimpa nama pasangan.
 
 ## 9. Kesenjangan dengan engine saat ini
 
